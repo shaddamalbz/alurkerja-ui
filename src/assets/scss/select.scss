@@ -1,0 +1,81 @@
+.select {
+  .select__control--is-disabled {
+    @apply bg-gray-100 text-gray-400 cursor-not-allowed;
+
+    .select__placeholder {
+      @apply text-gray-300;
+    }
+
+    .select__multi-value {
+      @apply opacity-60;
+    }
+  }
+
+  .select__placeholder {
+    @apply text-gray-400;
+  }
+
+  .select__multi-value {
+    @apply bg-gray-100 text-base rounded-lg font-semibold;
+
+    .select__multi-value__label {
+      color: inherit;
+    }
+  }
+
+  .select__multi-value__remove {
+    &:hover {
+      @apply bg-transparent text-gray-800;
+    }
+  }
+
+  &.select-lg {
+    @apply text-lg;
+
+    .select-dropdown-indicator {
+      @apply text-2xl;
+    }
+  }
+
+  .select__single-value {
+    color: inherit;
+  }
+
+  .select__single-value--is-disabled {
+    @apply opacity-70;
+  }
+
+  .select__control {
+    @apply h-auto;
+
+    &.hide-single-value {
+      .select__single-value {
+        @apply hidden;
+      }
+    }
+  }
+}
+
+.select__menu {
+  @apply bg-white;
+}
+
+.select-option {
+  @apply flex items-center justify-between px-2 py-1.5 hover:bg-gray-50 cursor-default;
+
+  &.selected {
+    @apply bg-gray-100;
+  }
+
+  &.disabled {
+    @apply opacity-40 hover:bg-transparent cursor-not-allowed;
+  }
+}
+
+.select-dropdown-indicator {
+  @apply p-2 text-xl hover:opacity-70;
+}
+
+.select-clear-indicator {
+  @apply p-2 text-lg hover:opacity-70;
+}
