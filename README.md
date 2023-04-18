@@ -1,66 +1,45 @@
-# React + TypeScript + Vite Starter
-
-A template for starting develop React application using vite
-
-## Tech Stack
-
-**Client:** React, React-Router-Dom v6, Typescript, Vite v3
-
-**Testing:** Vitest, Testing-library
-
-**Code Quality:** Eslint, Prettier, Airbnb Style Guides
+# Alurkera UI
 
 ## Run Locally
 
 Clone the project
 
-### Using base starter
-
-Clone the project
-
 ```bash
-  git clone https://github.com/shaddamalbz/React-Typescript-Vite-Starter
-  cd my-project
-  yarn install
+  git clone https://gitlab.javan.co.id/alurkerja/alurkerja-ui.git
+  cd alurkerja-ui
+  yarn
 ```
 
 Start the server
 
 ```bash
-  yarn dev
+  yarn storybook
 ```
 
-### Using starter with tailwindcss
+#### Publish
 
-Clone the project
+to help switching npmjs account use [npm-user-switch](https://github.com/perry-mitchell/npm-user-switch)
+
+build first
 
 ```bash
-  git clone https://github.com/shaddamalbz/React-Typescript-Vite-Starter
-  cd my-project
-  git pull origin tailwind
-  yarn install
+  yarn build
 ```
 
-Start the server
+Update version patch (0.0.x)
 
 ```bash
-  yarn dev
+  yarn publish --patch
 ```
 
-## Running Tests
-
-To run tests, run the following command
+Update version minor (0.x.0)
 
 ```bash
-  yarn test
+  yarn publish --minor
 ```
 
-For Coverage
+Update version major (x.0.0)
 
 ```bash
-  yarn coverage
+  yarn publish --major
 ```
-
-## Authors
-
-- [@shaddamalbz](https://github.com/shaddamalbz)
