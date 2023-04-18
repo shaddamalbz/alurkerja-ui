@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 export interface AppSpec {
   name: string
   description: string
@@ -90,4 +92,37 @@ export interface PaginationProperties {
   }
   total_elements: number
   total_page: number
+}
+
+export interface TableProps {
+  baseUrl: string
+  tableSpec: TableSpec | undefined
+  tableData: { id: number; [x: string]: any }[] | undefined
+  pagination: PaginationProperties | undefined
+  setRenderState?: Dispatch<SetStateAction<number>>
+  selectedAll: boolean
+  setSelectedAll: Dispatch<SetStateAction<boolean>>
+  selectedId?: number[]
+  setSelectedId?: Dispatch<SetStateAction<number[]>>
+  customCell?: ({
+    name,
+    fields,
+    value,
+    defaultCell,
+  }: {
+    name: string
+    fields: { [x: string]: FieldProperties }
+    value: any
+    defaultCell: JSX.Element
+  }) => JSX.Element
+  onEditClick?: (fieldSpec: FieldActionProperties, id: number) => void
+}
+
+export interface PaginationProps {
+  pagination: PaginationProperties | undefined
+  pageConfig: {
+    limit: number
+    page: number
+  }
+  setPageConfig: Function
 }

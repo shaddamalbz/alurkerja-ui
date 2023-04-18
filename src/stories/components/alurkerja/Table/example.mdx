@@ -1,0 +1,31 @@
+import { Meta, Source } from '@storybook/blocks'
+import * as TableStories from './Table.stories'
+
+<Meta of={TableStories} />
+
+<Source code={
+  `
+    import { AlurkerjaTable } from 'alurkerja-ui'
+
+    const Example = () => {
+
+        const baseUrl = 'https://lowcode.merapi.javan.id'
+        const tableName = 'kategori'
+
+        return(
+          <AlurkerjaTable
+            baseUrl={baseUrl}
+            tableName={tableName}
+            customCell={({ name, fields, value, defaultCell }) => {
+              if (name === 'created_at') {
+                return <td className="text-red-400 text-center">custom Cell</td>
+              } else {
+                return defaultCell
+              }
+            }}
+          />
+        )
+    }
+
+`
+} />

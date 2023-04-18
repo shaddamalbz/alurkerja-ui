@@ -12,7 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
-vite.convig.*.js
+vite.config.*.mjs
 storybook-static
 
 # Editor directories and files
