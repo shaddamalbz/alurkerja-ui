@@ -17,8 +17,11 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@/components/*": ["./components/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/utils/*": ["./utils/*"],
+      "@/api/*": ["./api/*"],
+      "@/hooks/*": ["./hooks/*"]
     }
   },
   "include": [".eslintrc.cjs", "./src", "vite.config.ts", "vitest.config.ts"],

@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Appearance of Skeleton */
-  variant?: string | 'circle' | 'block'
+  variant?: 'circle' | 'block'
   /** Height of Skeleton */
   height?: number | string
   /** Width of Skeleton */

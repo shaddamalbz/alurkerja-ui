@@ -6,6 +6,10 @@ import Skeleton from './Skeleton'
 import Spinner from './Spinner'
 import StatusIcon from './StatusIcon'
 import Tag from './Tag'
+import Dropdown from './Dropdown'
+import Input from './Input'
+import Modal from './Modal'
+import Select from './Select'
 
 export {
   Avatar,
@@ -17,4 +21,8 @@ export {
   Spinner,
   StatusIcon,
   Tag,
+  Dropdown,
+  Input,
+  Modal,
+  Select,
 }

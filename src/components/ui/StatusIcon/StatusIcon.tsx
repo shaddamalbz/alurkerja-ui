@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import { HiCheckCircle, HiInformationCircle, HiExclamation, HiXCircle } from 'react-icons/hi'
 
 export interface StatusIconProps {
@@ -23,13 +24,17 @@ const ICONS = {
   },
 }
 
-const StatusIcon = (props: StatusIconProps) => {
+const StatusIcon = forwardRef<HTMLSpanElement, StatusIconProps>((props, ref) => {
   const { type } = props
 
   const icon = ICONS[type]
 
-  return <span className={`text-2xl ${icon.color}`}>{icon.icon}</span>
-}
+  return (
+    <span ref={ref} className={`text-2xl ${icon.color}`}>
+      {icon.icon}
+    </span>
+  )
+})
 
 StatusIcon.defaultProps = {
   type: 'info',
