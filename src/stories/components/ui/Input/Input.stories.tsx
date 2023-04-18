@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 import { Input } from '@/components/ui'
 
 const meta = {
@@ -17,4 +18,16 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {},
+}
+
+export const onChange: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('')
+    return (
+      <>
+        <Input onChange={(e) => setValue(e.target.value)} />
+        {value}
+      </>
+    )
+  },
 }
