@@ -12,6 +12,7 @@ import {
   Spinner,
   StatusIcon,
   Tag,
+  Progress,
 } from '@/components/ui/'
 import { AlurkerjaForm, AlurkerjaTable } from '@/components/alurkerja'
 
@@ -31,4 +32,5 @@ export {
   Tag,
   AlurkerjaTable,
   AlurkerjaForm,
+  Progress,
 }
