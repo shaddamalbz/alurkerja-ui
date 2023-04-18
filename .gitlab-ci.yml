@@ -1,0 +1,18 @@
+stages:
+  - build
+
+build:
+  stage: build
+  image: node:18
+  script:
+    - yarn config set cache-folder .yarn
+    - yarn --cache-folder .yarn
+    - CI=false yarn build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build/
+  tags:
+    - merapi
+  only:
+    - master
