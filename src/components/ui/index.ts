@@ -10,6 +10,7 @@ import Dropdown from './Dropdown'
 import Input from './Input'
 import Modal from './Modal'
 import Select from './Select'
+import Progress from './Progress'
 
 export {
   Avatar,
@@ -25,4 +26,5 @@ export {
   Input,
   Modal,
   Select,
+  Progress,
 }

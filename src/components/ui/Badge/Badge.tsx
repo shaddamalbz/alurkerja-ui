@@ -2,7 +2,7 @@ import { forwardRef, HTMLAttributes } from 'react'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /** handle max count on badge, when passed it then return with +  */
-  maxCount: number
+  maxCount?: number
   /** content like avatar */
   content: string | number
 }
@@ -11,7 +11,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  * Badge components
  */
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
-  const { content, children, maxCount, ...rest } = props
+  const { content, children, maxCount = 99, ...rest } = props
 
   const dot = typeof content !== 'number' && typeof content !== 'string'
 
@@ -25,7 +25,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
               : 'rounded-full px-2 py-0.5 text-xs bg-red-500 text-white'
           }`}
         >
-          {typeof content === 'number' && content > maxCount ? `${maxCount}+` : content}
+          {typeof content === 'number' && content > maxCount!! ? `${maxCount}+` : content}
         </span>
         {children}
       </span>
@@ -45,9 +45,5 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>((props, ref) => {
     </span>
   )
 })
-
-Badge.defaultProps = {
-  maxCount: 99,
-}
 
 export default Badge
