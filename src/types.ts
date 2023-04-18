@@ -115,7 +115,7 @@ export interface TableProps {
     value: any
     defaultCell: JSX.Element
   }) => JSX.Element
-  onEditClick?: (fieldSpec: FieldActionProperties, id: number) => void
+  onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
 }
 
 export interface PaginationProps {
@@ -125,4 +125,32 @@ export interface PaginationProps {
     page: number
   }
   setPageConfig: Function
+}
+
+export interface AlurkerjaTable {
+  baseUrl: string
+  tableName: string
+  renderState?: number
+  setRenderState?: Dispatch<SetStateAction<number>>
+  filterBy?: { [x: string]: any }
+  setFilterBy?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
+  search?: string
+  setSearch?: Dispatch<SetStateAction<string>>
+  pageConfig?: { limit: number; page: number }
+  setPageConfig?: Dispatch<SetStateAction<{ limit: number; page: number }>>
+  selectedRow?: number[]
+  setSelectedRow?: Dispatch<SetStateAction<number[]>>
+  customCell?: ({
+    name,
+    fields,
+    value,
+    defaultCell,
+  }: {
+    name: string
+    fields: { [x: string]: FieldProperties }
+    value: any
+    defaultCell: JSX.Element
+  }) => JSX.Element
+  onClickCreate?: () => void
+  onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
 }

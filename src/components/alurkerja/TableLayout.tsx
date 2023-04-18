@@ -1,4 +1,4 @@
-import { Fragment, HTMLAttributes, useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { Fragment, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { HiOutlineMenu } from 'react-icons/hi'
@@ -14,8 +14,9 @@ import Badge from '@/components/ui/Badge'
 import Modal from '@/components/ui/Modal'
 import Pagination from '@/components/Pagination'
 
-interface TableLayoutProps extends HTMLAttributes<HTMLDivElement> {
+interface TableLayoutProps {
   tableName: string
+  children: React.ReactNode
   tableSpec: TableSpec | undefined
   filter?: { [x: string]: any }
   setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>

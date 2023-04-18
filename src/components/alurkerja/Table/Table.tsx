@@ -10,33 +10,7 @@ import TableLayout from '@/components/alurkerja/TableLayout'
 
 import getTableSpec from '@/api/getTableSpec'
 import getTableData from '@/api/getTableData'
-import { FieldProperties } from '@/types'
-
-interface AlurkerjaTable {
-  baseUrl: string
-  tableName: string
-  renderState?: number
-  setRenderState?: Dispatch<SetStateAction<number>>
-  filterBy?: { [x: string]: any }
-  setFilterBy?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
-  search?: string
-  setSearch?: Dispatch<SetStateAction<string>>
-  pageConfig?: { limit: number; page: number }
-  setPageConfig?: Dispatch<SetStateAction<{ limit: number; page: number }>>
-  selectedRow?: number[]
-  setSelectedRow?: Dispatch<SetStateAction<number[]>>
-  customCell?: ({
-    name,
-    fields,
-    value,
-    defaultCell,
-  }: {
-    name: string
-    fields: { [x: string]: FieldProperties }
-    value: any
-    defaultCell: JSX.Element
-  }) => JSX.Element
-}
+import { AlurkerjaTable } from '@/types'
 
 const AlurkerjaTable: FC<AlurkerjaTable> = (props) => {
   const {
@@ -53,6 +27,8 @@ const AlurkerjaTable: FC<AlurkerjaTable> = (props) => {
     selectedRow,
     setSelectedRow,
     customCell,
+    onClickCreate,
+    onClickEdit,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName)
@@ -124,6 +100,7 @@ const AlurkerjaTable: FC<AlurkerjaTable> = (props) => {
         pageConfig={pageConfig}
         setPageConfig={setPageConfig}
         extraButton={buttonBulkDelete}
+        onClickCreate={onClickCreate}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
@@ -138,6 +115,7 @@ const AlurkerjaTable: FC<AlurkerjaTable> = (props) => {
               selectedId={selectedRow || []}
               setSelectedId={setSelectedRow}
               customCell={customCell}
+              onClickEdit={onClickEdit}
             />
           </div>
         ) : (

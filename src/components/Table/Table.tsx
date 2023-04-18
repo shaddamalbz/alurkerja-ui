@@ -21,7 +21,7 @@ const TableLowcode = (props: TableProps) => {
     selectedAll,
     setSelectedAll,
     customCell,
-    onEditClick,
+    onClickEdit,
   } = props
 
   const [fieldKeyList, setFieldKeyList] = useState<string[]>()
@@ -29,7 +29,7 @@ const TableLowcode = (props: TableProps) => {
   const handleAction = (actionSpec: FieldActionProperties, id: number) => {
     const { label, confirm, path } = actionSpec
     if (label === 'Edit') {
-      onEditClick?.(actionSpec, id)
+      onClickEdit?.(actionSpec, id)
     } else if (label === 'Hapus') {
       if (confirm) {
         Swal.fire({
