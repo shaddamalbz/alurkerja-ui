@@ -10,7 +10,7 @@ const getTableSpec = (baseUrl: string, table: string) => {
   const fetch = () => {
     setLoading(true)
     axios
-      .get(`/api/crud/${table}/spec`)
+      .get(baseUrl + `/api/crud/${table}/spec`)
       .then((res: any) => {
         if (res.status === 200) {
           setTableSpec(res.data)
