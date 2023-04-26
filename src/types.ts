@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import { FieldValues, UseFormHandleSubmit, Control, FormState, UseFormSetValue } from 'react-hook-form'
 
 export interface AppSpec {
   name: string
@@ -127,19 +128,32 @@ export interface PaginationProps {
   setPageConfig: Function
 }
 
-export interface AlurkerjaTable {
+export interface IAlurkerjaTable {
+  /** base API url (lowcode spec) */
   baseUrl: string
+  /**  table name, will be added in base url for fetching spec & data */
   tableName: string
+  /**  state for refetching data*/
   renderState?: number
+  /**  setter state for refeching data*/
   setRenderState?: Dispatch<SetStateAction<number>>
+  /**  state to store filter data*/
   filterBy?: { [x: string]: any }
+  /**  setter for set filter data*/
   setFilterBy?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
+  /**  state for store current searching data*/
   search?: string
+  /**  setter for set current searching data*/
   setSearch?: Dispatch<SetStateAction<string>>
+  /**  state to store page config*/
   pageConfig?: { limit: number; page: number }
+  /**  setter to set page config*/
   setPageConfig?: Dispatch<SetStateAction<{ limit: number; page: number }>>
+  /**  state to store selected row*/
   selectedRow?: number[]
+  /**  setter to set selected row*/
   setSelectedRow?: Dispatch<SetStateAction<number[]>>
+  /**  render custom cell table base for ex custom by fields.name*/
   customCell?: ({
     name,
     fields,
@@ -151,6 +165,38 @@ export interface AlurkerjaTable {
     value: any
     defaultCell: JSX.Element
   }) => JSX.Element
+  /**  will be trigger when create button clicked*/
   onClickCreate?: () => void
+  /**  will be trigger when button edit clicked*/
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
+}
+
+export interface IAlurkerjaForm {
+  /**  base API url (lowcode spec)*/
+  baseUrl: string
+  /**  table name, will be added in base url for fetching spec & data*/
+  tableName: string
+  /**  handleSubmit from  react-hook-form*/
+  handleSubmit: UseFormHandleSubmit<FieldValues>
+  onSubmit?: (form: FieldValues) => void
+  /**  control from  react-hook-form*/
+  control: Control
+  /**  formState from  react-hook-form*/
+  formState: FormState<FieldValues>
+  /**  setValue from  react-hook-form*/
+  setValue: UseFormSetValue<FieldValues>
+  /**  render custom field form base for ex custom by fieldSpec.name*/
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+  }) => JSX.Element
+  /**  handler success action*/
+  onSuccess?: () => void
+  /**  handler error action*/
+  onError?: (err: any) => void
 }

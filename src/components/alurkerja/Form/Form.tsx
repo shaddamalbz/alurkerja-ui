@@ -1,39 +1,18 @@
 import { FC, useState } from 'react'
-import { FieldValues, UseFormHandleSubmit, Control, FormState, UseFormSetValue } from 'react-hook-form'
+import { FieldValues } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 
 import getTableSpec from '@/api/getTableSpec'
 import { useFormSpec } from '@/hooks'
-import { FieldProperties } from '@/types'
+import { FieldProperties, IAlurkerjaForm } from '@/types'
 
 // components
 import { Button, Skeleton } from '@/components/ui'
 import InputTypes from '@/components/alurkerja/InputTypes'
 import InputLayout from '@/components/alurkerja/InputLayout'
 
-interface AlurkerjaForm {
-  baseUrl: string
-  tableName: string
-  handleSubmit: UseFormHandleSubmit<FieldValues>
-  onSubmit?: (form: FieldValues) => void
-  control: Control
-  formState: FormState<FieldValues>
-  setValue: UseFormSetValue<FieldValues>
-  customField?: ({
-    field,
-    setValue,
-    defaultField,
-  }: {
-    field: [string, FieldProperties]
-    setValue: UseFormSetValue<FieldValues>
-    defaultField: JSX.Element
-  }) => JSX.Element
-  onSuccess?: () => void
-  onError?: (err: any) => void
-}
-
-const AlurkerjaForm: FC<AlurkerjaForm> = (props) => {
+export const AlurkerjaForm: FC<IAlurkerjaForm> = (props) => {
   const { baseUrl, tableName, handleSubmit, onSubmit, control, formState, setValue, customField, onSuccess, onError } =
     props
 

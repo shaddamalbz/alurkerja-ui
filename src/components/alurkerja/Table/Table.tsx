@@ -10,9 +10,9 @@ import TableLayout from '@/components/alurkerja/TableLayout'
 
 import getTableSpec from '@/api/getTableSpec'
 import getTableData from '@/api/getTableData'
-import { AlurkerjaTable } from '@/types'
+import { IAlurkerjaTable } from '@/types'
 
-const AlurkerjaTable: FC<AlurkerjaTable> = (props) => {
+export const AlurkerjaTable: FC<IAlurkerjaTable> = (props) => {
   const {
     baseUrl,
     tableName,
