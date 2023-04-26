@@ -22,7 +22,7 @@ const Modal: FC<Modal> = ({ triggerButton, children, title }) => {
 
   const renderTitle = () =>
     title && (
-      <Dialog.Title as="h3" className="text-xl font-medium leading-6 text-gray-900 mx-4 mb-4">
+      <Dialog.Title as="h3" className="text-xl font-medium leading-6 text-gray-900 mb-4">
         {title}
       </Dialog.Title>
     )

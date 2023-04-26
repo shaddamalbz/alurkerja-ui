@@ -55,7 +55,7 @@ const TableLayout = (props: TableLayoutProps) => {
   const [tempSearch, setTempSearch] = useState<string>('')
 
   const renderFormFilter = (close: () => void) => (
-    <>
+    <div className="space-y-4">
       {fieldList.map((field: [string, FieldProperties], idx: number) => {
         const key = field[0]
         const fieldSpec = field[1]
@@ -71,7 +71,7 @@ const TableLayout = (props: TableLayoutProps) => {
       <Button variant="solid" size="sm" onClick={handleSubmit((data) => handleFilter(data, close))}>
         Filter
       </Button>
-    </>
+    </div>
   )
 
   useEffect(() => {
