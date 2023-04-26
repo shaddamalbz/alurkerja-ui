@@ -46,9 +46,9 @@
 }
 
 .input-suffix-start {
-  @apply absolute top-2/4 transform -translate-y-2/4 ltr:left-2.5 rtl:right-2.5;
+  @apply absolute top-2/4 transform -translate-y-2/4 left-2.5;
 }
 
 .input-suffix-end {
-  @apply absolute top-2/4 transform -translate-y-2/4 ltr:right-2.5 rtl:left-2.5 flex;
+  @apply absolute top-2/4 transform -translate-y-2/4 right-2.5 flex;
 }

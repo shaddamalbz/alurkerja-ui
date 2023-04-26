@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
+import { FaFacebook } from 'react-icons/fa'
 import { Input } from '@/components/ui'
 
 const meta = {
@@ -29,5 +30,14 @@ export const onChange: Story = {
         {value}
       </>
     )
+  },
+}
+
+export const customPrefix: Story = {
+  args: {
+    prefix: <FaFacebook />,
+  },
+  render: (args) => {
+    return <Input {...args} />
   },
 }
