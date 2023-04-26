@@ -52,3 +52,14 @@ export const onChange: Story = {
     )
   },
 }
+
+export const MultpleSelect: Story = {
+  args: {
+    isMulti: true,
+    options: [
+      { label: 'label1', value: 1 },
+      { label: 'label2', value: 2 },
+    ],
+    defaultValue: { label: 'label2', value: 2 },
+  },
+}
