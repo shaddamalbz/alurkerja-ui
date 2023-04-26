@@ -4,7 +4,7 @@ import _ from 'underscore'
 
 import '@/assets/scss/input.scss'
 
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'size'> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'size'> {
   asElement?: React.ElementType
   disabled?: boolean
   invalid?: boolean
@@ -17,7 +17,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   size?: 'xs' | 'md' | 'md' | 'lg'
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     asElement: Component = 'input',
     className,
