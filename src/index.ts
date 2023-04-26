@@ -15,6 +15,7 @@ import {
   Progress,
 } from '@/components/ui/'
 import { AlurkerjaForm, AlurkerjaTable } from '@/components/alurkerja'
+import { useFormSpec } from '@/hooks'
 
 export {
   Avatar,
@@ -33,4 +34,5 @@ export {
   AlurkerjaTable,
   AlurkerjaForm,
   Progress,
+  useFormSpec,
 }
