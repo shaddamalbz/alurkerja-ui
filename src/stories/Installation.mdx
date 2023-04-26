@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Get Started/Installation" />
+
+# How to install Alurkerja-UI
+
+```bash
+  yarn add alurkerja-ui
+```
+
+on tailwind.config.cjs:
+
+```js
+module.exports = {
+  content: [...defaultContent, './node_modules/alurkerja-ui/dist/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+importing css file from library to root file of project
+
+```js
+import 'alurkerja-ui/dist/style.css'
+```
