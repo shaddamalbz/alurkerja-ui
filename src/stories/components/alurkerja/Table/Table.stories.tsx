@@ -17,8 +17,11 @@ export default meta
 type Story = StoryObj<typeof Table>
 
 export const Default: Story = {
+  args: {
+    url: 'https://api.dignas.space/crud/portfolio/v-public-index',
+  },
   render: (args) => {
     const spec: ListSpec = [{ name: 'course_name', type: 'text', label: 'Akademi' }]
-    return <Table url="" spec={spec} />
+    return <Table {...args} spec={spec} />
   },
 }
