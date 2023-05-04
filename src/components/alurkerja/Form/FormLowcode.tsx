@@ -5,14 +5,14 @@ import axios from 'axios'
 
 import getTableSpec from '@/api/getTableSpec'
 import { useFormSpec } from '@/hooks'
-import { FieldProperties, IAlurkerjaForm } from '@/types'
+import { FieldProperties, IAlurkerjaFormLowcode } from '@/types'
 
 // components
 import { Button, Skeleton } from '@/components/ui'
 import InputTypes from '@/components/alurkerja/InputTypes'
 import InputLayout from '@/components/alurkerja/InputLayout'
 
-export const AlurkerjaForm: FC<IAlurkerjaForm> = (props) => {
+export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
   const { baseUrl, tableName, handleSubmit, onSubmit, control, formState, setValue, customField, onSuccess, onError } =
     props
 
@@ -93,4 +93,4 @@ export const AlurkerjaForm: FC<IAlurkerjaForm> = (props) => {
   )
 }
 
-export default AlurkerjaForm
+export default FormLowcode

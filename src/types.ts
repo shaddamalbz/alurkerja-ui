@@ -176,7 +176,7 @@ export interface IAlurkerjaTableLowcode {
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
 }
 
-export interface IAlurkerjaForm {
+export interface IAlurkerjaFormLowcode {
   /**  base API url (lowcode spec)*/
   baseUrl: string
   /**  table name, will be added in base url for fetching spec & data*/
@@ -270,4 +270,13 @@ export interface Sort {
   sorted: boolean
   unsorted: boolean
   empty: boolean
+}
+
+export interface IAlurkerjaForm {
+  title?: string
+  description?: string
+  listSpec: ListSpec
+  inline?: boolean
+  disable?: boolean
+  withStatus?: boolean
 }
