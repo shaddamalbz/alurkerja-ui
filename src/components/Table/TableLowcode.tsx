@@ -8,6 +8,7 @@ import moment from 'moment'
 import { TableLowcodeProps, FieldActionProperties } from '@/types'
 
 import Button from '@/components/ui/Button'
+import { getValueByPath } from '@/utils'
 
 const TableLowcode = (props: TableLowcodeProps) => {
   const {
@@ -163,7 +164,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                         )}
                         key={idx}
                       >
-                        {parsedData(row[key], tableSpec.fields[key]?.type)}
+                        {parsedData(getValueByPath(row, key.toLowerCase()), tableSpec.fields[key]?.type)}
                       </td>
                     )
                     return (
