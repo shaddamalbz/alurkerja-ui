@@ -6,6 +6,8 @@ test:
   stage: test
   image: node:18
   script:
+    - yarn config set cache-folder .yarn
+    - yarn --cache-folder .yarn
     - yarn test
   artifacts:
     expire_in: 1 day
