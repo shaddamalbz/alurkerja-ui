@@ -66,7 +66,11 @@ const TableLayout: FC<TableLayoutProps> = ({
           )
         }
       })}
-      <Button variant="solid" size="sm" onClick={handleSubmit((data) => handleFilter(data, close))}>
+      <Button
+        className="bg-indigo-600 text-white"
+        size="sm"
+        onClick={handleSubmit((data) => handleFilter(data, close))}
+      >
         Filter
       </Button>
     </div>
@@ -93,8 +97,6 @@ const TableLayout: FC<TableLayoutProps> = ({
       })
     }
   }, [filter])
-
-  console.log(tableSpec, 1)
 
   return (
     <div className="bg-white rounded">

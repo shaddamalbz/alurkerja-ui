@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-function isValidReactNode(value: any): value is ReactNode {
+function isReactNode(value: any): value is ReactNode {
   return (
     typeof value === 'string' ||
     typeof value === 'number' ||
@@ -10,4 +10,4 @@ function isValidReactNode(value: any): value is ReactNode {
   )
 }
 
-export default isValidReactNode
+export default isReactNode

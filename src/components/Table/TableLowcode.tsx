@@ -133,9 +133,9 @@ const TableLowcode = (props: TableLowcodeProps) => {
             tableSpec &&
             tableData?.map((row, idx) => (
               <tr className="border-b border-gray-200" key={idx}>
-                <td className="px-3 text-black py-2 text-center">{idx + 1 + pagination.size * pagination.number}</td>
+                <td className="px-3 text-black py-3 text-center">{idx + 1 + pagination.size * pagination.number}</td>
                 {tableSpec.can_bulk && (
-                  <td className="px-3 text-black py-2 text-center">
+                  <td className="px-3 text-black py-4 text-center">
                     <input
                       type="checkbox"
                       className="form-checkbox rounded bg-[#EBEDF3] text-indigo-600 border-none focus:border-none focus:outline-indigo-600"
@@ -159,7 +159,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           tableSpec.fields[key]?.type === 'number' || tableSpec.fields[key]?.type === 'datetime-local'
                             ? 'text-center'
                             : '',
-                          'px-3 text-black py-2'
+                          'px-3 text-black py-3'
                         )}
                         key={idx}
                       >
@@ -184,17 +184,16 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                   })}
 
-                <td className="border-b border-gray-200">
+                <td className="border-b border-gray-200 py-3">
                   <div className="flex flex-row items-center justify-center gap-x-2">
                     {tableSpec?.field_action.map((action, idx) => (
                       <Button
+                        className="bg-gray-100 text-gray-400"
                         size="xs"
                         key={idx}
                         icon={IconTypes(action.icon)}
                         onClick={() => handleAction(action, row.id)}
-                      >
-                        {action.label}
-                      </Button>
+                      />
                     ))}
                   </div>
                 </td>
