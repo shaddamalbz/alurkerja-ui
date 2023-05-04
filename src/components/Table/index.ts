@@ -1,3 +1,4 @@
-import TableLowcode from './Table'
+import TableLowcode from './TableLowcode'
+import Table from './Table'
 
-export default TableLowcode
+export { TableLowcode, Table }

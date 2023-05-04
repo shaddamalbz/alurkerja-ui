@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import _ from 'underscore'
 import axios from 'axios'
 
-import { PaginationProperties } from '@/types'
+import { PaginationLowcode } from '@/types'
 
 interface GetTableData {
   baseUrl: string
@@ -16,7 +16,7 @@ interface GetTableData {
 
 const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig }: GetTableData) => {
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
-  const [pagination, setPagination] = useState<PaginationProperties>()
+  const [pagination, setPagination] = useState<PaginationLowcode>()
   const [loading, setLoading] = useState<boolean>(true)
 
   const pagintaionQuery = `page=${pageConfig?.page}&limit=${pageConfig?.limit}`

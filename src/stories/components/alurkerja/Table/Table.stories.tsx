@@ -1,34 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { AlurkerjaTable } from '@/components/alurkerja'
+import { Table } from '@/components/alurkerja'
+import { ListSpec } from '@/types'
 
 const meta = {
   title: 'Components/Alurkerja/Table',
-  component: AlurkerjaTable,
+  component: Table,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof AlurkerjaTable>
+} satisfies Meta<typeof Table>
 
 export default meta
-type Story = StoryObj<typeof AlurkerjaTable>
+type Story = StoryObj<typeof Table>
 
 export const Default: Story = {
   render: (args) => {
-    return (
-      <AlurkerjaTable
-        baseUrl="https://lowcode.merapi.javan.id"
-        tableName="kategori"
-        customCell={({ name, fields, value, defaultCell }) => {
-          if (name === 'created_at') {
-            return <td className="text-red-400 text-center">custom Cell</td>
-          } else {
-            return defaultCell
-          }
-        }}
-      />
-    )
+    const spec: ListSpec = [{ name: 'course_name', type: 'text', label: 'Akademi' }]
+    return <Table url="" spec={spec} />
   },
 }

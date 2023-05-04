@@ -14,7 +14,7 @@ import {
   Tag,
   Progress,
 } from '@/components/ui/'
-import { AlurkerjaForm, AlurkerjaTable } from '@/components/alurkerja'
+import { AlurkerjaForm, Table, TableLowcode } from '@/components/alurkerja'
 import { useFormSpec } from '@/hooks'
 
 export {
@@ -31,7 +31,8 @@ export {
   Spinner,
   StatusIcon,
   Tag,
-  AlurkerjaTable,
+  Table,
+  TableLowcode,
   AlurkerjaForm,
   Progress,
   useFormSpec,

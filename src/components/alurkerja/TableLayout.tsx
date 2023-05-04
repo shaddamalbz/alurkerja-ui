@@ -3,7 +3,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { HiOutlineMenu } from 'react-icons/hi'
 
-import { TableSpec, HeaderAction, FieldProperties, PaginationProperties } from '@/types'
+import { TableSpec, HeaderAction, FieldProperties, PaginationLowcode } from '@/types'
 import { FilterIcon } from '@/assets/icons'
 import { IGNORE_KEYS } from '@/utils/constant'
 
@@ -22,7 +22,7 @@ interface TableLayoutProps {
   setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
   search?: string
   setSearch?: Dispatch<SetStateAction<string>>
-  pagination: PaginationProperties | undefined
+  pagination: PaginationLowcode | undefined
   pageConfig?: {
     page: number
     limit: number
@@ -95,6 +95,8 @@ const TableLayout = (props: TableLayoutProps) => {
       })
     }
   }, [filter])
+
+  console.log(tableSpec, 1)
 
   return (
     <div className="bg-white rounded">

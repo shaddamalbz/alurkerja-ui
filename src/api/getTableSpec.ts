@@ -13,7 +13,7 @@ const getTableSpec = (baseUrl: string, table: string) => {
       .get(baseUrl + `/api/crud/${table}/spec`)
       .then((res: any) => {
         if (res.status === 200) {
-          setTableSpec(res.data)
+          setTableSpec(res.data.data)
         }
       })
       .catch((err) => setError(err.response))

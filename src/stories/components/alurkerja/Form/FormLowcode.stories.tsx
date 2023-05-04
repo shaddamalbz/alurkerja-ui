@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { AlurkerjaForm } from '@/components/alurkerja'
 
 const meta = {
-  title: 'Components/Alurkerja/Form',
+  title: 'Components/Alurkerja/FormLowcode',
   component: AlurkerjaForm,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -21,8 +21,8 @@ export const Default: Story = {
     const { formState, handleSubmit, control, setValue } = useForm()
     return (
       <AlurkerjaForm
-        baseUrl="https://lowcode.merapi.javan.id"
-        tableName="kategori"
+        baseUrl="https://kpm-sys.merapi.javan.id"
+        tableName="jpn"
         formState={formState}
         handleSubmit={handleSubmit}
         control={control}

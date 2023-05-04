@@ -74,7 +74,7 @@ export interface FieldProperties {
   }
 }
 
-export interface PaginationProperties {
+export interface PaginationLowcode {
   empty: boolean
   first: boolean
   last: boolean
@@ -95,11 +95,11 @@ export interface PaginationProperties {
   total_page: number
 }
 
-export interface TableProps {
+export interface TableLowcodeProps {
   baseUrl: string
   tableSpec: TableSpec | undefined
   tableData: { id: number; [x: string]: any }[] | undefined
-  pagination: PaginationProperties | undefined
+  pagination: PaginationLowcode | undefined
   setRenderState?: Dispatch<SetStateAction<number>>
   selectedAll: boolean
   setSelectedAll: Dispatch<SetStateAction<boolean>>
@@ -120,7 +120,7 @@ export interface TableProps {
 }
 
 export interface PaginationProps {
-  pagination: PaginationProperties | undefined
+  pagination: PaginationLowcode | undefined
   pageConfig: {
     limit: number
     page: number
@@ -128,7 +128,7 @@ export interface PaginationProps {
   setPageConfig: Function
 }
 
-export interface IAlurkerjaTable {
+export interface IAlurkerjaTableLowcode {
   /** base API url (lowcode spec) */
   baseUrl: string
   /**  table name, will be added in base url for fetching spec & data */
@@ -199,4 +199,65 @@ export interface IAlurkerjaForm {
   onSuccess?: () => void
   /**  handler error action*/
   onError?: (err: any) => void
+}
+
+/**
+ * refer to laravolt spesification for non lowcode
+ */
+export type ListSpec = Spec[]
+
+export interface Spec {
+  name: string
+  label?: string
+  required?: boolean
+  type: string
+  constraints?: any[]
+  metadata?: {
+    format?: string
+    canSort?: boolean
+    placeholder?: string
+    canFilter?: boolean
+    tooltips?: string
+  }
+}
+
+export interface TableProps {
+  listSpec: ListSpec
+  tableData: { [x: string]: any }[] | undefined
+  showColumnNumber?: boolean
+  showColumnAction?: boolean
+  showColumnBatch?: boolean
+}
+
+export interface IALurkerjaTable {
+  spec: ListSpec
+  url: string
+}
+
+export interface Pagination {
+  pageable: Pageable
+  totalPages: number
+  totalElements: number
+  numberOfElements: number
+  first: boolean
+  last: boolean
+  size: number
+  number: number
+  empty: boolean
+  sort: Sort
+}
+
+export interface Pageable {
+  sort: Sort
+  offset: number
+  pageNumber: number
+  pageSize: number
+  paged: boolean
+  unpaged: boolean
+}
+
+export interface Sort {
+  sorted: boolean
+  unsorted: boolean
+  empty: boolean
 }

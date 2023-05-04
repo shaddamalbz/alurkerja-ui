@@ -1,3 +1,4 @@
-import AlurkerjaTable from './Table'
+import TableLowcode from './TableLowcode'
+import Table from './Table'
 
-export default AlurkerjaTable
+export { TableLowcode, Table }

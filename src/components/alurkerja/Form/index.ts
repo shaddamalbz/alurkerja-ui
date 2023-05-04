@@ -1,3 +1,3 @@
-import AlurkerjaForm from './Form'
+import AlurkerjaForm from './FormLowcode'
 
 export default AlurkerjaForm

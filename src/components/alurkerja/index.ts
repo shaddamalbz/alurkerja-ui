@@ -1,4 +1,4 @@
 import AlurkerjaForm from './Form'
-import AlurkerjaTable from './Table'
+import { Table, TableLowcode } from './Table'
 
-export { AlurkerjaForm, AlurkerjaTable }
+export { AlurkerjaForm, Table, TableLowcode }
