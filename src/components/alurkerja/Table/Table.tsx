@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useState } from 'react'
-import { Table } from '@/components/Table'
+import { Table as TableView } from '@/components/Table'
 import { IALurkerjaTable, Pagination } from '@/types'
 import axios from 'axios'
 import _ from 'underscore'
 
-const AlurkerjaTable: FC<IALurkerjaTable> = ({ spec, url }) => {
+const Table: FC<IALurkerjaTable> = ({ spec, url }) => {
   const [data, setData] = useState()
   const [pagination, setPagination] = useState<Pagination>()
 
@@ -34,9 +34,9 @@ const AlurkerjaTable: FC<IALurkerjaTable> = ({ spec, url }) => {
 
   return (
     <>
-      <Table listSpec={spec} tableData={data} />
+      <TableView listSpec={spec} tableData={data} />
     </>
   )
 }
 
-export default AlurkerjaTable
+export default Table

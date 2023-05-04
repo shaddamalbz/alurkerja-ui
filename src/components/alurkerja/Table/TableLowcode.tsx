@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
-import { TableLowcode } from '@/components/Table'
+import { TableLowcode as TableView } from '@/components/Table'
 import Spinner from '@/components/ui/Spinner'
 import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
@@ -12,7 +12,7 @@ import getTableSpec from '@/api/getTableSpec'
 import getTableData from '@/api/getTableData'
 import { IAlurkerjaTableLowcode } from '@/types'
 
-export const AlurkerjaTableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
+export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   const {
     baseUrl,
     tableName,
@@ -104,7 +104,7 @@ export const AlurkerjaTableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
-            <TableLowcode
+            <TableView
               baseUrl={baseUrl}
               tableData={tableData}
               tableSpec={tableSpec}
@@ -132,4 +132,4 @@ export const AlurkerjaTableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   )
 }
 
-export default AlurkerjaTableLowcode
+export default TableLowcode

@@ -5,7 +5,7 @@ import * as TableStories from './TableLowcode.stories'
 
 <Source code={
   `
-    import { AlurkerjaTable } from 'alurkerja-ui'
+    import { TableLowcode } from 'alurkerja-ui'
 
     const Example = () => {
 
@@ -13,7 +13,7 @@ import * as TableStories from './TableLowcode.stories'
         const tableName="jpn"
 
         return(
-          <AlurkerjaTable
+          <TableLowcode
             baseUrl={baseUrl}
             tableName={tableName}
             customCell={({ name, fields, value, defaultCell }) => {

@@ -16,21 +16,11 @@ export default meta
 type Story = StoryObj<typeof TableLowcode>
 
 export const Default: Story = {
+  args: {
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'jpn',
+  },
   render: (args) => {
-    return (
-      <>
-        <TableLowcode
-          baseUrl="https://kpm-sys.merapi.javan.id"
-          tableName="jpn"
-          customCell={({ name, fields, value, defaultCell }) => {
-            if (name === 'created_at') {
-              return <td className="text-red-400 text-center">custom Cell</td>
-            } else {
-              return defaultCell
-            }
-          }}
-        />
-      </>
-    )
+    return <TableLowcode {...args} />
   },
 }
