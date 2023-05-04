@@ -7,6 +7,14 @@ test:
   image: node:18
   script:
     - yarn test
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - unit-test/
+  tags:
+    - merapi
+  only:
+    - master
 
 build:
   stage: build
