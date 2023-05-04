@@ -26,7 +26,7 @@ const InputTypes = (props: InputTypes) => {
 
   const getListOption = async () => {
     if (fieldSpec.select_options) {
-      const { method, option_key, option_label, url } = fieldSpec.select_options
+      const { method, option_key, option_label } = fieldSpec.select_options
       const { data, status } = await axios({
         url: listOptionUrl,
         method: method,
@@ -56,7 +56,9 @@ const InputTypes = (props: InputTypes) => {
 
   return (
     <>
-      {(fieldSpec.form_field_type === 'INPUT_TEXT' || fieldSpec.form_field_type === 'INPUT_NUMBER') && (
+      {(fieldSpec.form_field_type === 'INPUT_TEXT' ||
+        fieldSpec.form_field_type === 'INPUT_NUMBER' ||
+        fieldSpec.form_field_type === 'INPUT_DATETIME-LOCAL') && (
         <Input
           placeholder={name}
           type={fieldSpec.type}

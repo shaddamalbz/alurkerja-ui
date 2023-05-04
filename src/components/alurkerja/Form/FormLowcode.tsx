@@ -78,7 +78,7 @@ export const AlurkerjaForm: FC<IAlurkerjaForm> = (props) => {
                 )
               }
             })}
-            <Button className="mt-6" type="submit" loading={loadingSubmit}>
+            <Button type="submit" loading={loadingSubmit}>
               Submit
             </Button>
           </>
