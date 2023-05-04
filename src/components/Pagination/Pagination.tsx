@@ -20,7 +20,7 @@ const Pagination = ({ pagination, pageConfig, setPageConfig }: PaginationProps) 
 
   return (
     <>
-      {pagination && (
+      {pagination && pageConfig && setPageConfig && (
         <div className="text-xs md:text-base sm:text-sm py-4 px-4 border-1 rounded alurkerja-pagination">
           <div className="flex justify-between item-center relative">
             <nav>

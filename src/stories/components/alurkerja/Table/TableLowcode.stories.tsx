@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { TableLowcode } from '@/components/alurkerja'
+import { useState } from 'react'
 
 const meta = {
   title: 'Components/Alurkerja/TableLowcode',
@@ -21,6 +22,8 @@ export const Default: Story = {
     tableName: 'jpn',
   },
   render: (args) => {
-    return <TableLowcode {...args} />
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+
+    return <TableLowcode {...args} pageConfig={pageConfig} setPageConfig={setPageConfig} />
   },
 }

@@ -120,12 +120,17 @@ export interface TableLowcodeProps {
 }
 
 export interface PaginationProps {
-  pagination: PaginationLowcode | undefined
-  pageConfig: {
+  pagination?: any | undefined
+  pageConfig?: {
     limit: number
     page: number
   }
-  setPageConfig: Function
+  setPageConfig?: Dispatch<
+    SetStateAction<{
+      limit: number
+      page: number
+    }>
+  >
 }
 
 export interface IAlurkerjaTableLowcode {
@@ -224,14 +229,19 @@ export interface Spec {
 export interface TableProps {
   listSpec: ListSpec
   tableData: { [x: string]: any }[] | undefined
+  Pagination: Pagination | undefined
   showColumnNumber?: boolean
   showColumnAction?: boolean
   showColumnBatch?: boolean
+  pageConfig?: { limit: number; page: number }
 }
 
 export interface IALurkerjaTable {
   spec: ListSpec
   url: string
+  /**  state to store page config*/
+  pageConfig?: { limit: number; page: number }
+  setPageConfig?: Dispatch<SetStateAction<{ limit: number; page: number }>>
 }
 
 export interface Pagination {

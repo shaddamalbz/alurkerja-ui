@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Table } from '@/components/alurkerja'
 import { ListSpec } from '@/types'
+import { useState } from 'react'
 
 const meta = {
   title: 'Components/Alurkerja/Table',
@@ -21,7 +22,8 @@ export const Default: Story = {
     url: 'https://api.dignas.space/crud/portfolio/v-public-index',
   },
   render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
     const spec: ListSpec = [{ name: 'course_name', type: 'text', label: 'Akademi' }]
-    return <Table {...args} spec={spec} />
+    return <Table {...args} spec={spec} pageConfig={pageConfig} setPageConfig={setPageConfig} />
   },
 }

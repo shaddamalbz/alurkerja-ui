@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { Fragment, useState, useEffect, Dispatch, SetStateAction, FC } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { HiOutlineMenu } from 'react-icons/hi'
@@ -32,21 +32,19 @@ interface TableLayoutProps {
   onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-const TableLayout = (props: TableLayoutProps) => {
-  const {
-    tableName,
-    children,
-    tableSpec,
-    filter,
-    setFilter,
-    setSearch,
-    pagination,
-    pageConfig,
-    setPageConfig,
-    extraButton,
-    onClickCreate,
-  } = props
-
+const TableLayout: FC<TableLayoutProps> = ({
+  tableName,
+  children,
+  tableSpec,
+  filter,
+  setFilter,
+  setSearch,
+  pagination,
+  pageConfig,
+  setPageConfig,
+  extraButton,
+  onClickCreate,
+}) => {
   const { handleSubmit, watch, setValue } = useForm()
 
   const fields = tableSpec?.fields

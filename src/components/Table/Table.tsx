@@ -10,6 +10,10 @@ const Table: FC<TableProps> = ({
   showColumnAction = true,
   showColumnBatch = false,
   tableData,
+  pageConfig = {
+    limit: 10,
+    page: 0,
+  },
 }) => {
   const TableHead = () => (
     <thead className="">
@@ -47,7 +51,11 @@ const Table: FC<TableProps> = ({
                     <input type="checkbox" />
                   </td>
                 )}
-                {showColumnNumber && <td className="whitespace-nowrap py-3 px-3 text-center">1</td>}
+                {showColumnNumber && (
+                  <td className="whitespace-nowrap py-3 px-3 text-center">
+                    {pageConfig.page * pageConfig.limit + idx + 1}
+                  </td>
+                )}
                 {listSpec.map((spec, idx) => (
                   <td className="whitespace-nowrap py-3 px-3" key={idx}>
                     {getValueByPath(data, spec.name)}
