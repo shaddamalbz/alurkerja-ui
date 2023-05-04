@@ -7,8 +7,6 @@ import Spinner from '@/components/ui/Spinner'
 import { CONTROL_SIZES } from '@/utils/constant'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** theme */
-  variant?: 'default' | 'solid'
   /** Represents button is being active by user action */
   active?: boolean
   /** Display spinner */
@@ -20,63 +18,21 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: ReactNode
   /** border radius */
   shape?: 'base' | 'none' | 'sm' | 'md' | 'lg' | 'full'
-  /** custom color ex: red-600 */
-  color?: string
-}
-
-interface GetButtonColor {
-  bgColor: string
-  hoverColor: string
-  activeColor: string
-  textColor: string
 }
 
 /**
  * Button components
  */
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { children, loading, disabled, onClick, className, active, variant, size, icon, shape, color, ...rest } = props
+  const { children, loading, disabled, onClick, className, active, size, icon, shape, ...rest } = props
 
-  const classes: string[] = [className || '']
+  const classes: string[] = [
+    className || 'bg-white border border-gray-300 text-gray-600 active:bg-gray-100 hover:bg-gray-50',
+  ]
 
   const defaultClass = 'button'
   const sizeIconClass = 'inline-flex items-center justify-center'
   const disabledClass = 'opacity-50 cursor-not-allowed'
-
-  const getBtnColor = ({ bgColor, hoverColor, activeColor, textColor }: GetButtonColor) => {
-    return `${bgColor} ${disabled || loading ? disabledClass : hoverColor + ' ' + activeColor} ${textColor}`
-  }
-
-  const defaultColor = () => {
-    const btn = {
-      bgColor: active ? `bg-gray-100 border border-gray-300 ` : `bg-white border border-gray-300 `,
-      textColor: `text-gray-600 `,
-      hoverColor: active ? '' : `hover:bg-gray-50 `,
-      activeColor: `active:bg-gray-100 `,
-    }
-    return getBtnColor(btn)
-  }
-
-  const solidColor = () => {
-    const btn = {
-      bgColor: active ? (color ? '' : `bg-indigo-700`) : color ? color : 'bg-indigo-600',
-      textColor: 'text-white',
-      hoverColor: active ? '' : color ? '' : `hover:bg-indigo-500`,
-      activeColor: color ? '' : `active:bg-indigo-700`,
-    }
-    return getBtnColor(btn)
-  }
-
-  const btnColor = () => {
-    switch (variant) {
-      case 'solid':
-        return solidColor()
-      case 'default':
-        return defaultColor()
-      default:
-        return defaultColor()
-    }
-  }
 
   const getButtonSize = () => {
     let sizeClass = ''
@@ -118,7 +74,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   }
 
   const buttonClass = () => {
-    return `${defaultClass} ${classes.join(' ')} ${btnColor()} ${buttonSize()} ${buttonShape()}`
+    return `${defaultClass} ${classes.join(' ')} ${buttonSize()} ${buttonShape()} ${disabled && disabledClass}`
   }
 
   const renderChildren = () => {
@@ -158,7 +114,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 })
 
 Button.defaultProps = {
-  variant: 'default',
   shape: 'base',
   size: 'md',
   active: false,

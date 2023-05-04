@@ -19,6 +19,6 @@ export const Default: Story = {
   args: { children: 'Button' },
 }
 
-export const Solid: Story = {
-  args: { variant: 'solid', color: 'bg-red-600', children: 'Button' },
+export const CustomClassname: Story = {
+  args: { className: 'bg-red-600 text-white', children: 'Button' },
 }
