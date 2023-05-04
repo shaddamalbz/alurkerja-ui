@@ -8,6 +8,7 @@ import { Meta } from '@storybook/blocks'
   yarn add alurkerja-ui
 ```
 
+install tailwindcss and 2 plugin (@tailwindcss/forms, tailwind-scrollbar)
 on tailwind.config.cjs:
 
 ```js
@@ -16,7 +17,12 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }
 ```
 
