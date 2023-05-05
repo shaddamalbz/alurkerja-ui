@@ -15,6 +15,7 @@ import { IAlurkerjaTableLowcode } from '@/types'
 export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   const {
     baseUrl,
+    module,
     tableName,
     filterBy,
     setFilterBy,
@@ -31,7 +32,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     onClickEdit,
   } = props
 
-  const { tableSpec, loading } = getTableSpec(baseUrl, tableName)
+  const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
 
   const {
     tableData,

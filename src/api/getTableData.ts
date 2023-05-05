@@ -12,9 +12,10 @@ interface GetTableData {
   filter?: { [x: string]: any }
   search?: string
   pageConfig?: { limit: number; page: number }
+  module?: string
 }
 
-const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig }: GetTableData) => {
+const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig, module }: GetTableData) => {
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
   const [detail, setDetail] = useState<{ [x: string]: any }>()
   const [pagination, setPagination] = useState<PaginationLowcode>()
@@ -42,7 +43,7 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
     setLoading(true)
 
     const filterQuery = parseFilter()
-    let url = baseUrl + `/api/crud/${tableName}`
+    let url = baseUrl + `/api/${module || 'crud'}/${tableName}`
 
     if (id) {
       url += `/${id}`

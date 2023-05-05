@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { TableSpec } from '@/types'
 
-const getTableSpec = (baseUrl: string, table: string) => {
+const getTableSpec = (baseUrl: string, table: string, module?: string) => {
   const [tableSpec, setTableSpec] = useState<TableSpec>()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState()
@@ -10,7 +10,7 @@ const getTableSpec = (baseUrl: string, table: string) => {
   const fetch = () => {
     setLoading(true)
     axios
-      .get(baseUrl + `/api/crud/${table}/spec`)
+      .get(baseUrl + `/api/${module || 'crud'}/${table}/spec`)
       .then((res: any) => {
         if (res.status === 200) {
           setTableSpec(res.data.data)

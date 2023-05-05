@@ -139,6 +139,7 @@ export interface IAlurkerjaTableLowcode {
   baseUrl: string
   /**  table name, will be added in base url for fetching spec & data */
   tableName: string
+  module?: string
   /**  state for refetching data*/
   renderState?: number
   /**  setter state for refeching data*/
