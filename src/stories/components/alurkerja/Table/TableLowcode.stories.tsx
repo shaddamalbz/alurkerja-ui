@@ -20,6 +20,7 @@ export const Default: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
     tableName: 'jpn',
+    onClickCreate: undefined,
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })

@@ -29,7 +29,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         setLoadingSubmit(true)
         const { path, method } = createSpec
         try {
-          const response = await axios({ method: method, data: data, url: path })
+          const response = await axios(baseUrl + path, { method: method, data: data })
           if (response.status === 201) {
             Swal.fire({
               icon: 'success',

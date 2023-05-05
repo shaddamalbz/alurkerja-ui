@@ -13,8 +13,10 @@ import Button from '@/components/ui/Button'
 import Badge from '@/components/ui/Badge'
 import Modal from '@/components/ui/Modal'
 import Pagination from '@/components/Pagination'
+import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
 
 interface TableLayoutProps {
+  baseUrl: string
   tableName: string
   children: React.ReactNode
   tableSpec: TableSpec | undefined
@@ -33,6 +35,7 @@ interface TableLayoutProps {
 }
 
 const TableLayout: FC<TableLayoutProps> = ({
+  baseUrl,
   tableName,
   children,
   tableSpec,
@@ -45,7 +48,7 @@ const TableLayout: FC<TableLayoutProps> = ({
   extraButton,
   onClickCreate,
 }) => {
-  const { handleSubmit, watch, setValue } = useForm()
+  const { handleSubmit, watch, setValue, formState, control } = useForm()
 
   const fields = tableSpec?.fields
 
@@ -121,39 +124,56 @@ const TableLayout: FC<TableLayoutProps> = ({
             </span>
           </div>
           <>
-            {tableSpec?.header_action.map((actionSpec: HeaderAction, idx: number) => (
-              <Fragment key={idx}>
-                {actionSpec.label === 'Tambah' && tableSpec?.can_create && (
-                  <button
-                    id="button-create"
-                    className="cursor-pointer bg-blue-400 flex items-center rounded-md py-2 px-4 text-sm text-white gap-2"
-                    style={{ backgroundColor: '#0095E8' }}
-                    onClick={onClickCreate}
-                  >
-                    <FaPlus />
-                    <span>{actionSpec.action_label}</span>
-                  </button>
-                )}
-                <Modal
-                  title="Filter"
-                  triggerButton={
-                    <div>
-                      <Badge content={Object.entries(filter || {}).length} maxCount={3}>
-                        <button
-                          id="button-filter"
-                          className="bg-[#F1FAFF] p-2 rounded"
-                          style={{ backgroundColor: '#F1FAFF' }}
-                        >
-                          <FilterIcon />
-                        </button>
-                      </Badge>
-                    </div>
-                  }
+            {tableSpec?.header_action.map((actionSpec: HeaderAction, idx: number) => {
+              const ButtonCreate = () => (
+                <button
+                  id="button-create"
+                  className="cursor-pointer bg-blue-400 flex items-center rounded-md py-2 px-4 text-sm text-white gap-2"
+                  onClick={onClickCreate}
                 >
-                  {({ closeModal }) => renderFormFilter(closeModal)}
-                </Modal>
-              </Fragment>
-            ))}
+                  <FaPlus />
+                  <span>{actionSpec.action_label}</span>
+                </button>
+              )
+              return (
+                <Fragment key={idx}>
+                  {actionSpec.label === 'Tambah' && tableSpec?.can_create && !onClickCreate ? (
+                    <Modal triggerButton={<ButtonCreate />}>
+                      <>
+                        <FormLowcode
+                          baseUrl={baseUrl}
+                          tableName={tableName}
+                          formState={formState}
+                          handleSubmit={handleSubmit}
+                          control={control}
+                          setValue={setValue}
+                        />
+                      </>
+                    </Modal>
+                  ) : (
+                    <ButtonCreate />
+                  )}
+                  <Modal
+                    title="Filter"
+                    triggerButton={
+                      <div>
+                        <Badge content={Object.entries(filter || {}).length} maxCount={3}>
+                          <button
+                            id="button-filter"
+                            className="bg-[#F1FAFF] p-2 rounded"
+                            style={{ backgroundColor: '#F1FAFF' }}
+                          >
+                            <FilterIcon />
+                          </button>
+                        </Badge>
+                      </div>
+                    }
+                  >
+                    {({ closeModal }) => renderFormFilter(closeModal)}
+                  </Modal>
+                </Fragment>
+              )
+            })}
             {extraButton && extraButton()}
           </>
         </div>
