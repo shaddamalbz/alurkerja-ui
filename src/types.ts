@@ -207,6 +207,8 @@ export interface IAlurkerjaFormLowcode {
   onError?: (err: any) => void
   /** id for detail / edit form  */
   id?: number
+  /** to disabled form */
+  disabled?: boolean
 }
 
 /**

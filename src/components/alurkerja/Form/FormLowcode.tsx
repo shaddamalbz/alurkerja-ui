@@ -26,6 +26,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     onSuccess,
     onError,
     id,
+    disabled,
   } = props
 
   const { createSpec, fieldList } = useFormSpec({ baseUrl, tableName })
@@ -61,7 +62,9 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
 
   return (
     <section className="p-4 space-y-6">
-      <h5 className="text-xl font-bold">Tambah {tableSpec?.label}</h5>
+      <h5 className="text-xl font-bold">
+        {!id ? 'Tambah' : disabled ? 'Detail' : 'Edit'} {tableSpec?.label}
+      </h5>
       <form onSubmit={handleSubmit(onSubmitFunction)}>
         {!onFetching ? (
           <>
