@@ -11,6 +11,7 @@ interface InputTypes {
   setValue: UseFormSetValue<FieldValues>
   defaultValue?: any
   listOptionUrl?: string
+  disabled?: boolean
 }
 
 interface SelectedOption {
@@ -19,7 +20,7 @@ interface SelectedOption {
 }
 
 const InputTypes = (props: InputTypes) => {
-  const { fieldSpec, name, setValue, defaultValue, listOptionUrl } = props
+  const { fieldSpec, name, setValue, defaultValue, listOptionUrl, disabled } = props
 
   const [listOption, setListOption] = useState<SelectedOption[]>()
   const [selectedOption, setSelectedOption] = useState<SelectedOption>()
@@ -33,7 +34,7 @@ const InputTypes = (props: InputTypes) => {
       })
       if (status === 200) {
         const list = data.data.content
-        const parsedList = list.map((item: any) => ({
+        const parsedList = list.foreach((item: any) => ({
           label: item[option_label],
           value: item[option_key],
         }))
@@ -64,6 +65,7 @@ const InputTypes = (props: InputTypes) => {
           type={fieldSpec.type}
           onChange={(e) => setValue(name, e.target.value)}
           defaultValue={defaultValue}
+          disabled={disabled}
         />
       )}
       {fieldSpec.form_field_type === 'INPUT_TEXTAREA' && (
@@ -73,6 +75,7 @@ const InputTypes = (props: InputTypes) => {
           type={fieldSpec.type}
           onChange={(e) => setValue(name, e.target.value)}
           defaultValue={defaultValue}
+          disabled={disabled}
         />
       )}
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
@@ -80,6 +83,7 @@ const InputTypes = (props: InputTypes) => {
           options={listOption}
           onChange={(selected: any) => setValue(name, selected.value)}
           value={selectedOption}
+          isDisabled={disabled}
         />
       )}
     </>

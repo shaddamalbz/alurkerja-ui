@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -8,10 +9,13 @@ import moment from 'moment'
 import { TableLowcodeProps, FieldActionProperties } from '@/types'
 
 import Button from '@/components/ui/Button'
+import Modal from '@/components/ui/Modal'
 import { getValueByPath } from '@/utils'
+import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
 
 const TableLowcode = (props: TableLowcodeProps) => {
   const {
+    tableName,
     baseUrl,
     tableSpec,
     tableData,
@@ -26,6 +30,8 @@ const TableLowcode = (props: TableLowcodeProps) => {
   } = props
 
   const [fieldKeyList, setFieldKeyList] = useState<string[]>()
+
+  const { handleSubmit, setValue, formState, control } = useForm()
 
   const handleAction = (actionSpec: FieldActionProperties, id: number) => {
     const { label, confirm, path } = actionSpec
@@ -187,15 +193,32 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                 <td className="border-b border-gray-200 py-3">
                   <div className="flex flex-row items-center justify-center gap-x-2">
-                    {tableSpec?.field_action.map((action, idx) => (
-                      <Button
-                        className="bg-gray-100 text-gray-400"
-                        size="xs"
-                        key={idx}
-                        icon={IconTypes(action.icon)}
-                        onClick={() => handleAction(action, row.id)}
-                      />
-                    ))}
+                    {tableSpec?.field_action.map((action, idx) => {
+                      const ButtonAction = () => (
+                        <Button
+                          className="bg-gray-100 text-gray-400"
+                          size="xs"
+                          key={idx}
+                          icon={IconTypes(action.icon)}
+                          onClick={() => handleAction(action, row.id)}
+                        />
+                      )
+                      return !onClickEdit ? (
+                        <Modal triggerButton={<ButtonAction />}>
+                          <FormLowcode
+                            id={row.id}
+                            baseUrl={baseUrl}
+                            tableName={tableName}
+                            formState={formState}
+                            handleSubmit={handleSubmit}
+                            control={control}
+                            setValue={setValue}
+                          />
+                        </Modal>
+                      ) : (
+                        <ButtonAction />
+                      )
+                    })}
                   </div>
                 </td>
               </tr>

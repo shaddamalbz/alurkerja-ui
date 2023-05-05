@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { FieldValues } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -11,13 +11,26 @@ import { FieldProperties, IAlurkerjaFormLowcode } from '@/types'
 import { Button, Skeleton } from '@/components/ui'
 import InputTypes from '@/components/alurkerja/InputTypes'
 import InputLayout from '@/components/alurkerja/InputLayout'
+import getTableData from '@/api/getTableData'
 
 export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
-  const { baseUrl, tableName, handleSubmit, onSubmit, control, formState, setValue, customField, onSuccess, onError } =
-    props
+  const {
+    baseUrl,
+    tableName,
+    handleSubmit,
+    onSubmit,
+    control,
+    formState,
+    setValue,
+    customField,
+    onSuccess,
+    onError,
+    id,
+  } = props
 
   const { createSpec, fieldList } = useFormSpec({ baseUrl, tableName })
   const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName)
+  const { detail } = getTableData({ baseUrl, tableName, id })
 
   const [loadingSubmit, setLoadingSubmit] = useState(false)
 
@@ -53,7 +66,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         {!onFetching ? (
           <>
             {fieldList.map((field: [string, FieldProperties], idx: number) => {
-              const name = field[0]
+              const name = field[0].toLowerCase()
               const fieldSpec = field[1]
               if (!fieldSpec.is_hidden_in_create) {
                 return (
@@ -72,7 +85,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                         defaultField: <InputTypes fieldSpec={fieldSpec} name={name} setValue={setValue} />,
                       })
                     ) : (
-                      <InputTypes fieldSpec={fieldSpec} name={name} setValue={setValue} />
+                      <InputTypes fieldSpec={fieldSpec} name={name} setValue={setValue} defaultValue={detail?.[name]} />
                     )}
                   </InputLayout>
                 )

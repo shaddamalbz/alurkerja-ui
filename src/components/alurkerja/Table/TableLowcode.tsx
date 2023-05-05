@@ -107,6 +107,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
             <TableView
               baseUrl={baseUrl}
+              tableName={tableName}
               tableData={tableData}
               tableSpec={tableSpec}
               pagination={pagination}

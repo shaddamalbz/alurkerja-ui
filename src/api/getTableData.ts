@@ -16,6 +16,7 @@ interface GetTableData {
 
 const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig }: GetTableData) => {
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
+  const [detail, setDetail] = useState<{ [x: string]: any }>()
   const [pagination, setPagination] = useState<PaginationLowcode>()
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -65,7 +66,7 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
     if (status === 200) {
       const result = data.data
       if (id) {
-        setTableData(result)
+        setDetail(result)
       } else {
         const pagination = _.omit(result, 'content')
         setTableData(result.content)
@@ -79,7 +80,7 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
     fetch()
   }, [tableName, baseUrl, renderState, filter, search, pageConfig])
 
-  return { tableData, loading, pagination }
+  return { tableData, loading, pagination, detail }
 }
 
 export default getTableData

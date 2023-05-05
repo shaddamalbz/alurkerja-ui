@@ -97,6 +97,7 @@ export interface PaginationLowcode {
 
 export interface TableLowcodeProps {
   baseUrl: string
+  tableName: string
   tableSpec: TableSpec | undefined
   tableData: { id: number; [x: string]: any }[] | undefined
   pagination: PaginationLowcode | undefined
@@ -204,6 +205,8 @@ export interface IAlurkerjaFormLowcode {
   onSuccess?: () => void
   /**  handler error action*/
   onError?: (err: any) => void
+  /** id for detail / edit form  */
+  id?: number
 }
 
 /**

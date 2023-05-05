@@ -139,16 +139,14 @@ const TableLayout: FC<TableLayoutProps> = ({
                 <Fragment key={idx}>
                   {actionSpec.label === 'Tambah' && tableSpec?.can_create && !onClickCreate ? (
                     <Modal triggerButton={<ButtonCreate />}>
-                      <>
-                        <FormLowcode
-                          baseUrl={baseUrl}
-                          tableName={tableName}
-                          formState={formState}
-                          handleSubmit={handleSubmit}
-                          control={control}
-                          setValue={setValue}
-                        />
-                      </>
+                      <FormLowcode
+                        baseUrl={baseUrl}
+                        tableName={tableName}
+                        formState={formState}
+                        handleSubmit={handleSubmit}
+                        control={control}
+                        setValue={setValue}
+                      />
                     </Modal>
                   ) : (
                     <ButtonCreate />
