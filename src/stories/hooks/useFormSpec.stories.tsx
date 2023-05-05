@@ -17,8 +17,8 @@ type Story = StoryObj<typeof useFormSpec>
 export const Default: Story = {
   render: () => {
     const { createSpec, editSpec, fieldList, loading } = useFormSpec({
-      baseUrl: 'https://lowcode.merapi.javan.id',
-      tableName: 'kategori',
+      baseUrl: 'https://kpm-sys.merapi.javan.id',
+      tableName: 'jpn',
     })
     return (
       <div className="space-y-4">
