@@ -45,6 +45,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     filter: filterBy,
     search: search,
     pageConfig: pageConfig,
+    module: module,
   })
 
   const [selectedAll, setSelectedAll] = useState<boolean>(false)
