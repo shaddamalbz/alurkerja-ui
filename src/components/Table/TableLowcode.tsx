@@ -203,7 +203,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           onClick={() => handleAction(action, row.id)}
                         />
                       )
-                      return !onClickEdit ? (
+                      return !onClickEdit && action.label === 'Edit' ? (
                         <Modal triggerButton={<ButtonAction />}>
                           <FormLowcode
                             id={row.id}
