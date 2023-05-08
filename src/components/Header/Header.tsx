@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ role, onClickAvatar, onClickNotification }) => {
   return (
-    <header className="h-16 w-full bg-white flex justify-end items-center gap-5">
+    <header className="h-16 w-full bg-white flex justify-end items-center gap-5 px-4">
       <button onClick={onClickNotification}>
         <BellIcon />
       </button>
