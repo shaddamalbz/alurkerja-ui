@@ -32,7 +32,12 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>((props, ref) => {
     setScale(avatarNodeWidth - 8 < avatarChildrenWidth ? (avatarNodeWidth - 8) / avatarChildrenWidth : 1)
   }
 
-  const classes = classNames('avatar', `avatar-${shape}`, typeof size === 'string' ? `avatar-${size}` : '', className)
+  const classes = classNames(
+    'inline-block relative bg-gray-200',
+    `avatar-${shape}`,
+    typeof size === 'string' ? `avatar-${size}` : '',
+    className
+  )
 
   const sizeStyle =
     typeof size === 'number'

@@ -1,7 +1,3 @@
-.avatar {
-  @apply inline-block relative bg-gray-400 dark:bg-gray-600 text-gray-100;
-}
-
 .avatar-sm {
   @apply w-8 h-8 leading-8;
 }
@@ -69,13 +65,13 @@
 .avatar-group-chained {
   > .avatar,
   > .tooltip-wrapper {
-    @apply -ml-2 rtl:-mr-2;
+    @apply -ml-2;
   }
 
   > .avatar,
   > .tooltip-wrapper {
     &:first-child {
-      @apply ml-0 rtl:mr-0;
+      @apply ml-0;
     }
   }
 }
