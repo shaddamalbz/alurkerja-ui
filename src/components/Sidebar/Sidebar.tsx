@@ -28,7 +28,7 @@ const Sidenav: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className
   return (
     <div
       className={classNames(
-        'h-screen sticky z-10 top-0 transition-[width] ease-in-out duration-200 bg-gray-100 border-r border-gray-200 w-20 hidden sm:block',
+        'h-screen sticky z-10 top-0 transition-[width] ease-in-out duration-200 bg-[#1E1E2D] text-[#A2A3B7] border-r border-gray-200 w-20 hidden sm:block',
         !toggled && 'w-[270px]',
         className
       )}
@@ -43,7 +43,7 @@ const Sidenav: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className
               {menuConfig.map((menu, idx) => (
                 <div
                   className={classNames(
-                    'menu-item menu-item-transparent menu-item-hoverable',
+                    'menu-item hover:text-white',
                     window.location.pathname === menu.href ? 'menu-item-active' : ''
                   )}
                   style={{ height: '40px' }}

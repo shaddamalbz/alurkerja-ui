@@ -33,11 +33,11 @@
     @apply text-gray-600;
 
     &.menu-item-hoverable {
-      @apply hover:text-gray-900 hover:bg-gray-100;
+      @apply hover:text-white;
     }
 
     &.menu-item-active {
-      @apply text-gray-900 bg-gray-200 hover:bg-gray-200;
+      @apply text-white;
     }
   }
 
@@ -45,11 +45,11 @@
     @apply text-gray-400;
 
     &.menu-item-hoverable {
-      @apply hover:text-gray-100 hover:bg-gray-700;
+      @apply hover:text-white;
     }
 
     &.menu-item-active {
-      @apply text-gray-100 bg-gray-600 hover:bg-gray-600;
+      @apply text-white bg-gray-600 hover:bg-gray-600;
     }
   }
 
