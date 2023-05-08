@@ -20,7 +20,7 @@ interface menuConfig {
   icon?: JSX.Element
 }
 
-const Sidenav: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className, setToggled, ...rest }) => {
+const Sidebar: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className, setToggled, ...rest }) => {
   const RenderLogo = () => (
     <div
       className={classNames(
@@ -77,4 +77,4 @@ const Sidenav: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className
   )
 }
 
-export default Sidenav
+export default Sidebar
