@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/'
 import { AlurkerjaForm, Table, TableLowcode } from '@/components/alurkerja'
 import Sidebar from '@/components/Sidebar'
+import Header from '@/components/Header'
 import { useFormSpec } from '@/hooks'
 
 export {
@@ -38,4 +39,5 @@ export {
   Progress,
   useFormSpec,
   Sidebar,
+  Header,
 }
