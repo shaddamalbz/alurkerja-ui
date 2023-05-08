@@ -1,17 +1,17 @@
 import classNames from 'classnames'
-import React, { Dispatch, FC, ReactNode, SetStateAction } from 'react'
+import { Dispatch, FC, ReactNode, SetStateAction } from 'react'
 
-import '@/assets/scss/menu.scss'
 import { ToggledButton } from '@/assets/icons'
 
-interface SidenavProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface SidenavProps {
   logo?: ReactNode
   menuConfig: menuConfig[]
   toggled: boolean
   setToggled: Dispatch<SetStateAction<boolean>>
   width?: string | number
-  /** current path from react router dom */
-  path?: string
+  /** current path from router.pathName from react-router-dom or next/router */
+  currentPathName?: string
+  className?: string
 }
 
 interface menuConfig {
@@ -20,7 +20,16 @@ interface menuConfig {
   icon?: JSX.Element
 }
 
-const Sidebar: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className, setToggled, ...rest }) => {
+const Sidebar: FC<SidenavProps> = ({
+  width,
+  logo,
+  menuConfig,
+  toggled,
+  className,
+  setToggled,
+  currentPathName,
+  ...rest
+}) => {
   const RenderLogo = () => (
     <div
       className={classNames(
@@ -50,26 +59,24 @@ const Sidebar: FC<SidenavProps> = ({ width, logo, menuConfig, toggled, className
       <div className="h-[calc(100vh-4rem)]">
         <div className="overflow-hidden w-full h-full">
           <div className="overflow-x-hidden overflow-y-auto scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
-            <div className="px-4">
-              {menuConfig.map((menu, idx) => (
-                <div
-                  className={classNames(
-                    'menu-item hover:text-white',
-                    window.location.pathname === menu.href ? 'menu-item-active' : ''
-                  )}
-                  style={{ height: '40px' }}
-                  key={idx}
+            {menuConfig.map((menu, idx) => (
+              <div
+                className={classNames(
+                  'cursor-pointer font-semibold px-8 rounded-md flex items-center w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2',
+                  currentPathName === menu.href && 'text-white bg-[#1B1B28]'
+                )}
+                style={{ height: '40px' }}
+                key={idx}
+              >
+                <a
+                  className={classNames('flex items-center h-full w-full gap-x-2', toggled && 'justify-center')}
+                  href={menu.href}
                 >
-                  <a
-                    className={classNames('flex items-center h-full w-full gap-x-2', toggled && 'justify-center')}
-                    href={menu.href}
-                  >
-                    {menu.icon && <span className="menu-icon">{menu.icon}</span>}
-                    {!toggled && menu.label}
-                  </a>
-                </div>
-              ))}
-            </div>
+                  {menu.icon && <span>{menu.icon}</span>}
+                  {!toggled && menu.label}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
