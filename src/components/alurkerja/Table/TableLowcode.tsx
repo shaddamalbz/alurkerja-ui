@@ -111,6 +111,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
             <TableView
               baseUrl={baseUrl}
               tableName={tableName}
+              module={module}
               tableData={tableData}
               tableSpec={tableSpec}
               pagination={pagination}

@@ -17,6 +17,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
   const {
     tableName,
     baseUrl,
+    module,
     tableSpec,
     tableData,
     pagination,
@@ -207,6 +208,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                         <Modal triggerButton={<ButtonAction />}>
                           <FormLowcode
                             id={row.id}
+                            module={module}
                             baseUrl={baseUrl}
                             tableName={tableName}
                             formState={formState}

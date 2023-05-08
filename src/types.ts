@@ -98,6 +98,7 @@ export interface PaginationLowcode {
 export interface TableLowcodeProps {
   baseUrl: string
   tableName: string
+  module?: string
   tableSpec: TableSpec | undefined
   tableData: { id: number; [x: string]: any }[] | undefined
   pagination: PaginationLowcode | undefined
