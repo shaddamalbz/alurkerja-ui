@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import Sidebar from '@/components/Sidebar'
 import { FaAd } from 'react-icons/fa'
+import { useState } from 'react'
 
 const meta = {
   title: 'Components/Sidebar',
@@ -18,13 +19,14 @@ type Story = StoryObj<typeof Sidebar>
 
 export const Default: Story = {
   args: {
-    toggled: false,
     menuConfig: [
       { label: 'Menu1', href: '/menu1', icon: <FaAd /> },
       { label: 'Menu2', href: '/menu2', icon: <FaAd /> },
     ],
   },
   render: (args) => {
-    return <Sidebar {...args} />
+    const [toogled, setToggled] = useState(false)
+
+    return <Sidebar toggled={toogled} setToggled={setToggled} menuConfig={args.menuConfig} />
   },
 }

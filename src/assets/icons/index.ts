@@ -3,6 +3,7 @@ export { mindMap as MindMapIcon } from './mindMap'
 export { fileExport as ExportIcon } from './fileExport'
 export { reimburse as ReimburseIcon } from './reimburse'
 export { leave as LeaveIcon } from './leave'
+export { ToggledButton as ToggledButton } from './ToggledButton'
 
 export interface IconsPropsInterface {
   size?: string
