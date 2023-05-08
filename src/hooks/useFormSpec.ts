@@ -6,11 +6,12 @@ import { IGNORE_KEYS } from '@/utils/constant'
 interface UseFormSpec {
   baseUrl: string
   tableName: string
+  module?: string
 }
 
 const useFormSpec = (props: UseFormSpec) => {
-  const { baseUrl, tableName } = props
-  const { tableSpec, loading } = getTableSpec(baseUrl, tableName)
+  const { baseUrl, tableName, module } = props
+  const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
 
   const [fieldList, setFieldList] = useState<[string, FieldProperties][]>([])
   const [createSpec, setCreateSpec] = useState<HeaderAction>()

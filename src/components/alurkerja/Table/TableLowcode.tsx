@@ -94,6 +94,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
       <TableLayout
         baseUrl={baseUrl}
         tableName={tableName}
+        module={module}
         tableSpec={tableSpec}
         filter={filterBy}
         setFilter={setFilterBy}

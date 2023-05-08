@@ -17,6 +17,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
   const {
     baseUrl,
     tableName,
+    module,
     handleSubmit,
     onSubmit,
     control,
@@ -29,9 +30,9 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     disabled,
   } = props
 
-  const { createSpec, fieldList } = useFormSpec({ baseUrl, tableName })
-  const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName)
-  const { detail } = getTableData({ baseUrl, tableName, id })
+  const { createSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
+  const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName, module)
+  const { detail } = getTableData({ baseUrl, tableName, id, module })
 
   const [loadingSubmit, setLoadingSubmit] = useState(false)
 

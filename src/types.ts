@@ -183,6 +183,8 @@ export interface IAlurkerjaFormLowcode {
   baseUrl: string
   /**  table name, will be added in base url for fetching spec & data*/
   tableName: string
+  /** to customize /crud on endpoint  */
+  module?: string
   /**  handleSubmit from  react-hook-form*/
   handleSubmit: UseFormHandleSubmit<FieldValues>
   onSubmit?: (form: FieldValues) => void

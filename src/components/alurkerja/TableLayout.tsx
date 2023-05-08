@@ -18,6 +18,7 @@ import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
 interface TableLayoutProps {
   baseUrl: string
   tableName: string
+  module?: string
   children: React.ReactNode
   tableSpec: TableSpec | undefined
   filter?: { [x: string]: any }
@@ -37,6 +38,7 @@ interface TableLayoutProps {
 const TableLayout: FC<TableLayoutProps> = ({
   baseUrl,
   tableName,
+  module,
   children,
   tableSpec,
   filter,
@@ -140,6 +142,7 @@ const TableLayout: FC<TableLayoutProps> = ({
                   {actionSpec.label === 'Tambah' && tableSpec?.can_create && !onClickCreate ? (
                     <Modal triggerButton={<ButtonCreate />}>
                       <FormLowcode
+                        module={module}
                         baseUrl={baseUrl}
                         tableName={tableName}
                         formState={formState}
