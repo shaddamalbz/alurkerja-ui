@@ -6,11 +6,11 @@ import { FieldProperties } from '@/types'
 import { Input, Select } from '@/components/ui'
 
 interface InputTypes {
+  baseUrl: string
   name: string
   fieldSpec: FieldProperties
   setValue: UseFormSetValue<FieldValues>
   defaultValue?: any
-  listOptionUrl?: string
   disabled?: boolean
 }
 
@@ -20,16 +20,16 @@ interface SelectedOption {
 }
 
 const InputTypes = (props: InputTypes) => {
-  const { fieldSpec, name, setValue, defaultValue, listOptionUrl, disabled } = props
+  const { fieldSpec, name, setValue, defaultValue, disabled, baseUrl } = props
 
   const [listOption, setListOption] = useState<SelectedOption[]>()
   const [selectedOption, setSelectedOption] = useState<SelectedOption>()
 
   const getListOption = async () => {
     if (fieldSpec.select_options) {
-      const { method, option_key, option_label } = fieldSpec.select_options
+      const { method, option_key, option_label, url } = fieldSpec.select_options
       const { data, status } = await axios({
-        url: listOptionUrl,
+        url: baseUrl + url,
         method: method,
       })
       if (status === 200) {

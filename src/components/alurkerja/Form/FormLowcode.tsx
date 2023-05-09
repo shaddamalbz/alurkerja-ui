@@ -86,10 +86,18 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                       customField({
                         field,
                         setValue,
-                        defaultField: <InputTypes fieldSpec={fieldSpec} name={name} setValue={setValue} />,
+                        defaultField: (
+                          <InputTypes baseUrl={baseUrl} fieldSpec={fieldSpec} name={name} setValue={setValue} />
+                        ),
                       })
                     ) : (
-                      <InputTypes fieldSpec={fieldSpec} name={name} setValue={setValue} defaultValue={detail?.[name]} />
+                      <InputTypes
+                        baseUrl={baseUrl}
+                        fieldSpec={fieldSpec}
+                        name={name}
+                        setValue={setValue}
+                        defaultValue={detail?.[name]}
+                      />
                     )}
                   </InputLayout>
                 )
