@@ -34,7 +34,7 @@ const InputTypes = (props: InputTypes) => {
       })
       if (status === 200) {
         const list = data.data.content
-        const parsedList = list.foreach((item: any) => ({
+        const parsedList = list.map((item: any) => ({
           label: item[option_label],
           value: item[option_key],
         }))

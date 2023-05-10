@@ -63,3 +63,14 @@ export const MultpleSelect: Story = {
     defaultValue: { label: 'label2', value: 2 },
   },
 }
+
+export const WorkWithAPI: Story = {
+  args: {
+    listOptionSpec: {
+      labelKey: 'bahagian',
+      url: 'https://kpm-sys.merapi.javan.id/api/crud/senarai-rekod-aktiviti',
+      valueKey: 'id',
+    },
+  },
+  render: (args) => <Select listOptionSpec={args.listOptionSpec} />,
+}

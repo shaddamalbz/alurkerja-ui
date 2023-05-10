@@ -17,24 +17,20 @@ export default meta
 type Story = StoryObj<typeof AlurkerjaForm>
 
 export const Default: Story = {
+  args: {
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'pengurusan-rekod-aktiviti-pemohon',
+  },
   render: (args) => {
     const { formState, handleSubmit, control, setValue } = useForm()
     return (
       <AlurkerjaForm
-        baseUrl="https://kpm-sys.merapi.javan.id"
-        tableName="jpn"
+        baseUrl={args.baseUrl}
+        tableName={args.tableName}
         formState={formState}
         handleSubmit={handleSubmit}
         control={control}
         setValue={setValue}
-        customField={({ field, setValue, defaultField }) => {
-          const fieldSpec = field[1]
-          if (fieldSpec.name === 'created_at') {
-            return <div>custom field</div>
-          } else {
-            return defaultField
-          }
-        }}
       />
     )
   },

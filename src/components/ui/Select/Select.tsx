@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import ReactSelect, { Props } from 'react-select'
 import _ from 'underscore'
@@ -8,10 +8,22 @@ import { HiCheck, HiChevronDown, HiX } from 'react-icons/hi'
 import Spinner from '../Spinner'
 
 import '@/assets/scss/select.scss'
+import axios from 'axios'
 export interface Select extends Props {
   size?: 'sm' | 'md' | 'lg'
   field?: any
   form?: any
+  /** API endpoint */
+  listOptionSpec?: {
+    url: string
+    valueKey: string
+    labelKey: string
+  }
+}
+
+interface SelectedOption {
+  label: string
+  value: string
 }
 
 const DefaultOption = ({ innerProps, label, selectProps, isSelected, isDisabled }: any) => {
@@ -51,7 +63,9 @@ const DefaultLoadingIndicator = ({ selectProps }: any) => {
 }
 
 const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
-  const { size, className, form, field, components, ...rest } = props
+  const { size, className, form, field, components, listOptionSpec, ...rest } = props
+
+  const [listOption, setListOption] = useState<SelectedOption[]>()
 
   let isInvalid: boolean | undefined = false
 
@@ -66,6 +80,31 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
 
   const selectClass = classNames('select', className)
 
+  const getListOption = async () => {
+    if (listOptionSpec) {
+      const { status, data } = await axios({
+        url: listOptionSpec.url,
+        method: 'GET',
+      })
+
+      if (status === 200) {
+        const list = data.data.content
+
+        const { labelKey, valueKey } = listOptionSpec
+
+        const parsedList = list.map((item: any) => ({
+          label: item[labelKey],
+          value: item[valueKey],
+        }))
+        setListOption(parsedList)
+      }
+    }
+  }
+
+  useEffect(() => {
+    getListOption()
+  }, [])
+
   return (
     <ReactSelect
       className={selectClass}
@@ -79,6 +118,7 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
         ClearIndicator: DefaultClearIndicator,
         ...components,
       }}
+      options={listOption}
       {...field}
       {...rest}
     />
