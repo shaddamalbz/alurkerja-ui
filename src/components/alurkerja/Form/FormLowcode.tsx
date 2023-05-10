@@ -53,7 +53,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               Swal.fire({
                 icon: 'success',
                 title: 'Sukses!',
-                text: 'Data telah berhasil ditambahkan',
+                text: 'Data telah berhasil diedit',
               }).then(() => onSuccess?.())
             }
           } catch (error) {
