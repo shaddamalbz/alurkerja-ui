@@ -13,6 +13,7 @@ import {
   StatusIcon,
   Tag,
   Progress,
+  PendingUpload,
 } from '@/components/ui/'
 import { AlurkerjaForm, Table, TableLowcode } from '@/components/alurkerja'
 import Sidebar from '@/components/Sidebar'
@@ -40,4 +41,5 @@ export {
   useFormSpec,
   Sidebar,
   Header,
+  PendingUpload,
 }
