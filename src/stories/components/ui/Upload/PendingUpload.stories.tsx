@@ -54,6 +54,7 @@ export const AsFile: Story = {
           }}
           asFile
         />
+        <p className="text-sm">note: check console when upload</p>
       </>
     )
   },
