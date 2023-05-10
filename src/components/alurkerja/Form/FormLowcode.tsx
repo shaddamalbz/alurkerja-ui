@@ -30,7 +30,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     disabled,
   } = props
 
-  const { createSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
+  const { createSpec, editSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
   const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName, module)
   const { detail } = getTableData({ baseUrl, tableName, id, module })
 
@@ -42,20 +42,38 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         onSubmit(data)
       } else {
         setLoadingSubmit(true)
-        const { path, method } = createSpec
-        try {
-          const response = await axios(baseUrl + path.toLowerCase(), { method: method, data: data })
-          if (response.status === 201) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Sukses!',
-              text: 'Data telah berhasil ditambahkan',
-            }).then(() => onSuccess && onSuccess())
+        if (id && editSpec) {
+          const { path, method } = editSpec
+          try {
+            const response = await axios(baseUrl + path.toLowerCase() + '/' + id, { method: method, data: data })
+            if (response.status === 201) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: 'Data telah berhasil ditambahkan',
+              }).then(() => onSuccess && onSuccess())
+            }
+          } catch (error) {
+            onError && onError(error)
+          } finally {
+            setLoadingSubmit(false)
           }
-        } catch (error) {
-          onError && onError(error)
-        } finally {
-          setLoadingSubmit(false)
+        } else {
+          const { path, method } = createSpec
+          try {
+            const response = await axios(baseUrl + path.toLowerCase(), { method: method, data: data })
+            if (response.status === 201) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: 'Data telah berhasil ditambahkan',
+              }).then(() => onSuccess && onSuccess())
+            }
+          } catch (error) {
+            onError && onError(error)
+          } finally {
+            setLoadingSubmit(false)
+          }
         }
       }
     }
