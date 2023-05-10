@@ -74,6 +74,7 @@
     "postcss-loader": "^7.2.4",
     "prettier": "^2.8.1",
     "prop-types": "15.8.1",
+    "react-drag-drop-files": "^2.3.10",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",

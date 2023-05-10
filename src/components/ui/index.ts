@@ -11,7 +11,7 @@ import Input from './Input'
 import Modal from './Modal'
 import Select from './Select'
 import Progress from './Progress'
-import { PendingUpload } from './Upload'
+import { PendingUpload, DirectUpload } from './Upload'
 
 export {
   Avatar,
@@ -29,4 +29,5 @@ export {
   Select,
   Progress,
   PendingUpload,
+  DirectUpload,
 }
