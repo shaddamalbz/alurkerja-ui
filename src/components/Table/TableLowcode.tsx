@@ -218,7 +218,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                               setValue={setValue}
                               onSuccess={() => {
                                 closeModal()
-                                setRenderState?.((prev) => 1)
+                                setRenderState?.((prev) => prev + 1)
                               }}
                             />
                           )}
