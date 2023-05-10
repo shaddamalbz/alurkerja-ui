@@ -49,12 +49,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               method: method,
               data: data,
             })
-            if (response.status === 201) {
+            if (response.status === 200) {
               Swal.fire({
                 icon: 'success',
                 title: 'Sukses!',
                 text: 'Data telah berhasil ditambahkan',
-              }).then(() => onSuccess && onSuccess())
+              }).then(() => onSuccess?.())
             }
           } catch (error) {
             onError && onError(error)

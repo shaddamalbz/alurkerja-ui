@@ -152,7 +152,7 @@ export interface IAlurkerjaTableLowcode {
   /**  state for store current searching data*/
   search?: string
   /**  setter for set current searching data*/
-  setSearch?: Dispatch<SetStateAction<string>>
+  setSearch?: Dispatch<SetStateAction<string | undefined>>
   /**  state to store page config*/
   pageConfig?: { limit: number; page: number }
   /**  setter to set page config*/

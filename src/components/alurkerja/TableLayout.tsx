@@ -24,7 +24,7 @@ interface TableLayoutProps {
   filter?: { [x: string]: any }
   setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
   search?: string
-  setSearch?: Dispatch<SetStateAction<string>>
+  setSearch?: Dispatch<SetStateAction<string | undefined>>
   pagination: PaginationLowcode | undefined
   pageConfig?: {
     page: number
@@ -33,6 +33,7 @@ interface TableLayoutProps {
   setPageConfig?: Dispatch<SetStateAction<{ page: number; limit: number }>>
   extraButton?: () => JSX.Element | null
   onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  setRenderState?: Dispatch<SetStateAction<number>>
 }
 
 const TableLayout: FC<TableLayoutProps> = ({
@@ -49,6 +50,8 @@ const TableLayout: FC<TableLayoutProps> = ({
   setPageConfig,
   extraButton,
   onClickCreate,
+
+  setRenderState,
 }) => {
   const { handleSubmit, watch, setValue, formState, control } = useForm()
 
@@ -71,13 +74,20 @@ const TableLayout: FC<TableLayoutProps> = ({
           )
         }
       })}
-      <Button
-        className="bg-indigo-600 text-white"
-        size="sm"
-        onClick={handleSubmit((data) => handleFilter(data, close))}
-      >
-        Filter
-      </Button>
+      <div className="w-full flex gap-4 justify-end">
+        <Button
+          size="sm"
+          onClick={() => {
+            setFilter?.(undefined)
+            close()
+          }}
+        >
+          Clear Filter
+        </Button>
+        <Button size="sm" onClick={handleSubmit((data) => handleFilter(data, close))}>
+          Filter
+        </Button>
+      </div>
     </div>
   )
 
@@ -141,15 +151,21 @@ const TableLayout: FC<TableLayoutProps> = ({
                 <Fragment key={idx}>
                   {actionSpec.label === 'Tambah' && tableSpec?.can_create && !onClickCreate ? (
                     <Modal triggerButton={<ButtonCreate />}>
-                      <FormLowcode
-                        module={module}
-                        baseUrl={baseUrl}
-                        tableName={tableName}
-                        formState={formState}
-                        handleSubmit={handleSubmit}
-                        control={control}
-                        setValue={setValue}
-                      />
+                      {({ closeModal }) => (
+                        <FormLowcode
+                          module={module}
+                          baseUrl={baseUrl}
+                          tableName={tableName}
+                          formState={formState}
+                          handleSubmit={handleSubmit}
+                          control={control}
+                          setValue={setValue}
+                          onSuccess={() => {
+                            closeModal()
+                            setRenderState?.((prev) => prev + 1)
+                          }}
+                        />
+                      )}
                     </Modal>
                   ) : (
                     <ButtonCreate />

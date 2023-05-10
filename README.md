@@ -16,6 +16,12 @@ Start the server
   yarn storybook
 ```
 
+### Deploy
+
+```bash
+  yarn build-storybook
+```
+
 #### Publish
 
 to help switching npmjs account use [npm-user-switch](https://github.com/perry-mitchell/npm-user-switch)

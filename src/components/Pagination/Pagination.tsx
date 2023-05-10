@@ -1,5 +1,5 @@
 import { PaginationProps } from '@/types'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import _ from 'underscore'
 

@@ -105,6 +105,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         setPageConfig={setPageConfig}
         extraButton={buttonBulkDelete}
         onClickCreate={onClickCreate}
+        setRenderState={setRenderState}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">

@@ -58,7 +58,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                 icon: 'success',
                 title: 'Sukses!',
                 text: 'Data telah berhasil dihapus',
-              }).then(() => setRenderState && setRenderState((prev) => prev + 1))
+              }).then(() => setRenderState?.((prev) => prev + 1))
             }
           }
         })
@@ -206,16 +206,22 @@ const TableLowcode = (props: TableLowcodeProps) => {
                       )
                       return !onClickEdit && action.label === 'Edit' ? (
                         <Modal triggerButton={<ButtonAction />}>
-                          <FormLowcode
-                            id={row.id}
-                            module={module}
-                            baseUrl={baseUrl}
-                            tableName={tableName}
-                            formState={formState}
-                            handleSubmit={handleSubmit}
-                            control={control}
-                            setValue={setValue}
-                          />
+                          {({ closeModal }) => (
+                            <FormLowcode
+                              id={row.id}
+                              module={module}
+                              baseUrl={baseUrl}
+                              tableName={tableName}
+                              formState={formState}
+                              handleSubmit={handleSubmit}
+                              control={control}
+                              setValue={setValue}
+                              onSuccess={() => {
+                                closeModal()
+                                setRenderState?.((prev) => 1)
+                              }}
+                            />
+                          )}
                         </Modal>
                       ) : (
                         <ButtonAction />
