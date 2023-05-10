@@ -45,7 +45,10 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         if (id && editSpec) {
           const { path, method } = editSpec
           try {
-            const response = await axios(baseUrl + path.toLowerCase() + '/' + id, { method: method, data: data })
+            const response = await axios(baseUrl + path.toLowerCase().replace('{id}', id.toString()), {
+              method: method,
+              data: data,
+            })
             if (response.status === 201) {
               Swal.fire({
                 icon: 'success',
