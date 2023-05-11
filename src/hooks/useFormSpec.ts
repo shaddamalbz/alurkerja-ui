@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import getTableSpec from '@/api/getTableSpec'
 import { FieldProperties, HeaderAction, FieldActionProperties } from '@/types'
-import { IGNORE_KEYS } from '@/utils/constant'
 
 interface UseFormSpec {
   baseUrl: string
@@ -35,11 +34,7 @@ const useFormSpec = (props: UseFormSpec) => {
   useEffect(() => {
     if (tableSpec) {
       getSpec()
-      setFieldList(
-        Object.entries(tableSpec?.fields).filter(
-          (field: [string, FieldProperties]) => IGNORE_KEYS.indexOf(field[0]) === -1
-        )
-      )
+      setFieldList(Object.entries(tableSpec?.fields))
     }
   }, [tableSpec])
 

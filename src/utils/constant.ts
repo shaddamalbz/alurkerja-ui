@@ -11,5 +11,3 @@ export const CONTROL_SIZES = {
   md: 11,
   lg: 14,
 }
-
-export const IGNORE_KEYS = ['updated_at', 'id']
