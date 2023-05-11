@@ -177,6 +177,8 @@ export interface IAlurkerjaTableLowcode {
   onClickCreate?: () => void
   /**  will be trigger when button edit clicked*/
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
+  /** trying to custom header table? use this*/
+  headerElement?: JSX.Element
 }
 
 export interface IAlurkerjaFormLowcode {

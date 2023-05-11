@@ -30,6 +30,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     customCell,
     onClickCreate,
     onClickEdit,
+    headerElement,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -106,6 +107,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         extraButton={buttonBulkDelete}
         onClickCreate={onClickCreate}
         setRenderState={setRenderState}
+        headerElement={headerElement}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
