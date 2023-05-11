@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
@@ -175,7 +175,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                       </td>
                     )
                     return (
-                      <>
+                      <Fragment key={idx}>
                         {!tableSpec.fields[key]?.is_hidden_in_list && (
                           <>
                             {customCell
@@ -188,7 +188,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                               : defaultCell}
                           </>
                         )}
-                      </>
+                      </Fragment>
                     )
                   })}
 
@@ -199,13 +199,12 @@ const TableLowcode = (props: TableLowcodeProps) => {
                         <Button
                           className="bg-gray-100 text-gray-400"
                           size="xs"
-                          key={idx}
                           icon={IconTypes(action.icon)}
                           onClick={() => handleAction(action, row.id)}
                         />
                       )
                       return !onClickEdit && action.label === 'Edit' ? (
-                        <Modal triggerButton={<ButtonAction />}>
+                        <Modal triggerButton={<ButtonAction />} key={idx}>
                           {({ closeModal }) => (
                             <FormLowcode
                               id={row.id}
@@ -224,7 +223,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           )}
                         </Modal>
                       ) : (
-                        <ButtonAction />
+                        <ButtonAction key={idx} />
                       )
                     })}
                   </div>
