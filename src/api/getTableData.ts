@@ -47,24 +47,24 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
 
     if (id) {
       url += `/${id}`
-    }
-
-    if (filter) {
-      url += '?' + filterQuery
-    }
-
-    if (search && search !== '') {
-      if (filter) {
-        url += `&search=${search}`
-      } else {
-        url += `?search=${search}`
-      }
-    }
-
-    if (pageConfig && !filter && !search) {
-      url += `?${pagintaionQuery}`
     } else {
-      url += `&${pagintaionQuery}`
+      if (filter) {
+        url += '?' + filterQuery
+      }
+
+      if (search && search !== '') {
+        if (filter) {
+          url += `&search=${search}`
+        } else {
+          url += `?search=${search}`
+        }
+      }
+
+      if (pageConfig && !filter && !search) {
+        url += `?${pagintaionQuery}`
+      } else {
+        url += `&${pagintaionQuery}`
+      }
     }
 
     const { status, data } = await axios({ url: url, method: 'get' })
