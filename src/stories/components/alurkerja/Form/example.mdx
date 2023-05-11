@@ -11,29 +11,34 @@ import * as FormStories from './FormLowcode.stories'
     const Example = () => {
     const { formState, handleSubmit, control, setValue } = useForm()
 
-        const baseUrl = 'https://lowcode.merapi.javan.id'
-        const tableName = 'kategori'
+    const baseUrl = 'https://kpm-sys.merapi.javan.id'
+    const tableName = 'pengurusan-rekod-aktiviti-pemohon'
 
-        return(
-          <AlurkerjaForm
-            baseUrl={baseUrl}
-            tableName={tableName}
-            formState={formState}
-            handleSubmit={handleSubmit}
-            control={control}
-            setValue={setValue}
-            customField={({ field, setValue, defaultField }) => {
-              const name = field[0]
-              const fieldSpec = field[1]
-              if (fieldSpec.name === 'created_at') {
-                return <div>custom field</div>
-              } else {
-                return defaultField
-              }
-            }}
-          />
-        )
-    }
+    return(
+      <AlurkerjaForm
+        baseUrl={baseUrl}
+        tableName={tableName}
+        formState={formState}
+        handleSubmit={handleSubmit}
+        control={control}
+        setValue={setValue}
+        onSubmit={(data) => console.log(data)}
+        customField={({ field, setValue, defaultField }) => {
+          const fieldSpec = field[1]
+          if (fieldSpec.name === 'SENARAI_REKOD_AKTIVITI_ID') {
+            return (
+              <Select
+                options={[{ label: 'opsi1', value: 1 }]}
+                onChange={(selected: any) => setValue(fieldSpec.name.toLowerCase(), selected.value)}
+              />
+            )
+          }
+          return defaultField
+        }}
+      />
+      )
+
+}
 
 `
 } />

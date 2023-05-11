@@ -37,31 +37,31 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
 
   const onSubmitFunction = async (data: FieldValues) => {
-    if (createSpec) {
-      if (onSubmit) {
-        onSubmit(data)
-      } else {
-        setLoadingSubmit(true)
-        if (id && editSpec) {
-          const { path, method } = editSpec
-          try {
-            const response = await axios(baseUrl + path.toLowerCase().replace('{id}', id.toString()), {
-              method: method,
-              data: data,
-            })
-            if (response.status === 200) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Sukses!',
-                text: 'Data telah berhasil diedit',
-              }).then(() => onSuccess?.())
-            }
-          } catch (error) {
-            onError && onError(error)
-          } finally {
-            setLoadingSubmit(false)
+    if (onSubmit) {
+      onSubmit(data)
+    } else {
+      setLoadingSubmit(true)
+      if (id && editSpec) {
+        const { path, method } = editSpec
+        try {
+          const response = await axios(baseUrl + path.toLowerCase().replace('{id}', id.toString()), {
+            method: method,
+            data: data,
+          })
+          if (response.status === 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Sukses!',
+              text: 'Data telah berhasil diedit',
+            }).then(() => onSuccess?.())
           }
-        } else {
+        } catch (error) {
+          onError && onError(error)
+        } finally {
+          setLoadingSubmit(false)
+        }
+      } else {
+        if (createSpec) {
           const { path, method } = createSpec
           try {
             const response = await axios(baseUrl + path.toLowerCase(), { method: method, data: data })
@@ -91,13 +91,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         {!onFetching ? (
           <>
             {fieldList.map((field: [string, FieldProperties], idx: number) => {
-              const name = field[0].toLowerCase()
               const fieldSpec = field[1]
               if (!fieldSpec.is_hidden_in_create) {
                 return (
                   <InputLayout
                     key={idx}
-                    name={name}
+                    name={fieldSpec.name.toLowerCase()}
                     label={fieldSpec.label}
                     formState={formState}
                     rules={fieldSpec.rules}
@@ -108,16 +107,21 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                         field,
                         setValue,
                         defaultField: (
-                          <InputTypes baseUrl={baseUrl} fieldSpec={fieldSpec} name={name} setValue={setValue} />
+                          <InputTypes
+                            baseUrl={baseUrl}
+                            fieldSpec={fieldSpec}
+                            name={fieldSpec.name.toLowerCase()}
+                            setValue={setValue}
+                          />
                         ),
                       })
                     ) : (
                       <InputTypes
                         baseUrl={baseUrl}
                         fieldSpec={fieldSpec}
-                        name={name}
+                        name={fieldSpec.name.toLowerCase()}
                         setValue={setValue}
-                        defaultValue={detail?.[name]}
+                        defaultValue={detail?.[fieldSpec.name.toLowerCase()]}
                       />
                     )}
                   </InputLayout>

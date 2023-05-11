@@ -21,7 +21,8 @@
       "@/components/*": ["./components/*"],
       "@/utils/*": ["./utils/*"],
       "@/api/*": ["./api/*"],
-      "@/hooks/*": ["./hooks/*"]
+      "@/hooks/*": ["./hooks/*"],
+      "@/features/*": ["./features/*"]
     }
   },
   "include": [".eslintrc.cjs", "./src", "vite.config.ts", "vitest.config.ts"],

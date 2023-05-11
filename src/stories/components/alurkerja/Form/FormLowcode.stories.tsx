@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import { AlurkerjaForm } from '@/components/alurkerja'
+import { Select } from '@/components/ui'
 
 const meta = {
   title: 'Components/Alurkerja/FormLowcode',
@@ -31,6 +32,19 @@ export const Default: Story = {
         handleSubmit={handleSubmit}
         control={control}
         setValue={setValue}
+        onSubmit={(data) => console.log(data)}
+        customField={({ field, setValue, defaultField }) => {
+          const fieldSpec = field[1]
+          if (fieldSpec.name === 'SENARAI_REKOD_AKTIVITI_ID') {
+            return (
+              <Select
+                options={[{ label: 'opsi1', value: 1 }]}
+                onChange={(selected: any) => setValue(fieldSpec.name.toLowerCase(), selected.value)}
+              />
+            )
+          }
+          return defaultField
+        }}
       />
     )
   },
