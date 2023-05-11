@@ -21,7 +21,12 @@ export const Default: Story = {
   args: {
     menuConfig: [
       { label: 'Menu1', href: '/menu1', icon: <FaAd /> },
-      { label: 'Menu2', href: '/menu2', icon: <FaAd /> },
+      {
+        label: 'Menu2',
+        href: '/menu2',
+        icon: <FaAd />,
+        child: [{ href: '/child1', label: 'Child1', child: [{ href: '/grandchild', label: 'Grandchild' }] }],
+      },
     ],
   },
   render: (args) => {

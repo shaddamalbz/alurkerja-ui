@@ -289,3 +289,10 @@ export interface IAlurkerjaForm {
   disable?: boolean
   withStatus?: boolean
 }
+
+export interface MenuConfig {
+  href: string
+  label: string
+  icon?: JSX.Element
+  child?: MenuConfig[]
+}

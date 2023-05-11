@@ -2,22 +2,19 @@ import classNames from 'classnames'
 import { Dispatch, FC, ReactNode, SetStateAction } from 'react'
 
 import { ToggledButton } from '@/assets/icons'
+import { MenuConfig } from '@/types'
+
+import ListMenu from './ListMenu'
 
 interface SidenavProps {
   logo?: ReactNode
-  menuConfig: menuConfig[]
+  menuConfig: MenuConfig[]
   toggled: boolean
   setToggled: Dispatch<SetStateAction<boolean>>
   width?: string | number
   /** current path from router.pathName from react-router-dom or next/router */
   currentPathName?: string
   className?: string
-}
-
-interface menuConfig {
-  href: string
-  label: string
-  icon?: JSX.Element
 }
 
 const Sidebar: FC<SidenavProps> = ({
@@ -59,24 +56,7 @@ const Sidebar: FC<SidenavProps> = ({
       <div className="h-[calc(100vh-4rem)]">
         <div className="overflow-hidden w-full h-full">
           <div className="overflow-x-hidden overflow-y-auto scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
-            {menuConfig.map((menu, idx) => (
-              <div
-                className={classNames(
-                  'cursor-pointer font-semibold px-8 rounded-md flex items-center w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2',
-                  currentPathName === menu.href && 'text-white bg-[#1B1B28]'
-                )}
-                style={{ height: '40px' }}
-                key={idx}
-              >
-                <a
-                  className={classNames('flex items-center h-full w-full gap-x-2', toggled && 'justify-center')}
-                  href={menu.href}
-                >
-                  {menu.icon && <span>{menu.icon}</span>}
-                  {!toggled && menu.label}
-                </a>
-              </div>
-            ))}
+            <ListMenu menuConfig={menuConfig} toggled={toggled} currentPathName={currentPathName} />
           </div>
         </div>
       </div>
