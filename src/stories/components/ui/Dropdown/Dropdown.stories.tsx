@@ -19,23 +19,7 @@ type Story = StoryObj<typeof Dropdown>
 export const Default: Story = {
   args: {
     triggerElement: <Button>Dropdown</Button>,
-    menu: [
-      { label: 'Menu1', href: '/menu1', icon: <FaAd /> },
-      { label: 'Menu2', href: '/menu2', icon: <FaAd /> },
-    ],
-  },
-  render: (args) => {
-    return <Dropdown {...args} />
-  },
-}
-
-export const CustomAction: Story = {
-  args: {
-    triggerElement: <Button>Dropdown</Button>,
-    menu: [
-      { label: 'Menu1', href: '/menu1', icon: <FaAd />, onClick: () => console.log('clicked') },
-      { label: 'Menu2', href: '/menu2', icon: <FaAd />, onClick: () => console.log('clicked') },
-    ],
+    content: <>ini content</>,
   },
   render: (args) => {
     return <Dropdown {...args} />
