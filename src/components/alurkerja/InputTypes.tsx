@@ -55,6 +55,10 @@ const InputTypes = (props: InputTypes) => {
     }
   }, [listOption, defaultValue])
 
+  useEffect(() => {
+    setValue(name, defaultValue)
+  }, [defaultValue])
+
   return (
     <>
       {(fieldSpec.form_field_type === 'INPUT_TEXT' ||
