@@ -12,6 +12,7 @@ import { Button, Skeleton } from '@/components/ui'
 import InputTypes from '@/components/alurkerja/InputTypes'
 import InputLayout from '@/components/alurkerja/InputLayout'
 import getTableData from '@/api/getTableData'
+import GetDetail from '@/api/getDetail'
 
 export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
   const {
@@ -32,7 +33,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
 
   const { createSpec, editSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
   const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName, module)
-  const { detail } = getTableData({ baseUrl, tableName, id, module })
+  const { detail } = GetDetail({ baseUrl, tableName, id, module })
 
   const [loadingSubmit, setLoadingSubmit] = useState(false)
 

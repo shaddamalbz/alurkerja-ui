@@ -21,8 +21,6 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
   const [pagination, setPagination] = useState<PaginationLowcode>()
   const [loading, setLoading] = useState<boolean>(true)
 
-  const pagintaionQuery = `page=${pageConfig?.page}&limit=${pageConfig?.limit}`
-
   const parseFilter = () => {
     let query = ''
     if (filter) {
@@ -60,10 +58,13 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
         }
       }
 
-      if (pageConfig && !filter && !search) {
-        url += `?${pagintaionQuery}`
-      } else {
-        url += `&${pagintaionQuery}`
+      if (pageConfig) {
+        const pagintaionQuery = `page=${pageConfig?.page}&limit=${pageConfig?.limit}`
+        if (!filter && !search) {
+          url += `?${pagintaionQuery}`
+        } else {
+          url += `&${pagintaionQuery}`
+        }
       }
     }
 
