@@ -297,4 +297,5 @@ export interface MenuConfig {
   label: string
   icon?: JSX.Element
   child?: MenuConfig[]
+  groupBy?: string
 }

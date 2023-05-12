@@ -27,6 +27,9 @@ export const Default: Story = {
         icon: <FaAd />,
         child: [{ href: '/child1', label: 'Child1', child: [{ href: '/grandchild', label: 'Grandchild' }] }],
       },
+      { label: 'Menu3', href: '/menu3', icon: <FaAd />, groupBy: 'Group' },
+      { label: 'Menu4', href: '/menu4', icon: <FaAd /> },
+      { label: 'Menu5', href: '/menu5', icon: <FaAd />, groupBy: 'Group2' },
     ],
   },
   render: (args) => {
