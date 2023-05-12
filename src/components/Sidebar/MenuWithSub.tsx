@@ -15,10 +15,9 @@ const MenuWithSub: FC<{
     <>
       <div
         className={classNames(
-          'cursor-pointer font-semibold px-8  rounded-md flex items-center justify-between w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2 text-sm',
+          'cursor-pointer font-semibold px-8  rounded-md flex items-center justify-between w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2 text-sm h-10',
           currentPathName === menu.href && 'text-white bg-[#1B1B28]'
         )}
-        style={{ height: '40px' }}
         onClick={() => setShowSub((prev) => !prev)}
       >
         <div className={classNames('flex items-center h-full w-full gap-x-2', toggled && 'justify-center')}>
@@ -28,7 +27,7 @@ const MenuWithSub: FC<{
         {!toggled && showSub ? <HiChevronUp /> : <HiChevronDown />}
       </div>
       {showSub && menu.child && (
-        <div className="px-4 text-sm">
+        <div className={classNames('text-sm', toggled ? 'pl-0' : 'pl-4')}>
           <ListMenu menuConfig={menu.child} toggled={toggled} />
         </div>
       )}
