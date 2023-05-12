@@ -12,6 +12,7 @@ import Modal from './Modal'
 import Select from './Select'
 import Progress from './Progress'
 import { PendingUpload, DirectUpload } from './Upload'
+import Checkbox from './Checkbox'
 
 export {
   Avatar,
@@ -30,4 +31,5 @@ export {
   Progress,
   PendingUpload,
   DirectUpload,
+  Checkbox,
 }
