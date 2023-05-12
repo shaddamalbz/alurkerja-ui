@@ -13,6 +13,7 @@ import Select from './Select'
 import Progress from './Progress'
 import { PendingUpload, DirectUpload } from './Upload'
 import Checkbox from './Checkbox'
+import Radio from './Radio'
 
 export {
   Avatar,
@@ -32,4 +33,5 @@ export {
   PendingUpload,
   DirectUpload,
   Checkbox,
+  Radio,
 }
