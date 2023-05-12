@@ -7,6 +7,7 @@ import Pagination from '@/components/Pagination'
 import TableHeader from './TableHeader'
 
 interface TableLayoutProps {
+  title?: string
   baseUrl: string
   tableName: string
   module?: string
@@ -29,6 +30,7 @@ interface TableLayoutProps {
 }
 
 const TableLayout: FC<TableLayoutProps> = ({
+  title,
   baseUrl,
   tableName,
   module,
@@ -72,6 +74,7 @@ const TableLayout: FC<TableLayoutProps> = ({
         headerElement
       ) : (
         <TableHeader
+          title={title}
           baseUrl={baseUrl}
           tableName={tableName}
           tableSpec={tableSpec}

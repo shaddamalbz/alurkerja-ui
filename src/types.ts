@@ -136,6 +136,8 @@ export interface PaginationProps {
 }
 
 export interface IAlurkerjaTableLowcode {
+  /** trying to custom title instead using tableName? use this */
+  title?: string
   /** base API url (lowcode spec) */
   baseUrl: string
   /**  table name, will be added in base url for fetching spec & data */

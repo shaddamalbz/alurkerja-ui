@@ -74,3 +74,33 @@ export const CustomHeader: Story = {
     )
   },
 }
+
+export const CustomTitle: Story = {
+  args: {
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'jpn',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    title: 'Custom Title',
+  },
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}

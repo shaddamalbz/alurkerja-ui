@@ -15,6 +15,7 @@ import Modal from '@/components/ui/Modal'
 import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
 
 interface TableHeaderProps {
+  title?: string
   baseUrl: string
   tableName: string
   module?: string
@@ -29,6 +30,7 @@ interface TableHeaderProps {
 }
 
 const TableHeader: FC<TableHeaderProps> = ({
+  title,
   tableName,
   setSearch,
   tableSpec,
@@ -84,7 +86,7 @@ const TableHeader: FC<TableHeaderProps> = ({
 
   return (
     <div className="flex flex-row items-center justify-between px-4 py-4 border-b gap-2">
-      <h5 className="font-bold uppercase mr-4 mb-0">{tableName}</h5>
+      <h5 className="font-bold uppercase mr-4 mb-0">{title || tableName}</h5>
       <div className="hidden lg:flex flex-row gap-2">
         <div className="flex flex-row rounded border as-2 border-gray-100 shadow-sm w-[300px] justify-self-end">
           <input

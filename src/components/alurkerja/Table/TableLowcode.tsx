@@ -14,6 +14,7 @@ import { IAlurkerjaTableLowcode } from '@/types'
 
 export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   const {
+    title,
     baseUrl,
     module,
     tableName,
@@ -93,6 +94,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   return !loading ? (
     <section className="px-4">
       <TableLayout
+        title={title}
         baseUrl={baseUrl}
         tableName={tableName}
         module={module}
