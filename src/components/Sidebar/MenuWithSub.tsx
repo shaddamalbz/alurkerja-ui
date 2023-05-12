@@ -15,7 +15,7 @@ const MenuWithSub: FC<{
     <>
       <div
         className={classNames(
-          'cursor-pointer font-semibold px-8 rounded-md flex items-center justify-between w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2 text-sm',
+          'cursor-pointer font-semibold px-8  rounded-md flex items-center justify-between w-full whitespace-nowrap gap-x-2 hover:text-white hover:bg-[#1B1B28] mb-2 text-sm',
           currentPathName === menu.href && 'text-white bg-[#1B1B28]'
         )}
         style={{ height: '40px' }}
@@ -25,7 +25,7 @@ const MenuWithSub: FC<{
           <span>{menu.icon ? menu.icon : <RxDotFilled />}</span>
           {!toggled && menu.label}
         </div>
-        {showSub ? <HiChevronUp /> : <HiChevronDown />}
+        {!toggled && showSub ? <HiChevronUp /> : <HiChevronDown />}
       </div>
       {showSub && menu.child && (
         <div className="px-4 text-sm">

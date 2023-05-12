@@ -45,8 +45,8 @@ const Sidebar: FC<SidenavProps> = ({
   return (
     <div
       className={classNames(
-        'h-screen sticky z-10 top-0 transition-[width] ease-in-out duration-200 bg-[#1E1E2D] text-[#A2A3B7] border-r border-gray-200 w-20 hidden sm:block',
-        !toggled && 'w-[270px]',
+        'h-screen sticky z-10 top-0 transition-[width] ease-in-out duration-200 bg-[#1E1E2D] text-[#A2A3B7] border-r border-gray-200  hidden sm:block',
+        !toggled ? 'w-[270px]' : 'w-20',
         className
       )}
       {...rest}

@@ -2,6 +2,7 @@ import { FC, Fragment } from 'react'
 import { MenuConfig } from '@/types'
 import Menu from './Menu'
 import MenuWithSub from './MenuWithSub'
+import classNames from 'classnames'
 
 interface ListMenuProps {
   menuConfig: MenuConfig[]
@@ -15,7 +16,14 @@ const ListMenu: FC<ListMenuProps> = ({ menuConfig, currentPathName, toggled }) =
       {menuConfig.map((menu, idx) => (
         <Fragment key={idx}>
           {menu.groupBy && (
-            <div className="mt-5 h-10 text-[#4c4e6f] font-semibold px-8 flex items-center">{menu.groupBy}</div>
+            <div
+              className={classNames(
+                'mt-5 w-full h-10 text-[#4c4e6f] font-semibold flex items-center',
+                toggled ? 'px-2 text-center justify-center' : 'px-8'
+              )}
+            >
+              {menu.groupBy}
+            </div>
           )}
           {!menu.child ? (
             <Menu menu={menu} toggled={toggled} currentPathName={currentPathName} />
