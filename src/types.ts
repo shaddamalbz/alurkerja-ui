@@ -208,6 +208,7 @@ export interface IAlurkerjaFormLowcode {
     field: [string, FieldProperties]
     setValue: UseFormSetValue<FieldValues>
     defaultField: JSX.Element
+    value: string | number | boolean
   }) => JSX.Element
   /**  handler success action*/
   onSuccess?: () => void

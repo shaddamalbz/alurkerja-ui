@@ -23,9 +23,11 @@ export const Default: Story = {
     tableName: 'pengurusan-rekod-aktiviti-pemohon',
   },
   render: (args) => {
-    const { formState, handleSubmit, control, setValue } = useForm()
+    const { formState, handleSubmit, control, setValue, watch } = useForm()
+
     return (
       <AlurkerjaForm
+        id={9}
         baseUrl={args.baseUrl}
         tableName={args.tableName}
         formState={formState}
@@ -33,13 +35,22 @@ export const Default: Story = {
         control={control}
         setValue={setValue}
         onSubmit={(data) => console.log(data)}
-        customField={({ field, setValue, defaultField }) => {
-          const fieldSpec = field[1]
-          if (fieldSpec.name === 'SENARAI_REKOD_AKTIVITI_ID') {
+        customField={({ field, setValue, defaultField, value }) => {
+          const fieldSpec: any = field[1]
+          if (fieldSpec.name === 'senarai_rekod_aktiviti_id') {
+            const option = fieldSpec.select_options.option
+            const parsedOption = Object.keys(option).map((label, value) => ({
+              label: label.replace('_', ' '),
+              value: value,
+            }))
+
+            const defaultValue = parsedOption.filter((option) => option.value === +value)
+
             return (
               <Select
-                options={[{ label: 'opsi1', value: 1 }]}
+                options={parsedOption}
                 onChange={(selected: any) => setValue(fieldSpec.name.toLowerCase(), selected.value)}
+                defaultValue={defaultValue[0]}
               />
             )
           }
