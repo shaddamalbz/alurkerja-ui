@@ -113,6 +113,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                             fieldSpec={fieldSpec}
                             name={fieldSpec.name.toLowerCase()}
                             setValue={setValue}
+                            defaultValue={detail?.[fieldSpec.name.toLowerCase()]}
                           />
                         ),
                       })
