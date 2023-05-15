@@ -29,6 +29,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     customCell,
     onClickEdit,
     customField,
+    textSubmitButton,
   } = props
 
   const [fieldKeyList, setFieldKeyList] = useState<string[]>()
@@ -221,6 +222,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                                 setRenderState?.((prev) => prev + 1)
                               }}
                               customField={customField}
+                              textSubmitButton={textSubmitButton}
                             />
                           )}
                         </Modal>

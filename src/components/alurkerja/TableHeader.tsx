@@ -37,6 +37,7 @@ interface TableHeaderProps {
     defaultField: JSX.Element
     value: string | number | boolean
   }) => JSX.Element
+  textSubmitButton?: string
 }
 
 const TableHeader: FC<TableHeaderProps> = ({
@@ -53,6 +54,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   fieldList,
   extraButton,
   customField,
+  textSubmitButton,
 }) => {
   const { handleSubmit, watch, setValue, formState, control, reset } = useForm()
 
@@ -147,6 +149,7 @@ const TableHeader: FC<TableHeaderProps> = ({
                           setRenderState?.((prev) => prev + 1)
                         }}
                         customField={customField}
+                        textSubmitButton={textSubmitButton}
                       />
                     )}
                   </Modal>

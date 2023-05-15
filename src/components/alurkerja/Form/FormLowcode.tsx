@@ -28,6 +28,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     onError,
     id,
     disabled,
+    textSubmitButton,
   } = props
 
   const { createSpec, editSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
@@ -131,7 +132,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               }
             })}
             <Button type="submit" loading={loadingSubmit}>
-              Submit
+              {textSubmitButton || 'Submit'}
             </Button>
           </>
         ) : (

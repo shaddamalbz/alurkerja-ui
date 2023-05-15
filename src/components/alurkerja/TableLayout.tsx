@@ -37,6 +37,7 @@ interface TableLayoutProps {
     defaultField: JSX.Element
     value: string | number | boolean
   }) => JSX.Element
+  textSubmitButton?: string
 }
 
 const TableLayout: FC<TableLayoutProps> = ({
@@ -57,6 +58,7 @@ const TableLayout: FC<TableLayoutProps> = ({
   setRenderState,
   headerElement,
   customField,
+  textSubmitButton,
 }) => {
   const { setValue } = useForm()
 
@@ -98,6 +100,7 @@ const TableLayout: FC<TableLayoutProps> = ({
           setFilter={setFilter}
           setRenderState={setRenderState}
           customField={customField}
+          textSubmitButton={textSubmitButton}
         />
       )}
       {children}

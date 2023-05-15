@@ -129,6 +129,7 @@ export interface TableLowcodeProps {
     defaultField: JSX.Element
     value: string | number | boolean
   }) => JSX.Element
+  textSubmitButton?: string
 }
 
 export interface PaginationProps {
@@ -201,6 +202,7 @@ export interface IAlurkerjaTableLowcode {
     defaultField: JSX.Element
     value: string | number | boolean
   }) => JSX.Element
+  textSubmitButton?: string
 }
 
 export interface IAlurkerjaFormLowcode {
@@ -238,6 +240,7 @@ export interface IAlurkerjaFormLowcode {
   id?: number
   /** to disabled form */
   disabled?: boolean
+  textSubmitButton?: string
 }
 
 /**
