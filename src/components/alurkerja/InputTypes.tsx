@@ -16,7 +16,7 @@ interface InputTypes {
 
 interface SelectedOption {
   label: string
-  value: string
+  value: string | number
 }
 
 const InputTypes = (props: InputTypes) => {
@@ -51,7 +51,7 @@ const InputTypes = (props: InputTypes) => {
 
   useEffect(() => {
     if (listOption) {
-      setSelectedOption(listOption.filter((option) => option.value === defaultValue)[0])
+      setSelectedOption(listOption.filter((option) => +option.value === +defaultValue)[0])
     }
   }, [listOption, defaultValue])
 
