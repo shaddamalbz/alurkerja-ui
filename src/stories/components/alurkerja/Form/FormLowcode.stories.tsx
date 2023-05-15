@@ -17,7 +17,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof AlurkerjaForm>
 
-export const Default: Story = {
+export const Base: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
     tableName: 'pengurusan-rekod-aktiviti-pemohon',
@@ -35,28 +35,6 @@ export const Default: Story = {
         control={control}
         setValue={setValue}
         onSubmit={(data) => console.log(data)}
-        customField={({ field, setValue, defaultField, value }) => {
-          const fieldSpec: any = field[1]
-          if (fieldSpec.name === 'senarai_rekod_aktiviti_id') {
-            const option = fieldSpec.select_options.option
-            const parsedOption = Object.keys(option).map((label, value) => ({
-              label: label.replace('_', ' '),
-              value: value,
-            }))
-            setValue(fieldSpec.name, value)
-
-            const defaultValue = parsedOption.filter((option) => option.value === +value)
-
-            return (
-              <Select
-                options={parsedOption}
-                onChange={(selected: any) => setValue(fieldSpec.name.toLowerCase(), selected.value)}
-                defaultValue={defaultValue[0]}
-              />
-            )
-          }
-          return defaultField
-        }}
       />
     )
   },
