@@ -13,7 +13,6 @@ export interface Select extends Props {
   size?: 'sm' | 'md' | 'lg'
   field?: any
   form?: any
-  defaultValue?: number | string
 }
 
 interface SelectedOption {
