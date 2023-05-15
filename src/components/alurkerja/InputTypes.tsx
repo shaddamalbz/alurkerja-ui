@@ -25,12 +25,16 @@ const InputTypes = (props: InputTypes) => {
   const [listOption, setListOption] = useState<SelectedOption[]>()
   const [selectedOption, setSelectedOption] = useState<SelectedOption>()
 
-  const getListOption = async () => {
+  const [loadingOptions, setLoadingOptions] = useState(false)
+
+  const getListOption = async (signal: AbortSignal) => {
     if (fieldSpec.select_options) {
       const { method, option_key, option_label, url } = fieldSpec.select_options
+      setLoadingOptions(true)
       const { data, status } = await axios({
         url: baseUrl + url,
         method: method,
+        signal,
       })
       if (status === 200) {
         const list = data.data.content
@@ -40,12 +44,18 @@ const InputTypes = (props: InputTypes) => {
         }))
         setListOption(parsedList)
       }
+      setLoadingOptions(false)
     }
   }
 
   useEffect(() => {
+    const abortController = new AbortController()
     if (fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT') {
-      getListOption()
+      const signal = abortController.signal
+      getListOption(signal)
+    }
+    return () => {
+      abortController.abort()
     }
   }, [fieldSpec.form_field_type])
 
@@ -84,10 +94,11 @@ const InputTypes = (props: InputTypes) => {
       )}
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
         <Select
+          isLoading={loadingOptions}
           options={listOption}
           onChange={(selected: any) => setValue(name, selected.value)}
           value={selectedOption}
-          isDisabled={disabled}
+          isDisabled={disabled || loadingOptions}
         />
       )}
     </>

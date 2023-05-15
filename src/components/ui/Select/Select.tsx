@@ -13,12 +13,7 @@ export interface Select extends Props {
   size?: 'sm' | 'md' | 'lg'
   field?: any
   form?: any
-  /** API endpoint */
-  listOptionSpec?: {
-    url: string
-    valueKey: string
-    labelKey: string
-  }
+  defaultValue?: number | string
 }
 
 interface SelectedOption {
@@ -63,9 +58,10 @@ const DefaultLoadingIndicator = ({ selectProps }: any) => {
 }
 
 const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
-  const { size, className, form, field, components, listOptionSpec, ...rest } = props
+  const { size, className, form, field, components, defaultValue, ...rest } = props
 
   const [listOption, setListOption] = useState<SelectedOption[]>()
+  const [selectedOption, setSelectedOption] = useState<SelectedOption>()
 
   let isInvalid: boolean | undefined = false
 
@@ -79,31 +75,6 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
   }
 
   const selectClass = classNames('select', className)
-
-  const getListOption = async () => {
-    if (listOptionSpec) {
-      const { status, data } = await axios({
-        url: listOptionSpec.url,
-        method: 'GET',
-      })
-
-      if (status === 200) {
-        const list = data.data.content
-
-        const { labelKey, valueKey } = listOptionSpec
-
-        const parsedList = list.map((item: any) => ({
-          label: item[labelKey],
-          value: item[valueKey],
-        }))
-        setListOption(parsedList)
-      }
-    }
-  }
-
-  useEffect(() => {
-    getListOption()
-  }, [])
 
   return (
     <ReactSelect
@@ -119,6 +90,7 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
         ...components,
       }}
       options={listOption}
+      value={selectedOption}
       {...field}
       {...rest}
     />

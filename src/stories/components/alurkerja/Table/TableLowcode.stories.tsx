@@ -78,7 +78,7 @@ export const CustomHeader: Story = {
 export const CustomTitle: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'jpn',
+    tableName: 'lkp-kadar',
     onClickCreate: undefined,
     onClickEdit: undefined,
     title: 'Custom Title',
