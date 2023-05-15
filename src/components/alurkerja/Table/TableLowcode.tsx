@@ -101,8 +101,8 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         tableName={tableName}
         module={module}
         tableSpec={tableSpec}
-        filter={filterBy}
-        setFilter={setFilterBy}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
         search={search}
         setSearch={setSearch}
         pagination={pagination}

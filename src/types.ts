@@ -95,41 +95,14 @@ export interface PaginationLowcode {
   total_page: number
 }
 
-export interface TableLowcodeProps {
-  baseUrl: string
-  tableName: string
-  module?: string
+export interface TableLowcodeProps extends IAlurkerjaTableLowcode {
   tableSpec: TableSpec | undefined
   tableData: { id: number; [x: string]: any }[] | undefined
   pagination: PaginationLowcode | undefined
-  setRenderState?: Dispatch<SetStateAction<number>>
   selectedAll: boolean
   setSelectedAll: Dispatch<SetStateAction<boolean>>
   selectedId?: number[]
   setSelectedId?: Dispatch<SetStateAction<number[]>>
-  customCell?: ({
-    name,
-    fields,
-    value,
-    defaultCell,
-  }: {
-    name: string
-    fields: { [x: string]: FieldProperties }
-    value: any
-    defaultCell: JSX.Element
-  }) => JSX.Element
-  onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
-  customField?: ({
-    field,
-    setValue,
-    defaultField,
-  }: {
-    field: [string, FieldProperties]
-    setValue: UseFormSetValue<FieldValues>
-    defaultField: JSX.Element
-    value: string | number | boolean
-  }) => JSX.Element
-  textSubmitButton?: string
 }
 
 export interface PaginationProps {
@@ -324,4 +297,15 @@ export interface MenuConfig {
   icon?: JSX.Element
   child?: MenuConfig[]
   groupBy?: string
+}
+
+export interface TableLayoutProps extends IAlurkerjaTableLowcode {
+  children: React.ReactNode
+  tableSpec: TableSpec | undefined
+  pagination: PaginationLowcode | undefined
+  pageConfig?: {
+    page: number
+    limit: number
+  }
+  extraButton?: () => JSX.Element | null
 }

@@ -1,44 +1,10 @@
 import { useState, useEffect, Dispatch, SetStateAction, FC } from 'react'
 import { useForm, UseFormSetValue, FieldValues } from 'react-hook-form'
-import { TableSpec, FieldProperties, PaginationLowcode } from '@/types'
+import { TableSpec, FieldProperties, PaginationLowcode, TableLayoutProps } from '@/types'
 
 // components
 import Pagination from '@/components/Pagination'
 import TableHeader from './TableHeader'
-
-interface TableLayoutProps {
-  title?: string
-  baseUrl: string
-  tableName: string
-  module?: string
-  children: React.ReactNode
-  tableSpec: TableSpec | undefined
-  filter?: { [x: string]: any }
-  setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
-  search?: string
-  setSearch?: Dispatch<SetStateAction<string | undefined>>
-  pagination: PaginationLowcode | undefined
-  pageConfig?: {
-    page: number
-    limit: number
-  }
-  setPageConfig?: Dispatch<SetStateAction<{ page: number; limit: number }>>
-  extraButton?: () => JSX.Element | null
-  onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  setRenderState?: Dispatch<SetStateAction<number>>
-  headerElement?: JSX.Element
-  customField?: ({
-    field,
-    setValue,
-    defaultField,
-  }: {
-    field: [string, FieldProperties]
-    setValue: UseFormSetValue<FieldValues>
-    defaultField: JSX.Element
-    value: string | number | boolean
-  }) => JSX.Element
-  textSubmitButton?: string
-}
 
 const TableLayout: FC<TableLayoutProps> = ({
   title,
@@ -47,8 +13,8 @@ const TableLayout: FC<TableLayoutProps> = ({
   module,
   children,
   tableSpec,
-  filter,
-  setFilter,
+  filterBy,
+  setFilterBy,
   setSearch,
   pagination,
   pageConfig,
@@ -73,13 +39,13 @@ const TableLayout: FC<TableLayoutProps> = ({
   }, [fields])
 
   useEffect(() => {
-    if (filter) {
-      const listFilter = Object.entries(filter)
+    if (filterBy) {
+      const listFilter = Object.entries(filterBy)
       listFilter.forEach(([key, value]) => {
         setValue(key, value)
       })
     }
-  }, [filter])
+  }, [filterBy])
 
   return (
     <div className="bg-white rounded">
@@ -92,12 +58,12 @@ const TableLayout: FC<TableLayoutProps> = ({
           tableName={tableName}
           tableSpec={tableSpec}
           fieldList={fieldList}
-          filter={filter}
+          filter={filterBy}
           setSearch={setSearch}
           extraButton={extraButton}
           module={module}
           onClickCreate={onClickCreate}
-          setFilter={setFilter}
+          setFilter={setFilterBy}
           setRenderState={setRenderState}
           customField={customField}
           textSubmitButton={textSubmitButton}
