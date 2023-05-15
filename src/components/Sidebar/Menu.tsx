@@ -17,7 +17,7 @@ const Menu: FC<{
         currentPathName === menu.href && 'text-white bg-[#1B1B28]'
       )}
     >
-      <div className={classNames('flex items-center h-full w-full gap-x-2', toggled && 'justify-center')}>
+      <div className="flex items-center h-full w-full gap-x-2">
         <span>{menu.icon ? menu.icon : <RxDotFilled />}</span>
 
         {!toggled && menu.label}

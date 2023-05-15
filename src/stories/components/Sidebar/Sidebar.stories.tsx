@@ -35,6 +35,11 @@ export const Default: Story = {
   render: (args) => {
     const [toogled, setToggled] = useState(false)
 
-    return <Sidebar toggled={toogled} setToggled={setToggled} menuConfig={args.menuConfig} />
+    return (
+      <div className="w-screen h-screen relative flex">
+        <Sidebar toggled={toogled} setToggled={setToggled} menuConfig={args.menuConfig} />
+        <div>tes</div>
+      </div>
+    )
   },
 }

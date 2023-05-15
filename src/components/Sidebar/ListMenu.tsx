@@ -15,15 +15,8 @@ const ListMenu: FC<ListMenuProps> = ({ menuConfig, currentPathName, toggled }) =
     <>
       {menuConfig.map((menu, idx) => (
         <Fragment key={idx}>
-          {menu.groupBy && (
-            <div
-              className={classNames(
-                'mt-5 w-full h-10 text-[#4c4e6f] font-semibold flex items-center',
-                toggled ? 'px-2 text-center justify-center' : 'px-8'
-              )}
-            >
-              {menu.groupBy}
-            </div>
+          {!toggled && menu.groupBy && (
+            <div className="mt-5 w-full h-10 text-[#4c4e6f] font-semibold flex items-center px-8">{menu.groupBy}</div>
           )}
           {!menu.child ? (
             <Menu menu={menu} toggled={toggled} currentPathName={currentPathName} />
