@@ -43,6 +43,7 @@ export const Default: Story = {
               label: label.replace('_', ' '),
               value: value,
             }))
+            setValue(fieldSpec.name, value)
 
             const defaultValue = parsedOption.filter((option) => option.value === +value)
 

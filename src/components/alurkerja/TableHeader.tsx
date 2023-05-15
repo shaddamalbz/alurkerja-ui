@@ -1,5 +1,5 @@
 import { Fragment, useState, Dispatch, SetStateAction, FC } from 'react'
-import { FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { HiOutlineMenu } from 'react-icons/hi'
 
@@ -27,6 +27,16 @@ interface TableHeaderProps {
   setRenderState?: Dispatch<SetStateAction<number>>
   fieldList: [string, FieldProperties][]
   extraButton?: () => JSX.Element | null
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
 }
 
 const TableHeader: FC<TableHeaderProps> = ({
@@ -42,6 +52,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   setFilter,
   fieldList,
   extraButton,
+  customField,
 }) => {
   const { handleSubmit, watch, setValue, formState, control, reset } = useForm()
 
@@ -135,6 +146,7 @@ const TableHeader: FC<TableHeaderProps> = ({
                           closeModal()
                           setRenderState?.((prev) => prev + 1)
                         }}
+                        customField={customField}
                       />
                     )}
                   </Modal>

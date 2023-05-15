@@ -119,6 +119,16 @@ export interface TableLowcodeProps {
     defaultCell: JSX.Element
   }) => JSX.Element
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
 }
 
 export interface PaginationProps {
@@ -181,6 +191,16 @@ export interface IAlurkerjaTableLowcode {
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
   /** trying to custom header table? use this*/
   headerElement?: JSX.Element
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
 }
 
 export interface IAlurkerjaFormLowcode {

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
@@ -32,6 +32,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     onClickCreate,
     onClickEdit,
     headerElement,
+    customField,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -110,6 +111,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         onClickCreate={onClickCreate}
         setRenderState={setRenderState}
         headerElement={headerElement}
+        customField={customField}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
@@ -127,6 +129,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
               setSelectedId={setSelectedRow}
               customCell={customCell}
               onClickEdit={onClickEdit}
+              customField={customField}
             />
           </div>
         ) : (

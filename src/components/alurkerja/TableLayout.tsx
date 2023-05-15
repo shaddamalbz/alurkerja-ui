@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction, FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, UseFormSetValue, FieldValues } from 'react-hook-form'
 import { TableSpec, FieldProperties, PaginationLowcode } from '@/types'
 
 // components
@@ -27,6 +27,16 @@ interface TableLayoutProps {
   onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   setRenderState?: Dispatch<SetStateAction<number>>
   headerElement?: JSX.Element
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
 }
 
 const TableLayout: FC<TableLayoutProps> = ({
@@ -46,6 +56,7 @@ const TableLayout: FC<TableLayoutProps> = ({
   onClickCreate,
   setRenderState,
   headerElement,
+  customField,
 }) => {
   const { setValue } = useForm()
 
@@ -86,6 +97,7 @@ const TableLayout: FC<TableLayoutProps> = ({
           onClickCreate={onClickCreate}
           setFilter={setFilter}
           setRenderState={setRenderState}
+          customField={customField}
         />
       )}
       {children}
