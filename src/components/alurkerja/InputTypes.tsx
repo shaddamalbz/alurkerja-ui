@@ -73,25 +73,19 @@ const InputTypes = (props: InputTypes) => {
     <>
       {(fieldSpec.form_field_type === 'INPUT_TEXT' ||
         fieldSpec.form_field_type === 'INPUT_NUMBER' ||
-        fieldSpec.form_field_type === 'INPUT_DATETIME-LOCAL') && (
+        fieldSpec.form_field_type === 'INPUT_DATETIME-LOCAL' ||
+        fieldSpec.form_field_type === 'INPUT_TEXTAREA' ||
+        fieldSpec.form_field_type === 'INPUT_DATE-LOCAL') && (
         <Input
           placeholder={name}
           type={fieldSpec.type}
           onChange={(e) => setValue(name, e.target.value)}
           defaultValue={defaultValue}
           disabled={disabled}
+          textArea={fieldSpec.form_field_type === 'INPUT_TEXTAREA'}
         />
       )}
-      {fieldSpec.form_field_type === 'INPUT_TEXTAREA' && (
-        <Input
-          textArea
-          placeholder={name}
-          type={fieldSpec.type}
-          onChange={(e) => setValue(name, e.target.value)}
-          defaultValue={defaultValue}
-          disabled={disabled}
-        />
-      )}
+
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
         <Select
           isLoading={loadingOptions}
