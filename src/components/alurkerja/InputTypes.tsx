@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import { FieldProperties } from '@/types'
 import { Input, Select } from '@/components/ui'
+import moment from 'moment'
 
 interface InputTypes {
   baseUrl: string
@@ -80,7 +81,7 @@ const InputTypes = (props: InputTypes) => {
           placeholder={name}
           type={fieldSpec.type}
           onChange={(e) => setValue(name, e.target.value)}
-          defaultValue={defaultValue}
+          defaultValue={fieldSpec.type === 'date' ? moment(defaultValue).format('YYYY-MM-DD').toString() : defaultValue}
           disabled={disabled}
           textArea={fieldSpec.form_field_type === 'INPUT_TEXTAREA'}
         />
