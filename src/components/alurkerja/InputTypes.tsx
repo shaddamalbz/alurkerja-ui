@@ -75,7 +75,7 @@ const InputTypes = (props: InputTypes) => {
         fieldSpec.form_field_type === 'INPUT_NUMBER' ||
         fieldSpec.form_field_type === 'INPUT_DATETIME-LOCAL' ||
         fieldSpec.form_field_type === 'INPUT_TEXTAREA' ||
-        fieldSpec.form_field_type === 'INPUT_DATE-LOCAL') && (
+        fieldSpec.form_field_type === 'INPUT_DATE') && (
         <Input
           placeholder={name}
           type={fieldSpec.type}
