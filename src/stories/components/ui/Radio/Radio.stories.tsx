@@ -20,8 +20,8 @@ export const Default: Story = {
   args: {
     name: 'radio-1',
     listOption: [
-      { label: 'radio1', name: 'radio1', value: 1 },
-      { label: 'radio2', name: 'radio2', value: 2 },
+      { label: 'radio1', key: 1 },
+      { label: 'radio2', key: 2 },
     ],
   },
 }
@@ -30,8 +30,8 @@ export const OnChange: Story = {
   args: {
     name: 'radio-2',
     listOption: [
-      { label: 'radio1', name: 'radio1', value: 1 },
-      { label: 'radio2', name: 'radio2', value: 2 },
+      { label: 'radio1', key: 1 },
+      { label: 'radio2', key: 2 },
     ],
   },
   render: (args) => {

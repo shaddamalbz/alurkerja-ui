@@ -3,7 +3,7 @@ import { FieldValues, UseFormSetValue } from 'react-hook-form'
 import axios from 'axios'
 
 import { FieldProperties } from '@/types'
-import { Input, Select } from '@/components/ui'
+import { Input, Radio, Select } from '@/components/ui'
 import moment from 'moment'
 
 interface InputTypes {
@@ -86,7 +86,9 @@ const InputTypes = (props: InputTypes) => {
           textArea={fieldSpec.form_field_type === 'INPUT_TEXTAREA'}
         />
       )}
-
+      {fieldSpec.form_field_type === 'INPUT_RADIO' && (
+        <Radio name={name} listOption={fieldSpec.select_options?.options} />
+      )}
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
         <Select
           isLoading={loadingOptions}

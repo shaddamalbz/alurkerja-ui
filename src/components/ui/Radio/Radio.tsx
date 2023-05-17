@@ -13,9 +13,8 @@ interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
 }
 
 interface ListOption {
-  name: string
   label: string
-  value: string | number
+  key: string | number
 }
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>((props, ref) => {
@@ -30,11 +29,11 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, ref) => {
             ref={ref}
             type="radio"
             name={name}
-            value={option.value}
+            value={option.key}
             onChange={(e) => onChange?.(e.target.value)}
             {...rest}
           />
-          <label htmlFor={option.name}>{option.label}</label>
+          <label htmlFor={option.label}>{option.label}</label>
         </div>
       ))}
     </fieldset>

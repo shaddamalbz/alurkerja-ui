@@ -16,7 +16,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof TableLowcode>
 
-export const Default: Story = {
+export const Base: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
     tableName: 'jpn',
@@ -51,6 +51,7 @@ export const CustomHeader: Story = {
     tableName: 'jpn',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    headerElement: <>Custom</>,
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
@@ -69,7 +70,6 @@ export const CustomHeader: Story = {
         setFilterBy={setFilterBy}
         search={search}
         setSearch={setSearch}
-        headerElement={<>Custom</>}
       />
     )
   },

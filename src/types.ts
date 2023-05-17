@@ -71,6 +71,7 @@ export interface FieldProperties {
     option_key: string
     option_label: string
     url: string
+    options: { key: string; label: string }[]
   }
 }
 

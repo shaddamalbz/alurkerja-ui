@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import { AlurkerjaForm } from '@/components/alurkerja'
-import { Select } from '@/components/ui'
 
 const meta = {
   title: 'Components/Alurkerja/FormLowcode',
@@ -20,16 +19,14 @@ type Story = StoryObj<typeof AlurkerjaForm>
 export const Base: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'pengurusan-rekod-aktiviti-pemohon',
+    tableName: 'rekod-status-prestasi',
   },
   render: (args) => {
     const { formState, handleSubmit, control, setValue, watch } = useForm()
 
     return (
       <AlurkerjaForm
-        id={9}
-        baseUrl={args.baseUrl}
-        tableName={args.tableName}
+        {...args}
         formState={formState}
         handleSubmit={handleSubmit}
         control={control}

@@ -41,3 +41,58 @@ export const customPrefix: Story = {
     return <Input {...args} />
   },
 }
+
+export const Number: Story = {
+  args: {
+    type: 'number',
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
+
+export const TextArea: Story = {
+  args: {
+    type: 'text',
+    textArea: true,
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
+
+export const Email: Story = {
+  args: {
+    type: 'email',
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
+
+export const Password: Story = {
+  args: {
+    type: 'password',
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
+
+export const Date: Story = {
+  args: {
+    type: 'date',
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
+
+export const DatetimeLocal: Story = {
+  args: {
+    type: 'datetime-local',
+  },
+  render: (args) => {
+    return <Input {...args} />
+  },
+}
