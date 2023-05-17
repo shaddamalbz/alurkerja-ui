@@ -1,0 +1,146 @@
+import { Meta, Primary, Controls, Story, Source } from '@storybook/blocks'
+import * as TableLowcodeStories from './TableLowcode.stories'
+
+<Meta of={TableLowcodeStories} />
+
+# Base
+
+with pagination, refresh after action, search & filter
+
+<Story of={TableLowcodeStories.Base} />
+
+```tsx
+import { TableLowcode } from 'alurkerja-ui'
+import { useState } from 'react'
+
+const Halaman = () => {
+  const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+  const [renderState, setRenderState] = useState(0)
+  const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+  const [search, setSearch] = useState<string>()
+
+  return (
+    <TableLowcode
+      baseUrl="https://kpm-sys.merapi.javan.id"
+      tableName="jpn"
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+    />
+  )
+}
+```
+
+# Customize
+
+## Custom Header
+
+<Story of={TableLowcodeStories.CustomHeader} />
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://kpm-sys.merapi.javan.id"
+      tableName="jpn"
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      customHeader={<>Custom Header</>}
+    />
+  )
+} 
+```
+
+## Custom Title
+<Story of={TableLowcodeStories.CustomTitle} />
+
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://kpm-sys.merapi.javan.id"
+      tableName="jpn"
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      title='Custom TItle'
+    />
+  )
+} 
+```
+
+## Custom Filter Field
+<Story of={TableLowcodeStories.CustomFilterField} />
+
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://kpm-sys.merapi.javan.id"
+      tableName="jpn"
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      customFilterField={({ field, defaultField }) => {
+        const [name, spec] = field
+
+        if (name === 'nama') {
+          return <div>Custom</div>
+        }
+        return defaultField
+      }}
+    />
+  )
+} 
+```
+
+# Props
+
+<Controls />
