@@ -163,19 +163,31 @@ const TableLowcode = (props: TableLowcodeProps) => {
                 )}
                 {tableSpec &&
                   fieldKeyList?.map((key, idx) => {
+                    const nestedSpec = {
+                      valueKey: tableSpec.fields[key].table_value_mapping?.value,
+                      dataKey: tableSpec.fields[key].table_value_mapping?.relation,
+                    }
+
                     const defaultCell = (
                       <td
                         className={classNames(
-                          tableSpec.fields[key]?.type === 'number' || tableSpec.fields[key]?.type === 'datetime-local'
-                            ? 'text-center'
-                            : '',
+                          tableSpec.fields[key]?.type === 'number' ||
+                            (tableSpec.fields[key]?.type === 'datetime-local' && 'text-center'),
                           'px-3 text-black py-3'
                         )}
                         key={idx}
                       >
-                        {parsedData(getValueByPath(row, key.toLowerCase()), tableSpec.fields[key]?.type)}
+                        {tableSpec.fields[key].table_value_mapping
+                          ? nestedSpec.dataKey &&
+                            nestedSpec.valueKey &&
+                            parsedData(
+                              getValueByPath(row[nestedSpec.dataKey], nestedSpec.valueKey),
+                              tableSpec.fields[key]?.type
+                            )
+                          : parsedData(getValueByPath(row, key.toLowerCase()), tableSpec.fields[key]?.type)}
                       </td>
                     )
+
                     return (
                       <Fragment key={idx}>
                         {!tableSpec.fields[key]?.is_hidden_in_list && (
@@ -184,7 +196,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                               ? customCell({
                                   name: key,
                                   fields: tableSpec.fields,
-                                  value: row[key],
+                                  value: !nestedSpec.dataKey ? row[key] : row[nestedSpec.dataKey],
                                   defaultCell: defaultCell,
                                 })
                               : defaultCell}

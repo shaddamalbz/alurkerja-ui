@@ -73,6 +73,12 @@ export interface FieldProperties {
     url: string
     options: { key: string; label: string }[]
   }
+  table_value_mapping?: {
+    name: string
+    relation: string
+    type: string
+    value: string
+  }
 }
 
 export interface PaginationLowcode {

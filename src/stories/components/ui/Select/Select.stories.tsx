@@ -36,18 +36,17 @@ export const DefaultValue: Story = {
 }
 
 export const onChange: Story = {
+  args: {
+    options: [
+      { label: 'label1', value: 1 },
+      { label: 'label2', value: 2 },
+    ],
+    onChange: (selected: any) => console.log(selected.value, typeof selected.value),
+  },
   render: (args) => {
-    const [value, setValue] = useState()
     return (
       <>
-        <Select
-          options={[
-            { label: 'label1', value: 1 },
-            { label: 'label2', value: 2 },
-          ]}
-          onChange={(selected: any) => setValue(selected.value)}
-        />
-        {value}
+        <Select {...args} />
       </>
     )
   },
