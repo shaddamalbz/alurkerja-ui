@@ -183,6 +183,15 @@ export interface IAlurkerjaTableLowcode {
     value: string | number | boolean
   }) => JSX.Element
   textSubmitButton?: string
+  customFilterField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+  }) => JSX.Element
 }
 
 export interface IAlurkerjaFormLowcode {
@@ -306,13 +315,90 @@ export interface MenuConfig {
   groupBy?: string
 }
 
-export interface TableLayoutProps extends IAlurkerjaTableLowcode {
+export interface TableLayoutProps {
+  /** trying to custom title instead using tableName? use this */
+  title?: string
+  /** base API url (lowcode spec) */
+  baseUrl: string
+  /**  table name, will be added in base url for fetching spec & data */
+  tableName: string
+  module?: string
+  /**  setter state for refeching data*/
+  setRenderState?: Dispatch<SetStateAction<number>>
+  /**  state to store filter data*/
+  filterBy?: { [x: string]: any }
+  /**  setter for set filter data*/
+  setFilterBy?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
+  /**  state for store current searching data*/
+  search?: string
+  /**  setter for set current searching data*/
+  setSearch?: Dispatch<SetStateAction<string | undefined>>
+  /**  state to store page config*/
+  pageConfig?: { limit: number; page: number }
+  /**  setter to set page config*/
+  setPageConfig?: Dispatch<SetStateAction<{ limit: number; page: number }>>
+
+  /**  will be trigger when create button clicked*/
+  onClickCreate?: () => void
+  /** trying to custom header table? use this*/
+  headerElement?: JSX.Element
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
+  textSubmitButton?: string
   children: React.ReactNode
   tableSpec: TableSpec | undefined
   pagination: PaginationLowcode | undefined
-  pageConfig?: {
-    page: number
-    limit: number
-  }
   extraButton?: () => JSX.Element | null
+  customFilterField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+  }) => JSX.Element
+}
+
+export interface TableHeaderProps {
+  title?: string
+  baseUrl: string
+  tableName: string
+  module?: string
+  tableSpec: TableSpec | undefined
+  filter?: { [x: string]: any }
+  setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
+  setSearch?: Dispatch<SetStateAction<string | undefined>>
+  onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  setRenderState?: Dispatch<SetStateAction<number>>
+  fieldList: [string, FieldProperties][]
+  extraButton?: () => JSX.Element | null
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
+  textSubmitButton?: string
+  customFilterField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+  }) => JSX.Element
 }

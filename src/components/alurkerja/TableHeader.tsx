@@ -3,7 +3,7 @@ import { FieldValues, useForm, UseFormSetValue } from 'react-hook-form'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { HiOutlineMenu } from 'react-icons/hi'
 
-import { TableSpec, HeaderAction, FieldProperties } from '@/types'
+import { HeaderAction, FieldProperties, TableHeaderProps } from '@/types'
 import { FilterIcon } from '@/assets/icons'
 
 // components
@@ -13,32 +13,7 @@ import Badge from '@/components/ui/Badge'
 import Modal from '@/components/ui/Modal'
 
 import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
-
-interface TableHeaderProps {
-  title?: string
-  baseUrl: string
-  tableName: string
-  module?: string
-  tableSpec: TableSpec | undefined
-  filter?: { [x: string]: any }
-  setFilter?: Dispatch<SetStateAction<{ [x: string]: any } | undefined>>
-  setSearch?: Dispatch<SetStateAction<string | undefined>>
-  onClickCreate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  setRenderState?: Dispatch<SetStateAction<number>>
-  fieldList: [string, FieldProperties][]
-  extraButton?: () => JSX.Element | null
-  customField?: ({
-    field,
-    setValue,
-    defaultField,
-  }: {
-    field: [string, FieldProperties]
-    setValue: UseFormSetValue<FieldValues>
-    defaultField: JSX.Element
-    value: string | number | boolean
-  }) => JSX.Element
-  textSubmitButton?: string
-}
+import InputTypes from './InputTypes'
 
 const TableHeader: FC<TableHeaderProps> = ({
   title,
@@ -55,6 +30,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   extraButton,
   customField,
   textSubmitButton,
+  customFilterField,
 }) => {
   const { handleSubmit, watch, setValue, formState, control, reset } = useForm()
 
@@ -69,7 +45,29 @@ const TableHeader: FC<TableHeaderProps> = ({
           return (
             <div key={idx}>
               <label htmlFor={key}>{fieldSpec.label}</label>
-              <Input placeholder={key} onChange={(e) => setValue(key, e.target.value)} defaultValue={watch(key)} />
+              {customFilterField ? (
+                customFilterField({
+                  field,
+                  setValue,
+                  defaultField: (
+                    <InputTypes
+                      baseUrl={baseUrl}
+                      fieldSpec={fieldSpec}
+                      name={fieldSpec.name}
+                      setValue={setValue}
+                      defaultValue={watch(key)}
+                    />
+                  ),
+                })
+              ) : (
+                <InputTypes
+                  baseUrl={baseUrl}
+                  fieldSpec={fieldSpec}
+                  name={fieldSpec.name}
+                  setValue={setValue}
+                  defaultValue={watch(key)}
+                />
+              )}
             </div>
           )
         }

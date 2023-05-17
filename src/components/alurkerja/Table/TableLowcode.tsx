@@ -34,6 +34,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     headerElement,
     customField,
     textSubmitButton,
+    customFilterField,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -114,6 +115,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         headerElement={headerElement}
         customField={customField}
         textSubmitButton={textSubmitButton}
+        customFilterField={customFilterField}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">

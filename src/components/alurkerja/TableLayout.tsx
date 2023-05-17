@@ -1,6 +1,6 @@
-import { useState, useEffect, Dispatch, SetStateAction, FC } from 'react'
-import { useForm, UseFormSetValue, FieldValues } from 'react-hook-form'
-import { TableSpec, FieldProperties, PaginationLowcode, TableLayoutProps } from '@/types'
+import { useState, useEffect, FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { FieldProperties, TableLayoutProps } from '@/types'
 
 // components
 import Pagination from '@/components/Pagination'
@@ -25,6 +25,7 @@ const TableLayout: FC<TableLayoutProps> = ({
   headerElement,
   customField,
   textSubmitButton,
+  customFilterField,
 }) => {
   const { setValue } = useForm()
 
@@ -67,6 +68,7 @@ const TableLayout: FC<TableLayoutProps> = ({
           setRenderState={setRenderState}
           customField={customField}
           textSubmitButton={textSubmitButton}
+          customFilterField={customFilterField}
         />
       )}
       {children}

@@ -133,3 +133,45 @@ export const HasRelation: Story = {
     )
   },
 }
+
+export const CustomFilterField: Story = {
+  args: {
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'jpn',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    customFilterField: ({ field, defaultField }) => {
+      const [name, spec] = field
+
+      if (name === 'nama') {
+        return <div>Custom</div>
+      }
+      return defaultField
+    },
+  },
+  parameters: {
+    docs: {
+      source: { language: 'tsx' },
+    },
+  },
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}
