@@ -18,9 +18,10 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    name: 'Checkbox',
     listOption: [
-      { name: 'option1', label: 'option 1', value: 1 },
-      { name: 'option2', label: 'option 2', value: 2 },
+      {  label: 'option 1', value: 1 },
+      {  label: 'option 2', value: 2 },
     ],
     onChange: (value) => console.log(value),
   },

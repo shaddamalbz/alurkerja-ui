@@ -2,11 +2,11 @@ import React, { FC, useContext, useEffect, useState } from 'react'
 import { FaTrash, FaFileImage, FaUpload } from 'react-icons/fa'
 import { FileUploader } from 'react-drag-drop-files'
 import _ from 'underscore'
+import Swal from 'sweetalert2'
 
 // utils
 import { toKiloByte } from '@/utils'
-import Swal from 'sweetalert2'
-import axios from 'axios'
+import { AuthContext } from '@/context'
 
 interface DirectUploadProps {
   baseUrl: string
@@ -30,8 +30,9 @@ const DirectUpload: FC<DirectUploadProps> = ({
   allowedExtension = ['png', 'jpeg'],
   onSuccess,
 }) => {
-  const [uploadedFiles, setUploadedFiles] = useState<any[]>([])
+  const axiosInstance = useContext(AuthContext)
 
+  const [uploadedFiles, setUploadedFiles] = useState<any[]>([])
   const [uploading, setUploading] = useState<boolean>(false)
   const [info, setInfo] = useState<string>()
 
@@ -62,7 +63,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
 
     setUploading(true)
 
-    axios
+    axiosInstance
       .post(baseUrl + service.uploader, myFormData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })

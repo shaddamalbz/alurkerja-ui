@@ -28,10 +28,10 @@ export const Default: Story = {
 export const DefaultValue: Story = {
   args: {
     options: [
-      { label: 'label1', value: 1 },
-      { label: 'label2', value: 2 },
+      { label: 'Penawaran', value: 0 },
+      { label: 'Rayuan', value: 1 },
     ],
-    defaultValue: { label: 'label2', value: 2 },
+    value: { label: 'Penawaran', value: 0 },
   },
 }
 

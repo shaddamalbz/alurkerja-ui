@@ -1,6 +1,6 @@
-import axios from 'axios'
 import classNames from 'classnames'
-import { forwardRef, useState, useEffect, useCallback, useMemo } from 'react'
+import { forwardRef, useState, useEffect, useCallback, useMemo, useContext } from 'react'
+import { AuthContext } from '@/context'
 
 interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   listOptionWithAPI?: {
@@ -10,23 +10,26 @@ interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
     labelKey: string
   }
   listOption?: ListOption[]
-  onChange?: (value: { [x: string]: string | number | boolean }) => void
+  onChange?: (value: (string | number)[] | null) => void
 }
 
 interface ListOption {
-  name: string
   label: string
-  value: string | number | boolean
+  value: string | number
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
   const { listOption, listOptionWithAPI, className, onChange, ...rest } = props
+  const axiosInstance = useContext(AuthContext)
 
-  const [value, setValue] = useState<{ [x: string]: string | number | boolean }>()
+  const [value, setValue] = useState<(string | number)[]>()
   const [optionsFromAPI, setOptionFromAPI] = useState<ListOption[]>()
 
   useEffect(() => {
     if (value) {
+      if (value.length === 0) {
+        onChange?.(null)
+      }
       onChange?.(value)
     }
   }, [value])
@@ -34,7 +37,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
   const getData = useCallback(async () => {
     if (listOptionWithAPI) {
       const { labelKey, nameKey, url, valueKey } = listOptionWithAPI
-      const { status, data } = await axios.get(url)
+      const { status, data } = await axiosInstance.get(url)
       if (status === 200) {
         const result = data.data.content.map((item: any) => {
           return { name: item[nameKey], label: item[labelKey], value: item[valueKey] }
@@ -68,19 +71,19 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
             )}
             onChange={(e) =>
               setValue((prev) => {
-                if (prev) {
-                  if (!e.target.checked) {
-                    delete prev[option.name]
-                    return { ...prev }
+                if (e.target.checked) {
+                  if (prev) {
+                    return [...prev, option.value]
                   }
-                  return { ...prev, [option.name]: option.value }
+                  return [option.value]
+                } else {
+                  return prev?.filter((value) => value !== option.value)
                 }
-                return { [option.name]: option.value }
               })
             }
             {...rest}
           />
-          <label htmlFor={option.name}>{option.label}</label>
+          <span>{option.label}</span>
         </div>
       ))}
     </div>

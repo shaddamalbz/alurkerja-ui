@@ -1,17 +1,19 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState, useContext } from 'react'
 import { Table as TableView } from '@/components/Table'
 import PaginationView from '@/components/Pagination'
 import { IALurkerjaTable, Pagination } from '@/types'
-import axios from 'axios'
+import { AuthContext } from '@/context'
 import _ from 'underscore'
 
 const Table: FC<IALurkerjaTable> = ({ spec, url, pageConfig, setPageConfig }) => {
+  const axiosInstance = useContext(AuthContext)
+
   const [data, setData] = useState()
   const [pagination, setPagination] = useState<Pagination>()
 
   const getData = useCallback(
     ({ signal }: { signal: AbortSignal }) => {
-      axios
+      axiosInstance
         .get(url, {
           signal,
           params: {

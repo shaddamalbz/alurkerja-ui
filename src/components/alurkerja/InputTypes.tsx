@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect } from 'react'
 import { FieldValues, UseFormSetValue } from 'react-hook-form'
-import axios from 'axios'
 
 import { FieldProperties } from '@/types'
-import { Input, Radio, Select } from '@/components/ui'
+import { AuthContext } from '@/context'
+import { Checkbox, Input, Radio, Select, Switch } from '@/components/ui'
 import moment from 'moment'
 
 interface InputTypes {
@@ -13,6 +13,7 @@ interface InputTypes {
   setValue: UseFormSetValue<FieldValues>
   defaultValue?: any
   disabled?: boolean
+  asDetail?: boolean
 }
 
 interface SelectedOption {
@@ -21,7 +22,8 @@ interface SelectedOption {
 }
 
 const InputTypes = (props: InputTypes) => {
-  const { fieldSpec, name, setValue, defaultValue, disabled, baseUrl } = props
+  const { fieldSpec, name, setValue, defaultValue, disabled, baseUrl, asDetail } = props
+  const axiosInstance = useContext(AuthContext)
 
   const [listOption, setListOption] = useState<SelectedOption[]>()
   const [selectedOption, setSelectedOption] = useState<SelectedOption>()
@@ -32,7 +34,7 @@ const InputTypes = (props: InputTypes) => {
     if (fieldSpec.select_options) {
       const { method, option_key, option_label, url } = fieldSpec.select_options
       setLoadingOptions(true)
-      const { data, status } = await axios({
+      const { data, status } = await axiosInstance({
         url: baseUrl + url,
         method: method,
         signal,
@@ -70,6 +72,10 @@ const InputTypes = (props: InputTypes) => {
     setValue(name, defaultValue)
   }, [defaultValue])
 
+  if (asDetail) {
+    return <div>{defaultValue}</div>
+  }
+
   return (
     <>
       {(fieldSpec.form_field_type === 'INPUT_TEXT' ||
@@ -88,6 +94,16 @@ const InputTypes = (props: InputTypes) => {
       )}
       {fieldSpec.form_field_type === 'INPUT_RADIO' && (
         <Radio name={name} listOption={fieldSpec.select_options?.options} />
+      )}
+      {fieldSpec.form_field_type === 'INPUT_CHECKBOX' && <Checkbox name={name} />}
+      {fieldSpec.form_field_type === 'INPUT_SWITCH' && (
+        <Switch
+          options={[
+            { label: 'Ya', value: true },
+            { label: 'Tidak', value: false },
+          ]}
+          onChange={(value) => setValue(name, value)}
+        />
       )}
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
         <Select

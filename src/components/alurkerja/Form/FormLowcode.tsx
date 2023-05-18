@@ -1,10 +1,10 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useContext } from 'react'
 import { FieldValues } from 'react-hook-form'
 import Swal from 'sweetalert2'
-import axios from 'axios'
 
 import getTableSpec from '@/api/getTableSpec'
 import { useFormSpec } from '@/hooks'
+import { AuthContext } from '@/context'
 import { FieldProperties, IAlurkerjaFormLowcode } from '@/types'
 
 // components
@@ -28,8 +28,10 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     onError,
     id,
     disabled,
+    asDetail,
     textSubmitButton,
   } = props
+  const axiosInstance = useContext(AuthContext)
 
   const { createSpec, editSpec, fieldList } = useFormSpec({ baseUrl, tableName, module })
   const { tableSpec, loading: onFetching } = getTableSpec(baseUrl, tableName, module)
@@ -45,7 +47,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
       if (id && editSpec) {
         const { path, method } = editSpec
         try {
-          const response = await axios(baseUrl + path.toLowerCase().replace('{id}', id.toString()), {
+          const response = await axiosInstance(baseUrl + path.toLowerCase().replace('{id}', id.toString()), {
             method: method,
             data: data,
           })
@@ -65,7 +67,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         if (createSpec) {
           const { path, method } = createSpec
           try {
-            const response = await axios(baseUrl + path.toLowerCase(), { method: method, data: data })
+            const response = await axiosInstance(baseUrl + path.toLowerCase(), { method: method, data: data })
             if (response.status === 201) {
               Swal.fire({
                 icon: 'success',
@@ -125,15 +127,22 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                         name={fieldSpec.name.toLowerCase()}
                         setValue={setValue}
                         defaultValue={detail?.[fieldSpec.name.toLowerCase()]}
+                        disabled={disabled}
+                        asDetail={asDetail}
                       />
                     )}
                   </InputLayout>
                 )
               }
             })}
-            <Button type="submit" loading={loadingSubmit}>
-              {textSubmitButton || 'Submit'}
-            </Button>
+            <div className="w-fit ml-auto flex gap-4">
+              <Button>Kembali</Button>
+              {!asDetail && (
+                <Button type="submit" loading={loadingSubmit} disabled={loadingSubmit}>
+                  {textSubmitButton || 'Submit'}
+                </Button>
+              )}
+            </div>
           </>
         ) : (
           <div className="space-y-4">

@@ -230,6 +230,7 @@ export interface IAlurkerjaFormLowcode {
   /** to disabled form */
   disabled?: boolean
   textSubmitButton?: string
+  asDetail?: boolean
 }
 
 /**
@@ -401,4 +402,12 @@ export interface TableHeaderProps {
     setValue: UseFormSetValue<FieldValues>
     defaultField: JSX.Element
   }) => JSX.Element
+}
+
+export interface SelectBoolean {
+  options: any[]
+  /** callback to get value */
+  onChange?: (value: boolean | undefined) => void
+  /** props to set defaultvalue */
+  defaultValue?: boolean
 }

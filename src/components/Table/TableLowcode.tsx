@@ -1,8 +1,7 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
-import axios from 'axios'
 import classNames from 'classnames'
 import _ from 'underscore'
 import moment from 'moment'
@@ -11,6 +10,7 @@ import { TableLowcodeProps, FieldActionProperties } from '@/types'
 import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
 import { getValueByPath } from '@/utils'
+import { AuthContext } from '@/context'
 import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
 
 const TableLowcode = (props: TableLowcodeProps) => {
@@ -31,6 +31,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     customField,
     textSubmitButton,
   } = props
+  const axiosInstance = useContext(AuthContext)
 
   const [fieldKeyList, setFieldKeyList] = useState<string[]>()
 
@@ -54,7 +55,10 @@ const TableLowcode = (props: TableLowcodeProps) => {
           confirmButtonText: confirm.confirm_text,
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const res = await axios({ method: actionSpec.method, url: baseUrl + path.replace('{id}', id.toString()) })
+            const res = await axiosInstance({
+              method: actionSpec.method,
+              url: baseUrl + path.replace('{id}', id.toString()),
+            })
             if (res.status === 200) {
               Swal.fire({
                 icon: 'success',
@@ -208,6 +212,30 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                 <td className="border-b border-gray-200 py-3">
                   <div className="flex flex-row items-center justify-center gap-x-2">
+                    <Modal
+                      triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
+                      key={idx}
+                    >
+                      {({ closeModal }) => (
+                        <FormLowcode
+                          asDetail
+                          id={row.id}
+                          module={module}
+                          baseUrl={baseUrl}
+                          tableName={tableName}
+                          formState={formState}
+                          handleSubmit={handleSubmit}
+                          control={control}
+                          setValue={setValue}
+                          onSuccess={() => {
+                            closeModal()
+                            setRenderState?.((prev) => prev + 1)
+                          }}
+                          customField={customField}
+                          textSubmitButton={textSubmitButton}
+                        />
+                      )}
+                    </Modal>
                     {tableSpec?.field_action.map((action, idx) => {
                       const ButtonAction = () => (
                         <Button

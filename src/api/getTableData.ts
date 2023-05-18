@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import _ from 'underscore'
-import axios from 'axios'
 
 import { PaginationLowcode } from '@/types'
+import { AuthContext } from '@/context'
 
 interface GetTableData {
   baseUrl: string
@@ -16,6 +16,8 @@ interface GetTableData {
 }
 
 const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig, module }: GetTableData) => {
+  const axiosInstance = useContext(AuthContext)
+
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
   const [detail, setDetail] = useState<{ [x: string]: any }>()
   const [pagination, setPagination] = useState<PaginationLowcode>()
@@ -68,7 +70,7 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
       }
     }
 
-    const { status, data } = await axios({ url: url, method: 'get' })
+    const { status, data } = await axiosInstance({ url: url, method: 'get' })
     if (status === 200) {
       const result = data.data
       if (id) {

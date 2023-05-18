@@ -8,7 +8,7 @@ import { HiCheck, HiChevronDown, HiX } from 'react-icons/hi'
 import Spinner from '../Spinner'
 
 import '@/assets/scss/select.scss'
-import axios from 'axios'
+
 export interface Select extends Props {
   size?: 'sm' | 'md' | 'lg'
   field?: any

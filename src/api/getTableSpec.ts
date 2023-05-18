@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect, useContext } from 'react'
+
 import { TableSpec } from '@/types'
+import { AuthContext } from '@/context'
 
 const getTableSpec = (baseUrl: string, table: string, module?: string) => {
+  const axiosInstance = useContext(AuthContext)
+
   const [tableSpec, setTableSpec] = useState<TableSpec>()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState()
 
   const fetch = () => {
     setLoading(true)
-    axios
+    axiosInstance
       .get(baseUrl + `/api/${module || 'crud'}/${table}/spec`)
       .then((res: any) => {
         if (res.status === 200) {
