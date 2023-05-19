@@ -57,10 +57,7 @@ const DefaultLoadingIndicator = ({ selectProps }: any) => {
 }
 
 const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
-  const { size, className, form, field, components, defaultValue, ...rest } = props
-
-  const [listOption, setListOption] = useState<SelectedOption[]>()
-  const [selectedOption, setSelectedOption] = useState<SelectedOption>()
+  const { size, className, form, field, components, ...rest } = props
 
   let isInvalid: boolean | undefined = false
 
@@ -88,8 +85,6 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
         ClearIndicator: DefaultClearIndicator,
         ...components,
       }}
-      options={listOption}
-      value={selectedOption}
       {...field}
       {...rest}
     />
