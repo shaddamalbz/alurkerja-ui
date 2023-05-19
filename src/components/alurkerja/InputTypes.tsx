@@ -87,7 +87,11 @@ const InputTypes = (props: InputTypes) => {
           placeholder={name}
           type={fieldSpec.type}
           onChange={(e) => setValue(name, e.target.value)}
-          defaultValue={defaultValue && moment(defaultValue).format('YYYY-MM-DD').toString()}
+          defaultValue={
+            defaultValue && fieldSpec.form_field_type === 'INPUT_DATE'
+              ? moment(defaultValue).format('YYYY-MM-DD').toString()
+              : defaultValue
+          }
           disabled={disabled}
           textArea={fieldSpec.form_field_type === 'INPUT_TEXTAREA'}
         />
