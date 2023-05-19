@@ -102,7 +102,12 @@ export interface PaginationLowcode {
   total_page: number
 }
 
-export interface TableLowcodeProps extends IAlurkerjaTableLowcode {
+export interface TableLowcodeProps {
+  /** base API url (lowcode spec) */
+  baseUrl: string
+  /**  table name, will be added in base url for fetching spec & data */
+  tableName: string
+  module?: string
   tableSpec: TableSpec | undefined
   tableData: { id: number; [x: string]: any }[] | undefined
   pagination: PaginationLowcode | undefined
@@ -110,6 +115,34 @@ export interface TableLowcodeProps extends IAlurkerjaTableLowcode {
   setSelectedAll: Dispatch<SetStateAction<boolean>>
   selectedId?: number[]
   setSelectedId?: Dispatch<SetStateAction<number[]>>
+  /**  setter state for refeching data*/
+  setRenderState?: Dispatch<SetStateAction<number>>
+  /**  render custom cell table base for ex custom by fields.name*/
+  customCell?: ({
+    name,
+    fields,
+    value,
+    defaultCell,
+  }: {
+    name: string
+    fields: { [x: string]: FieldProperties }
+    value: any
+    defaultCell: JSX.Element
+  }) => JSX.Element
+  /**  will be trigger when button edit clicked*/
+  onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
+  customField?: ({
+    field,
+    setValue,
+    defaultField,
+  }: {
+    field: [string, FieldProperties]
+    setValue: UseFormSetValue<FieldValues>
+    defaultField: JSX.Element
+    value: string | number | boolean
+  }) => JSX.Element
+  textSubmitButton?: string
+  supportBulk?: boolean
 }
 
 export interface PaginationProps {
