@@ -110,7 +110,7 @@ const InputTypes = (props: InputTypes) => {
           isLoading={loadingOptions}
           options={listOption}
           onChange={(selected: any) => setValue(name, selected.value)}
-          value={selectedOption}
+          defaultValue={selectedOption}
           isDisabled={disabled || loadingOptions}
         />
       )}
