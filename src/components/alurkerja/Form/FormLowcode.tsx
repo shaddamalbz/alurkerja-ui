@@ -31,6 +31,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     asDetail,
     textSubmitButton,
     title,
+    onCancel,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -89,7 +90,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
   return (
     <section className="p-4 space-y-6">
       <h5 className="text-xl font-bold">
-        {!id ? 'Tambah' : disabled ? 'Detail' : 'Edit'} {title || tableSpec?.label}
+        {!id ? 'Tambah' : asDetail ? 'Detail' : 'Edit'} {title || tableSpec?.label}
       </h5>
       <form onSubmit={handleSubmit(onSubmitFunction)}>
         {!onFetching ? (
@@ -137,7 +138,9 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               }
             })}
             <div className="w-fit ml-auto flex gap-4">
-              <Button>Kembali</Button>
+              <Button type="button" onClick={() => onCancel?.()}>
+                Kembali
+              </Button>
               {!asDetail && (
                 <Button type="submit" loading={loadingSubmit} disabled={loadingSubmit}>
                   {textSubmitButton || 'Submit'}

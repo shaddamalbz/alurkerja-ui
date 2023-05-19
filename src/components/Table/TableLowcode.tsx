@@ -212,30 +212,34 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                 <td className="border-b border-gray-200 py-3">
                   <div className="flex flex-row items-center justify-center gap-x-2">
-                    <Modal
-                      triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
-                      key={idx}
-                    >
-                      {({ closeModal }) => (
-                        <FormLowcode
-                          asDetail
-                          id={row.id}
-                          module={module}
-                          baseUrl={baseUrl}
-                          tableName={tableName}
-                          formState={formState}
-                          handleSubmit={handleSubmit}
-                          control={control}
-                          setValue={setValue}
-                          onSuccess={() => {
-                            closeModal()
-                            setRenderState?.((prev) => prev + 1)
-                          }}
-                          customField={customField}
-                          textSubmitButton={textSubmitButton}
-                        />
-                      )}
-                    </Modal>
+                    {tableSpec.can_detail && (
+                      <Modal
+                        triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
+                        key={idx}
+                      >
+                        {({ closeModal }) => (
+                          <FormLowcode
+                            asDetail
+                            id={row.id}
+                            module={module}
+                            baseUrl={baseUrl}
+                            tableName={tableName}
+                            formState={formState}
+                            handleSubmit={handleSubmit}
+                            control={control}
+                            setValue={setValue}
+                            onSuccess={() => {
+                              closeModal()
+                              setRenderState?.((prev) => prev + 1)
+                            }}
+                            onCancel={() => closeModal()}
+                            customField={customField}
+                            textSubmitButton={textSubmitButton}
+                          />
+                        )}
+                      </Modal>
+                    )}
+
                     {tableSpec?.field_action.map((action, idx) => {
                       const ButtonAction = () => (
                         <Button
@@ -245,30 +249,30 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           onClick={() => handleAction(action, row.id)}
                         />
                       )
-                      return !onClickEdit && action.label === 'Edit' ? (
-                        <Modal triggerButton={<ButtonAction />} key={idx}>
-                          {({ closeModal }) => (
-                            <FormLowcode
-                              id={row.id}
-                              module={module}
-                              baseUrl={baseUrl}
-                              tableName={tableName}
-                              formState={formState}
-                              handleSubmit={handleSubmit}
-                              control={control}
-                              setValue={setValue}
-                              onSuccess={() => {
-                                closeModal()
-                                setRenderState?.((prev) => prev + 1)
-                              }}
-                              customField={customField}
-                              textSubmitButton={textSubmitButton}
-                            />
-                          )}
-                        </Modal>
-                      ) : (
-                        <ButtonAction key={idx} />
-                      )
+                      return !onClickEdit && action.label === 'Edit'
+                        ? tableSpec.can_edit && (
+                            <Modal triggerButton={<ButtonAction />} key={idx}>
+                              {({ closeModal }) => (
+                                <FormLowcode
+                                  id={row.id}
+                                  module={module}
+                                  baseUrl={baseUrl}
+                                  tableName={tableName}
+                                  formState={formState}
+                                  handleSubmit={handleSubmit}
+                                  control={control}
+                                  setValue={setValue}
+                                  onSuccess={() => {
+                                    closeModal()
+                                    setRenderState?.((prev) => prev + 1)
+                                  }}
+                                  customField={customField}
+                                  textSubmitButton={textSubmitButton}
+                                />
+                              )}
+                            </Modal>
+                          )
+                        : tableSpec.can_delete && <ButtonAction key={idx} />
                     })}
                   </div>
                 </td>

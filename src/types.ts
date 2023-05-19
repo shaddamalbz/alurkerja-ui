@@ -14,6 +14,7 @@ export interface TableSpec {
   can_create: boolean
   can_delete: boolean
   can_edit: boolean
+  can_detail: boolean
   label: string
   description: string
   header_action: HeaderAction[]
@@ -258,6 +259,8 @@ export interface IAlurkerjaFormLowcode {
   onSuccess?: () => void
   /**  handler error action*/
   onError?: (err: any) => void
+  /**  handler cancel  action*/
+  onCancel?: () => void
   /** id for detail / edit form  */
   id?: number
   /** to disabled form */
