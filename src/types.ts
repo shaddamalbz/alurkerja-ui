@@ -231,6 +231,7 @@ export interface IAlurkerjaFormLowcode {
   disabled?: boolean
   textSubmitButton?: string
   asDetail?: boolean
+  title?: string
 }
 
 /**

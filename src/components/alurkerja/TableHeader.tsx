@@ -148,6 +148,7 @@ const TableHeader: FC<TableHeaderProps> = ({
                         }}
                         customField={customField}
                         textSubmitButton={textSubmitButton}
+                        title={title}
                       />
                     )}
                   </Modal>
