@@ -36,6 +36,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     textSubmitButton,
     customFilterField,
     onClickDelete,
+    onDeleteConfirm,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -136,6 +137,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
               onClickEdit={onClickEdit}
               customField={customField}
               onClickDelete={onClickDelete}
+              onDeleteConfirm={onDeleteConfirm}
             />
           </div>
         ) : (

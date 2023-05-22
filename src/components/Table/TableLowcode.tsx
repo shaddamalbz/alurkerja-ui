@@ -31,6 +31,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     customField,
     textSubmitButton,
     onClickDelete,
+    onDeleteConfirm,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -58,16 +59,20 @@ const TableLowcode = (props: TableLowcodeProps) => {
           confirmButtonText: confirm.confirm_text,
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const res = await axiosInstance({
-              method: actionSpec.method,
-              url: baseUrl + path.replace('{id}', id.toString()),
-            })
-            if (res.status === 200) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Sukses!',
-                text: 'Data telah berhasil dihapus',
-              }).then(() => setRenderState?.((prev) => prev + 1))
+            if (onDeleteConfirm) {
+              onDeleteConfirm()
+            } else {
+              const res = await axiosInstance({
+                method: actionSpec.method,
+                url: baseUrl + path.replace('{id}', id.toString()),
+              })
+              if (res.status === 200) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Sukses!',
+                  text: 'Data telah berhasil dihapus',
+                }).then(() => setRenderState?.((prev) => prev + 1))
+              }
             }
           }
         })
