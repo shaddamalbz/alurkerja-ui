@@ -16,11 +16,13 @@ type Story = StoryObj<typeof TableLowcode>
 
 export const Base: Story = {
   args: {
-    baseUrl: 'https://api-geekacademy.merapi.javan.id',
-    tableName: 'article',
+    // baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    // tableName: 'article',
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'ad-kat-pcg-mp',
     onClickCreate: undefined,
     onClickEdit: undefined,
-    module: 'article'
+    // module: 'article',
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })

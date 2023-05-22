@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { FC } from 'react'
 import classNames from 'classnames'
 import ReactSelect, { Props } from 'react-select'
 import _ from 'underscore'
@@ -9,15 +9,8 @@ import Spinner from '../Spinner'
 
 import '@/assets/scss/select.scss'
 
-export interface Select extends Props {
+export interface SelectProps extends Props {
   size?: 'sm' | 'md' | 'lg'
-  field?: any
-  form?: any
-}
-
-interface SelectedOption {
-  label: string
-  value: string
 }
 
 const DefaultOption = ({ innerProps, label, selectProps, isSelected, isDisabled }: any) => {
@@ -56,19 +49,8 @@ const DefaultLoadingIndicator = ({ selectProps }: any) => {
   return <Spinner className={`select-loading-indicatior text-${themeColor}`} />
 }
 
-const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
-  const { size, className, form, field, components, ...rest } = props
-
-  let isInvalid: boolean | undefined = false
-
-  if (!_.isEmpty(form)) {
-    const { touched, errors } = form
-
-    const touchedField = _.get(touched, field.name)
-    const errorField = _.get(errors, field.name)
-
-    isInvalid = touchedField && errorField
-  }
+const Select: FC<SelectProps> = (props) => {
+  const { size, className, components, ...rest } = props
 
   const selectClass = classNames('select', className)
 
@@ -76,7 +58,6 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
     <ReactSelect
       className={selectClass}
       classNamePrefix={'select'}
-      ref={ref}
       components={{
         IndicatorSeparator: () => null,
         Option: DefaultOption,
@@ -85,10 +66,9 @@ const Select = React.forwardRef<HTMLDivElement, Select>((props, ref) => {
         ClearIndicator: DefaultClearIndicator,
         ...components,
       }}
-      {...field}
       {...rest}
     />
   )
-})
+}
 
 export default Select

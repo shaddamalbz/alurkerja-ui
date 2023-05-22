@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Select } from '@/components/ui'
-import { useState } from 'react'
 
 const meta = {
   title: 'Components/Select',
@@ -31,7 +30,7 @@ export const DefaultValue: Story = {
       { label: 'Penawaran', value: 0 },
       { label: 'Rayuan', value: 1 },
     ],
-    value: { label: 'Penawaran', value: 0 },
+    defaultValue: { label: 'Penawaran', value: 0 },
   },
 }
 

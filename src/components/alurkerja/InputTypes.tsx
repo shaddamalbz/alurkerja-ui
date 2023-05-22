@@ -3,7 +3,7 @@ import { FieldValues, UseFormSetValue } from 'react-hook-form'
 
 import { FieldProperties } from '@/types'
 import { AuthContext } from '@/context'
-import { Checkbox, Input, Radio, Select, Switch } from '@/components/ui'
+import { Checkbox, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
 import moment from 'moment'
 
 interface InputTypes {
@@ -41,10 +41,11 @@ const InputTypes = (props: InputTypes) => {
       })
       if (status === 200) {
         const list = data.data.content
-        const parsedList = list.map((item: any) => ({
+        const parsedList: SelectedOption[] = list.map((item: any) => ({
           label: item[option_label],
           value: item[option_key],
         }))
+        setSelectedOption(parsedList.filter((option) => option.value === +defaultValue)[0])
         setListOption(parsedList)
       }
       setLoadingOptions(false)
@@ -61,12 +62,6 @@ const InputTypes = (props: InputTypes) => {
       abortController.abort()
     }
   }, [fieldSpec.form_field_type])
-
-  useEffect(() => {
-    if (listOption) {
-      setSelectedOption(listOption.filter((option) => +option.value === +defaultValue)[0])
-    }
-  }, [listOption, defaultValue])
 
   useEffect(() => {
     setValue(name, defaultValue)
@@ -110,13 +105,18 @@ const InputTypes = (props: InputTypes) => {
         />
       )}
       {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
-        <Select
-          isLoading={loadingOptions}
-          options={listOption}
-          onChange={(selected: any) => setValue(name, selected.value)}
-          defaultValue={selectedOption}
-          isDisabled={disabled || loadingOptions}
-        />
+        <>
+          {loadingOptions ? (
+            <Skeleton className="h-9" />
+          ) : (
+            <Select
+              options={listOption}
+              onChange={(selected: any) => setValue(name, selected.value)}
+              defaultValue={selectedOption}
+              isDisabled={disabled}
+            />
+          )}
+        </>
       )}
     </>
   )

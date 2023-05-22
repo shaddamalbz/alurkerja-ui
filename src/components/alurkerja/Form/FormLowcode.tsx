@@ -115,20 +115,20 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
                           <InputTypes
                             baseUrl={baseUrl}
                             fieldSpec={fieldSpec}
-                            name={fieldSpec.name.toLowerCase()}
+                            name={fieldSpec.name}
                             setValue={setValue}
-                            defaultValue={detail?.[fieldSpec.name.toLowerCase()]}
+                            defaultValue={detail?.[fieldSpec.name]}
                           />
                         ),
-                        value: detail?.[fieldSpec.name.toLowerCase()],
+                        value: detail?.[fieldSpec.name],
                       })
                     ) : (
                       <InputTypes
                         baseUrl={baseUrl}
                         fieldSpec={fieldSpec}
-                        name={fieldSpec.name.toLowerCase()}
+                        name={fieldSpec.name}
                         setValue={setValue}
-                        defaultValue={detail?.[fieldSpec.name.toLowerCase()]}
+                        defaultValue={detail?.[fieldSpec.name]}
                         disabled={disabled}
                         asDetail={asDetail}
                       />
