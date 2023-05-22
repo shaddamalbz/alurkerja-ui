@@ -117,67 +117,66 @@ const TableHeader: FC<TableHeaderProps> = ({
             <FaSearch color="#9CA3AF" />
           </span>
         </div>
-        <>
-          {tableSpec?.header_action.map((actionSpec: HeaderAction, idx: number) => {
-            const ButtonCreate = () => (
-              <button
-                id="button-create"
-                className="cursor-pointer bg-blue-400 flex items-center rounded-md py-2 px-4 text-sm text-white gap-2"
-                onClick={onClickCreate}
-              >
-                <FaPlus />
-                <span>{actionSpec.action_label}</span>
-              </button>
-            )
-            return (
-              <Fragment key={idx}>
-                {actionSpec.label === 'Tambah' && tableSpec?.can_create && !onClickCreate ? (
-                  <Modal triggerButton={<ButtonCreate />}>
-                    {({ closeModal }) => (
-                      <FormLowcode
-                        module={module}
-                        baseUrl={baseUrl}
-                        tableName={tableName}
-                        formState={formState}
-                        handleSubmit={handleSubmit}
-                        control={control}
-                        setValue={setValue}
-                        onSuccess={() => {
-                          closeModal()
-                          setRenderState?.((prev) => prev + 1)
-                        }}
-                        customField={customField}
-                        textSubmitButton={textSubmitButton}
-                        title={title}
-                      />
-                    )}
-                  </Modal>
-                ) : (
-                  <ButtonCreate />
-                )}
-                <Modal
-                  title="Filter"
-                  triggerButton={
-                    <div>
-                      <Badge content={Object.entries(filter || {}).length} maxCount={3}>
-                        <button
-                          id="button-filter"
-                          className="bg-[#F1FAFF] p-2 rounded"
-                          style={{ backgroundColor: '#F1FAFF' }}
-                        >
-                          <FilterIcon />
-                        </button>
-                      </Badge>
-                    </div>
-                  }
-                >
-                  {({ closeModal }) => renderFormFilter(closeModal)}
-                </Modal>
-              </Fragment>
-            )
-          })}
-          {extraButton && extraButton()}
-        </>
+
+        {tableSpec?.header_action.map((actionSpec: HeaderAction, idx: number) => {
+          const ButtonCreate = () => (
+            <button
+              id="button-create"
+              className="cursor-pointer bg-blue-400 flex items-center rounded-md py-2 px-4 text-sm text-white gap-2"
+              onClick={onClickCreate}
+            >
+              <FaPlus />
+              <span>{actionSpec.action_label}</span>
+            </button>
+          )
+          return (
+            <Fragment key={idx}>
+              {tableSpec.can_create && (
+                <>
+                  {actionSpec.label === 'Tambah' && !onClickCreate ? (
+                    <Modal triggerButton={<ButtonCreate />}>
+                      {({ closeModal }) => (
+                        <FormLowcode
+                          module={module}
+                          baseUrl={baseUrl}
+                          tableName={tableName}
+                          formState={formState}
+                          handleSubmit={handleSubmit}
+                          control={control}
+                          setValue={setValue}
+                          onSuccess={() => {
+                            closeModal()
+                            setRenderState?.((prev) => prev + 1)
+                          }}
+                          customField={customField}
+                          textSubmitButton={textSubmitButton}
+                          title={title}
+                        />
+                      )}
+                    </Modal>
+                  ) : (
+                    <ButtonCreate />
+                  )}
+                </>
+              )}
+            </Fragment>
+          )
+        })}
+        <Modal
+          title="Filter"
+          triggerButton={
+            <div>
+              <Badge content={Object.entries(filter || {}).length} maxCount={3}>
+                <button id="button-filter" className="bg-[#F1FAFF] p-2 rounded" style={{ backgroundColor: '#F1FAFF' }}>
+                  <FilterIcon />
+                </button>
+              </Badge>
+            </div>
+          }
+        >
+          {({ closeModal }) => renderFormFilter(closeModal)}
+        </Modal>
+        {extraButton && extraButton()}
       </div>
       <Button className="inline-block lg:hidden p-2" icon={<HiOutlineMenu />} />
     </div>
