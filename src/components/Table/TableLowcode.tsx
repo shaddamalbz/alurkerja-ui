@@ -60,7 +60,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
         }).then(async (result) => {
           if (result.isConfirmed) {
             if (onDeleteConfirm) {
-              onDeleteConfirm()
+              onDeleteConfirm(id)
             } else {
               const res = await axiosInstance({
                 method: actionSpec.method,

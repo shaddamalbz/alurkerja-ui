@@ -140,7 +140,7 @@ export interface TableLowcodeProps {
   /**  will be trigger when button edit clicked*/
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
   onClickDelete?: (fieldSpec: FieldActionProperties, id: number) => void
-  onDeleteConfirm?: () => void
+  onDeleteConfirm?: (id: number) => void
   customField?: ({
     field,
     setValue,
@@ -215,7 +215,7 @@ export interface IAlurkerjaTableLowcode {
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
   /** trying to custom header table? use this*/
   onClickDelete?: (fieldSpec: FieldActionProperties, id: number) => void
-  onDeleteConfirm?: () => void
+  onDeleteConfirm?: (id: number) => void
   /** trying to custom header table? use this*/
   headerElement?: JSX.Element
   customField?: ({
