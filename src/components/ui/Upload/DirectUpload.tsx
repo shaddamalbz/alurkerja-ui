@@ -10,10 +10,7 @@ import { AuthContext } from '@/context'
 
 interface DirectUploadProps {
   baseUrl: string
-  service: {
-    uploader: string
-    indonesia: string
-  }
+  service: string
   type?: 'image' | 'file'
   multiple?: boolean
   allowedFileSizeInMb?: number
@@ -64,7 +61,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
     setUploading(true)
 
     axiosInstance
-      .post(baseUrl + service.uploader, myFormData, {
+      .post(baseUrl + service, myFormData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res: any) => {

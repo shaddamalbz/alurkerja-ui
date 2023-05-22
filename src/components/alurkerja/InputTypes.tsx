@@ -3,7 +3,7 @@ import { FieldValues, UseFormSetValue } from 'react-hook-form'
 
 import { FieldProperties } from '@/types'
 import { AuthContext } from '@/context'
-import { Checkbox, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
+import { Checkbox, DirectUpload, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
 import moment from 'moment'
 
 interface InputTypes {
@@ -126,6 +126,14 @@ const InputTypes = (props: InputTypes) => {
           isDisabled={disabled}
         />
       )}
+      {(fieldSpec.form_field_type === 'INPUT_IMAGE_UPLOAD' || fieldSpec.form_field_type === 'INPUT_FILE_UPLOAD') &&
+        fieldSpec.custom_field_atribute && (
+          <DirectUpload
+            baseUrl={baseUrl}
+            service={fieldSpec.custom_field_atribute.service}
+            onSuccess={(file) => setValue(name, file)}
+          />
+        )}
     </>
   )
 }

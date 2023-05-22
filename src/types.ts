@@ -80,6 +80,13 @@ export interface FieldProperties {
     type: string
     value: string
   }
+  custom_field_atribute?: {
+    type: string
+    name: string
+    is_multiple: boolean
+    allowed_extension: string[]
+    service: string
+  }
 }
 
 export interface PaginationLowcode {

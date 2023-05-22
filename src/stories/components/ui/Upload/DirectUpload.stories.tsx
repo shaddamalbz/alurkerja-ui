@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     baseUrl: 'https://api.dignas.space/',
-    service: { uploader: 'crud/media', indonesia: 'api/kong/indonesia/' },
+    service: 'crud/media',
   },
   render: (args) => (
     <>
