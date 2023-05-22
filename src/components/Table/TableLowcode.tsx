@@ -119,28 +119,31 @@ const TableLowcode = (props: TableLowcodeProps) => {
         <thead>
           <tr className="text-gray-400 border-b border-gray-200 cursor-pointer">
             <th className="whitespace-nowrap py-3 px-3">No</th>
-            {tableSpec?.can_bulk && (
-              <th className="whitespace-nowrap py-3 px-3">
-                <input
-                  type="checkbox"
-                  checked={selectedAll}
-                  className="form-checkbox rounded bg-[#EBEDF3] text-indigo-600 border-none focus:border-none focus:outline-indigo-600"
-                  onClick={selectAll}
-                  readOnly
-                />
-              </th>
-            )}
-            {tableSpec &&
-              fieldKeyList?.map(
-                (key, idx) =>
-                  !tableSpec.fields[key]?.is_hidden_in_list && (
-                    <th className="whitespace-nowrap py-3 px-3" key={idx}>
-                      {tableSpec.fields[key]?.label}
-                    </th>
-                  )
-              )}
-            {(tableSpec?.can_delete || tableSpec?.can_detail || tableSpec?.can_detail) && (
-              <th className="whitespace-nowrap py-3 px-3">Aksi</th>
+            {tableSpec && (
+              <>
+                {tableSpec.can_bulk && (
+                  <th className="whitespace-nowrap py-3 px-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedAll}
+                      className="form-checkbox rounded bg-[#EBEDF3] text-indigo-600 border-none focus:border-none focus:outline-indigo-600"
+                      onClick={selectAll}
+                      readOnly
+                    />
+                  </th>
+                )}
+                {fieldKeyList?.map(
+                  (key, idx) =>
+                    !tableSpec.fields[key]?.is_hidden_in_list && (
+                      <th className="whitespace-nowrap py-3 px-3" key={idx}>
+                        {tableSpec.fields[key]?.label}
+                      </th>
+                    )
+                )}
+                {(tableSpec.can_delete || tableSpec.can_detail || tableSpec.can_edit) && (
+                  <th className="whitespace-nowrap py-3 px-3">Aksi</th>
+                )}
+              </>
             )}
           </tr>
         </thead>

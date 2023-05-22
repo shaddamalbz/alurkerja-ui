@@ -118,6 +118,14 @@ const InputTypes = (props: InputTypes) => {
           )}
         </>
       )}
+      {fieldSpec.form_field_type === 'INPUT_SELECT' && (
+        <Select
+          options={fieldSpec.select_options?.options}
+          onChange={(selected: any) => setValue(name, selected.value)}
+          defaultValue={selectedOption}
+          isDisabled={disabled}
+        />
+      )}
     </>
   )
 }
