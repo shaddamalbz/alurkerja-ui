@@ -194,3 +194,35 @@ export const CustomFilterField: Story = {
     )
   },
 }
+
+export const CustomAction: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: () => console.log('create clicked'),
+    onClickEdit: (spec, id) => console.log(`edit button on row with id ${id} clicked`, spec),
+    onClickDelete: (spec, id) => console.log(`delete button on row with id ${id} clicked`, spec),
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}

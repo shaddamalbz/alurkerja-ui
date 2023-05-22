@@ -141,6 +141,43 @@ const [search, setSearch] = useState<string>()
 } 
 ```
 
+## custom action (create, edit, delete)
+> check console when click button action
+
+<Story of={TableLowcodeStories.CustomAction} />
+
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://api-geekacademy.merapi.javan.id"
+      tableName="categpry"
+      module='category'
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      onClickCreate={() => console.log('create clicked')}
+      onClickEdit={(spec, id) => console.log(`edit button on row with id ${id} clicked`, spec)}
+      onClickDelete={(spec, id) => console.log(`delete button on row with id ${id} clicked`, spec)}
+    />
+  )
+} 
+```
+
 # Props
 
 <Controls />

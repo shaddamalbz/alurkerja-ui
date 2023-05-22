@@ -30,6 +30,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     onClickEdit,
     customField,
     textSubmitButton,
+    onClickDelete,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -41,8 +42,10 @@ const TableLowcode = (props: TableLowcodeProps) => {
     const { label, confirm, path } = actionSpec
     if (label === 'Edit') {
       onClickEdit?.(actionSpec, id)
-    } else if (label === 'Hapus') {
-      if (confirm) {
+    } else if (label === 'Hapus' && confirm) {
+      if (onClickDelete) {
+        onClickDelete(actionSpec, id)
+      } else {
         Swal.fire({
           title: confirm.title,
           text: confirm.message,
