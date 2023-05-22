@@ -139,7 +139,9 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     </th>
                   )
               )}
-            <th className="whitespace-nowrap py-3 px-3">Aksi</th>
+            {(tableSpec?.can_delete || tableSpec?.can_detail || tableSpec?.can_detail) && (
+              <th className="whitespace-nowrap py-3 px-3">Aksi</th>
+            )}
           </tr>
         </thead>
         <tbody>
