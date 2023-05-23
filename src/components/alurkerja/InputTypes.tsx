@@ -132,6 +132,7 @@ const InputTypes = (props: InputTypes) => {
             baseUrl={baseUrl}
             service={fieldSpec.custom_field_atribute.service}
             onSuccess={(file) => setValue(name, file)}
+            allowedExtension={fieldSpec.custom_field_atribute.allowed_extension}
           />
         )}
     </>

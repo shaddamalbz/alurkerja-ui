@@ -166,7 +166,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
       <input type="hidden" />
 
       <div className="w-full flex flex-col gap-4">
-        <FileUploader handleChange={handleChange} name="file" multiple={multiple}>
+        <FileUploader handleChange={handleChange} name="file" multiple={multiple} types={allowedExtension}>
           <div className="alurkerja-form w-full flex flex-col justify-center items-center cursor-pointer rounded border-2 border-gray-200 border-dashed">
             <div className="flex flex-col justify-center items-center pt-5 pb-6 gap-2">
               <FaUpload size="2em" />
