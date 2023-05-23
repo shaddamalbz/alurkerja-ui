@@ -33,7 +33,7 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>((props, ref) => {
   }
 
   const classes = classNames(
-    'inline-block relative bg-gray-200',
+    'avatar inline-block relative bg-gray-200',
     `avatar-${shape}`,
     typeof size === 'string' ? `avatar-${size}` : '',
     className

@@ -1,4 +1,4 @@
-import Avatar from './Avatar'
+import { Avatar, AvatarGroup } from './Avatar'
 import Badge from './Badge'
 import Button, { HamburgerButton } from './Button'
 import Skeleton from './Skeleton'
@@ -17,6 +17,7 @@ import Switch from './Switch'
 
 export {
   Avatar,
+  AvatarGroup,
   Badge,
   Button,
   HamburgerButton,

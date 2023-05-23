@@ -12,6 +12,7 @@ import Modal from '@/components/ui/Modal'
 import { getValueByPath } from '@/utils'
 import { AuthContext } from '@/context'
 import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
+import { Avatar, AvatarGroup } from '../ui'
 
 const TableLowcode = (props: TableLowcodeProps) => {
   const {
@@ -186,23 +187,37 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     }
 
                     const defaultCell = (
-                      <td
-                        className={classNames(
-                          tableSpec.fields[key]?.type === 'number' ||
-                            (tableSpec.fields[key]?.type === 'datetime-local' && 'text-center'),
-                          'px-3 text-black py-3'
+                      <>
+                        {tableSpec.fields[key].form_field_type === 'INPUT_IMAGE_UPLOAD' ? (
+                          <td className="px-3 text-black py-3 text-center flex justify-center">
+                            <AvatarGroup chained maxCount={4} omittedAvatarProps={{ shape: 'circle' }}>
+                              <>
+                                {row[key].map((item: any, idx: number) => (
+                                  <Avatar className="cursor-pointer" shape="circle" src={item.original_url} key={idx} />
+                                ))}
+                              </>
+                            </AvatarGroup>
+                          </td>
+                        ) : (
+                          <td
+                            className={classNames(
+                              tableSpec.fields[key]?.type === 'number' ||
+                                (tableSpec.fields[key]?.type === 'datetime-local' && 'text-center'),
+                              'px-3 text-black py-3'
+                            )}
+                            key={idx}
+                          >
+                            {tableSpec.fields[key].table_value_mapping
+                              ? nestedSpec.dataKey &&
+                                nestedSpec.valueKey &&
+                                parsedData(
+                                  getValueByPath(row[nestedSpec.dataKey], nestedSpec.valueKey),
+                                  tableSpec.fields[key]?.type
+                                )
+                              : parsedData(getValueByPath(row, key), tableSpec.fields[key]?.type)}
+                          </td>
                         )}
-                        key={idx}
-                      >
-                        {tableSpec.fields[key].table_value_mapping
-                          ? nestedSpec.dataKey &&
-                            nestedSpec.valueKey &&
-                            parsedData(
-                              getValueByPath(row[nestedSpec.dataKey], nestedSpec.valueKey),
-                              tableSpec.fields[key]?.type
-                            )
-                          : parsedData(getValueByPath(row, key.toLowerCase()), tableSpec.fields[key]?.type)}
-                      </td>
+                      </>
                     )
 
                     return (

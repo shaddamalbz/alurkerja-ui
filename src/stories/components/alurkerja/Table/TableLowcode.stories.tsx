@@ -19,7 +19,7 @@ export const Base: Story = {
     // baseUrl: 'https://api-geekacademy.merapi.javan.id',
     // tableName: 'article',
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'lkp-kadar',
+    tableName: 'mesyuarat',
     onClickCreate: undefined,
     onClickEdit: undefined,
     // module: 'article',
