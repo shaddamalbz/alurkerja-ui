@@ -202,18 +202,20 @@ const TableLowcode = (props: TableLowcodeProps) => {
                         )}
                         {tableSpec.fields[key].form_field_type === 'INPUT_FILE_UPLOAD' && (
                           <td className="px-3 text-black py-3 text-center flex justify-center">
-                            <div>
-                              {row[key].map((item: any, idx: number) => (
-                                <div className="flex justify-between items-center" key={idx}>
-                                  <span>{item.file_name}</span>
-                                  <MdDownload />
-                                </div>
-                              ))}
-                            </div>
+                            {row[key].map((item: any, idx: number) => (
+                              <div className="w-full flex justify-between items-center" key={idx}>
+                                <span>{item.file_name}</span>
+                                <Button
+                                  className="bg-gray-100 hover:bg-gray-200 text-gray-400"
+                                  size="xs"
+                                  icon={<MdDownload />}
+                                />
+                              </div>
+                            ))}
                           </td>
                         )}
                         {tableSpec.fields[key].form_field_type !== 'INPUT_IMAGE_UPLOAD' &&
-                          tableSpec.fields[key].form_field_type !== 'INPUT_FIlE_UPLOAD' && (
+                          tableSpec.fields[key].form_field_type !== 'INPUT_FILE_UPLOAD' && (
                             <td
                               className={classNames(
                                 tableSpec.fields[key]?.type === 'number' ||
@@ -286,7 +288,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     {tableSpec?.field_action.map((action, idx) => {
                       const ButtonAction = () => (
                         <Button
-                          className="bg-gray-100 text-gray-400"
+                          className="bg-gray-100 hover:bg-gray-200 text-gray-400"
                           size="xs"
                           icon={IconTypes(action.icon)}
                           onClick={() => handleAction(action, row.id)}
