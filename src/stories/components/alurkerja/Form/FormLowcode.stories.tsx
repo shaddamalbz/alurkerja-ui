@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { AlurkerjaForm } from '@/components/alurkerja'
 
 const meta = {
-  title: 'Components/Alurkerja/FormLowcode',
+  title: 'Features/AlurkerjaForm',
   component: AlurkerjaForm,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],

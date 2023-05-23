@@ -14,6 +14,7 @@ import { PendingUpload, DirectUpload } from './Upload'
 import Checkbox from './Checkbox'
 import Radio from './Radio'
 import Switch from './Switch'
+import DateRange from './DateRange'
 
 export {
   Avatar,
@@ -35,4 +36,5 @@ export {
   Checkbox,
   Radio,
   Switch,
+  DateRange,
 }

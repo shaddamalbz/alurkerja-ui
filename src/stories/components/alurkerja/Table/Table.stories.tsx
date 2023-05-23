@@ -4,7 +4,7 @@ import { ListSpec } from '@/types'
 import { useState } from 'react'
 
 const meta = {
-  title: 'Components/Alurkerja/Table',
+  title: 'Features/Table',
   component: Table,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
