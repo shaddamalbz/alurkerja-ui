@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
+import { MdDownload } from 'react-icons/md'
 import Swal from 'sweetalert2'
 import classNames from 'classnames'
 import _ from 'underscore'
@@ -188,7 +189,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                     const defaultCell = (
                       <>
-                        {tableSpec.fields[key].form_field_type === 'INPUT_IMAGE_UPLOAD' ? (
+                        {tableSpec.fields[key].form_field_type === 'INPUT_IMAGE_UPLOAD' && (
                           <td className="px-3 text-black py-3 text-center flex justify-center">
                             <AvatarGroup chained maxCount={4} omittedAvatarProps={{ shape: 'circle' }}>
                               <>
@@ -198,25 +199,39 @@ const TableLowcode = (props: TableLowcodeProps) => {
                               </>
                             </AvatarGroup>
                           </td>
-                        ) : (
-                          <td
-                            className={classNames(
-                              tableSpec.fields[key]?.type === 'number' ||
-                                (tableSpec.fields[key]?.type === 'datetime-local' && 'text-center'),
-                              'px-3 text-black py-3'
-                            )}
-                            key={idx}
-                          >
-                            {tableSpec.fields[key].table_value_mapping
-                              ? nestedSpec.dataKey &&
-                                nestedSpec.valueKey &&
-                                parsedData(
-                                  getValueByPath(row[nestedSpec.dataKey], nestedSpec.valueKey),
-                                  tableSpec.fields[key]?.type
-                                )
-                              : parsedData(getValueByPath(row, key), tableSpec.fields[key]?.type)}
+                        )}
+                        {tableSpec.fields[key].form_field_type === 'INPUT_FILE_UPLOAD' && (
+                          <td className="px-3 text-black py-3 text-center flex justify-center">
+                            <div>
+                              {row[key].map((item: any, idx: number) => (
+                                <div className="flex justify-between items-center" key={idx}>
+                                  <span>{item.file_name}</span>
+                                  <MdDownload />
+                                </div>
+                              ))}
+                            </div>
                           </td>
                         )}
+                        {tableSpec.fields[key].form_field_type !== 'INPUT_IMAGE_UPLOAD' &&
+                          tableSpec.fields[key].form_field_type !== 'INPUT_FIlE_UPLOAD' && (
+                            <td
+                              className={classNames(
+                                tableSpec.fields[key]?.type === 'number' ||
+                                  (tableSpec.fields[key]?.type === 'datetime-local' && 'text-center'),
+                                'px-3 text-black py-3'
+                              )}
+                              key={idx}
+                            >
+                              {tableSpec.fields[key].table_value_mapping
+                                ? nestedSpec.dataKey &&
+                                  nestedSpec.valueKey &&
+                                  parsedData(
+                                    getValueByPath(row[nestedSpec.dataKey], nestedSpec.valueKey),
+                                    tableSpec.fields[key]?.type
+                                  )
+                                : parsedData(getValueByPath(row, key), tableSpec.fields[key]?.type)}
+                            </td>
+                          )}
                       </>
                     )
 
