@@ -6,7 +6,7 @@ import { AuthContext } from '@/context'
 import { Checkbox, DirectUpload, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
 import moment from 'moment'
 import _ from 'underscore'
-import { CardFile } from '@/components/ui/Card'
+import { CardFile, CardImage } from '@/components/ui/Card'
 
 interface InputTypes {
   baseUrl: string
@@ -74,7 +74,7 @@ const InputTypes = (props: InputTypes) => {
     if (fieldSpec.form_field_type === 'INPUT_FILE_UPLOAD') {
       return <CardFile data={defaultValue} readonly />
     } else if (fieldSpec.form_field_type === 'INPUT_IMAGE_UPLOAD') {
-      return <CardFile data={defaultValue} readonly />
+      return <CardImage data={defaultValue} readonly />
     }
     return <div>{defaultValue}</div>
   }
