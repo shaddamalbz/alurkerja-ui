@@ -8,7 +8,7 @@ interface Value {
 }
 
 interface DateRangeProps {
-  /** value cant be formated using momentjs */
+  /** value can be formated using momentjs */
   onChange?: (value: Value | undefined) => void
   text?: string
 }
