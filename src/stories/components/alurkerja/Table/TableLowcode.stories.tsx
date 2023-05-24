@@ -22,6 +22,8 @@ export const Base: Story = {
     tableName: 'mesyuarat',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
     // module: 'article',
   },
   render: (args) => {
@@ -113,6 +115,8 @@ export const HasRelation: Story = {
     tableName: 'ad-kat-pcg-mp',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })

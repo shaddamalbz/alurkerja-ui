@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import classNames from 'classnames'
 import _ from 'underscore'
 import moment from 'moment'
-import { TableLowcodeProps, FieldActionProperties, Files } from '@/types'
+import { TableLowcodeProps, FieldActionProperties, File } from '@/types'
 
 import { getValueByPath } from '@/utils'
 import { AuthContext } from '@/context'
@@ -192,7 +192,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           <td className="px-3 text-black py-3 text-center flex justify-center">
                             <AvatarGroup chained maxCount={4} omittedAvatarProps={{ shape: 'circle' }}>
                               <>
-                                {row[key].map((item: Files, idx: number) => (
+                                {row[key].map((item: File, idx: number) => (
                                   <Avatar className="cursor-pointer" shape="circle" src={item.original_url} key={idx} />
                                 ))}
                               </>
@@ -212,23 +212,29 @@ const TableLowcode = (props: TableLowcodeProps) => {
                               }
                             >
                               <>
-                                {row[key].map((item: Files, idx: number) => (
-                                  <div className="w-full flex justify-between items-center" key={idx}>
-                                    <span>{item.file_name}</span>
-                                    <a
-                                      href={item.original_url}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      download={item.file_name}
-                                    >
-                                      <Button
-                                        className="bg-gray-100 hover:bg-gray-200 text-gray-400"
-                                        size="xs"
-                                        icon={<MdDownload />}
-                                      />
-                                    </a>
+                                {row[key].length > 0 ? (
+                                  row[key].map((item: File, idx: number) => (
+                                    <div className="w-full flex justify-between items-center" key={idx}>
+                                      <span>{item.file_name}</span>
+                                      <a
+                                        href={item.original_url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        download={item.file_name}
+                                      >
+                                        <Button
+                                          className="bg-gray-100 hover:bg-gray-200 text-gray-400"
+                                          size="xs"
+                                          icon={<MdDownload />}
+                                        />
+                                      </a>
+                                    </div>
+                                  ))
+                                ) : (
+                                  <div className="text-center">
+                                    <p>Tidak memiliki file</p>
                                   </div>
-                                ))}
+                                )}
                               </>
                             </Modal>
                           </td>

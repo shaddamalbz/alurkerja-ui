@@ -464,7 +464,7 @@ export interface SelectBoolean {
   defaultValue?: boolean
 }
 
-export interface Files {
+export interface File {
   collection_name: string
   conversions_disk: string
   created_at: string

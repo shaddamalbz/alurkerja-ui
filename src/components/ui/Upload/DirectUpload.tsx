@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 // utils
 import { toKiloByte } from '@/utils'
 import { AuthContext } from '@/context'
+import { File } from '@/types'
 
 interface DirectUploadProps {
   baseUrl: string
@@ -16,6 +17,7 @@ interface DirectUploadProps {
   allowedFileSizeInMb?: number
   allowedExtension?: string[]
   onSuccess: (res: any) => void
+  defaultValue?: File[]
 }
 
 const DirectUpload: FC<DirectUploadProps> = ({
@@ -26,6 +28,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
   allowedFileSizeInMb,
   allowedExtension = ['png', 'jpeg'],
   onSuccess,
+  defaultValue,
 }) => {
   const axiosInstance = useContext(AuthContext)
 
@@ -161,6 +164,12 @@ const DirectUpload: FC<DirectUploadProps> = ({
     onSuccess(uploadedFiles)
   }, [uploadedFiles])
 
+  useEffect(() => {
+    if (defaultValue) {
+      setUploadedFiles(defaultValue)
+    }
+  }, [defaultValue])
+
   return (
     <div>
       <input type="hidden" />
@@ -182,7 +191,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
           </div>
         </FileUploader>
         {uploadedFiles.length > 0 && (
-          <React.Fragment>
+          <>
             {type === 'image' && (
               <figure className="grid grid-cols-4 gap-2">
                 {uploadedFiles &&
@@ -218,7 +227,7 @@ const DirectUpload: FC<DirectUploadProps> = ({
                   ))}
               </div>
             )}
-          </React.Fragment>
+          </>
         )}
       </div>
     </div>
