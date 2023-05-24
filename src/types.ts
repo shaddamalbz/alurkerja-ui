@@ -139,6 +139,7 @@ export interface TableLowcodeProps {
   }) => JSX.Element
   /**  will be trigger when button edit clicked*/
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
+  onClickDetail?: (id: number) => void
   onClickDelete?: (fieldSpec: FieldActionProperties, id: number) => void
   onDeleteConfirm?: (id: number) => void
   customField?: ({
@@ -213,8 +214,10 @@ export interface IAlurkerjaTableLowcode {
   onClickCreate?: () => void
   /**  will be trigger when button edit clicked*/
   onClickEdit?: (fieldSpec: FieldActionProperties, id: number) => void
-  /** trying to custom header table? use this*/
+  /**  will be trigger when button delete clicked*/
   onClickDelete?: (fieldSpec: FieldActionProperties, id: number) => void
+  /**  will be trigger when button detail clicked*/
+  onClickDetail?: (id: number) => void
   onDeleteConfirm?: (id: number) => void
   /** trying to custom header table? use this*/
   headerElement?: JSX.Element
@@ -459,4 +462,27 @@ export interface SelectBoolean {
   onChange?: (value: boolean | undefined) => void
   /** props to set defaultvalue */
   defaultValue?: boolean
+}
+
+export interface Files {
+  collection_name: string
+  conversions_disk: string
+  created_at: string
+  custom_properties: any[]
+  disk: string
+  file_name: string
+  generated_conversions: any[]
+  id: number
+  manipulations: any[]
+  mime_type: string
+  model_id: string
+  model_type: string
+  name: string
+  order_column: string
+  original_url: string
+  preview_url: string
+  responsive_images: any[]
+  size: string
+  updated_at: string
+  uuid: string
 }

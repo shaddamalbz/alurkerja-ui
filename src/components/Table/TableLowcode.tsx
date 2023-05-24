@@ -6,14 +6,12 @@ import Swal from 'sweetalert2'
 import classNames from 'classnames'
 import _ from 'underscore'
 import moment from 'moment'
-import { TableLowcodeProps, FieldActionProperties } from '@/types'
+import { TableLowcodeProps, FieldActionProperties, Files } from '@/types'
 
-import Button from '@/components/ui/Button'
-import Modal from '@/components/ui/Modal'
 import { getValueByPath } from '@/utils'
 import { AuthContext } from '@/context'
 import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
-import { Avatar, AvatarGroup } from '../ui'
+import { Avatar, AvatarGroup, Button, Modal } from '@/components/ui'
 
 const TableLowcode = (props: TableLowcodeProps) => {
   const {
@@ -34,6 +32,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     textSubmitButton,
     onClickDelete,
     onDeleteConfirm,
+    onClickDetail,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -193,7 +192,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           <td className="px-3 text-black py-3 text-center flex justify-center">
                             <AvatarGroup chained maxCount={4} omittedAvatarProps={{ shape: 'circle' }}>
                               <>
-                                {row[key].map((item: any, idx: number) => (
+                                {row[key].map((item: Files, idx: number) => (
                                   <Avatar className="cursor-pointer" shape="circle" src={item.original_url} key={idx} />
                                 ))}
                               </>
@@ -202,16 +201,36 @@ const TableLowcode = (props: TableLowcodeProps) => {
                         )}
                         {tableSpec.fields[key].form_field_type === 'INPUT_FILE_UPLOAD' && (
                           <td className="px-3 text-black py-3 text-center flex justify-center">
-                            {row[key].map((item: any, idx: number) => (
-                              <div className="w-full flex justify-between items-center" key={idx}>
-                                <span>{item.file_name}</span>
+                            <Modal
+                              title="Uploaded Files"
+                              triggerButton={
                                 <Button
                                   className="bg-gray-100 hover:bg-gray-200 text-gray-400"
                                   size="xs"
                                   icon={<MdDownload />}
                                 />
-                              </div>
-                            ))}
+                              }
+                            >
+                              <>
+                                {row[key].map((item: Files, idx: number) => (
+                                  <div className="w-full flex justify-between items-center" key={idx}>
+                                    <span>{item.file_name}</span>
+                                    <a
+                                      href={item.original_url}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      download={item.file_name}
+                                    >
+                                      <Button
+                                        className="bg-gray-100 hover:bg-gray-200 text-gray-400"
+                                        size="xs"
+                                        icon={<MdDownload />}
+                                      />
+                                    </a>
+                                  </div>
+                                ))}
+                              </>
+                            </Modal>
                           </td>
                         )}
                         {tableSpec.fields[key].form_field_type !== 'INPUT_IMAGE_UPLOAD' &&
@@ -257,7 +276,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                 <td className="border-b border-gray-200 py-3">
                   <div className="flex flex-row items-center justify-center gap-x-2">
-                    {tableSpec.can_detail && (
+                    {tableSpec.can_detail && !onClickDetail ? (
                       <Modal
                         triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
                         key={idx}
@@ -283,6 +302,13 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           />
                         )}
                       </Modal>
+                    ) : (
+                      <Button
+                        className="bg-gray-100 text-gray-400"
+                        size="xs"
+                        icon={<FaEye />}
+                        onClick={() => onClickDetail?.(row.id)}
+                      />
                     )}
 
                     {tableSpec?.field_action.map((action, idx) => {

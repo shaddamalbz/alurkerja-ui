@@ -3,9 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
 import { TableLowcode as TableView } from '@/components/Table'
-import Spinner from '@/components/ui/Spinner'
-import Button from '@/components/ui/Button'
-import Badge from '@/components/ui/Badge'
+import { Badge, Button, Spinner } from '@/components/ui'
 import TableLayout from '@/components/alurkerja/TableLayout'
 
 import getTableSpec from '@/api/getTableSpec'
@@ -31,6 +29,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     customCell,
     onClickCreate,
     onClickEdit,
+    onClickDetail,
     headerElement,
     customField,
     textSubmitButton,
@@ -138,6 +137,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
               customField={customField}
               onClickDelete={onClickDelete}
               onDeleteConfirm={onDeleteConfirm}
+              onClickDetail={onClickDetail}
             />
           </div>
         ) : (

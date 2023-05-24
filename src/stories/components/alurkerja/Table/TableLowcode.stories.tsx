@@ -203,6 +203,7 @@ export const CustomAction: Story = {
     onClickCreate: () => console.log('create clicked'),
     onClickEdit: (spec, id) => console.log(`edit button on row with id ${id} clicked`, spec),
     onClickDelete: (spec, id) => console.log(`delete button on row with id ${id} clicked`, spec),
+    onClickDetail: (id) => console.log(`delete button on row with id ${id} clicked`),
   },
 
   render: (args) => {
