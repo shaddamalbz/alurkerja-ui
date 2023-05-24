@@ -32,9 +32,9 @@ export default function DateRange(props: DateRangeProps) {
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <Input name="to" className="w-2/5" type="date" onChange={handleChange} />
-      <span>{text || 's/d'}</span>
       <Input name="from" className="w-2/5" type="date" onChange={handleChange} />
+      <span>{text || 's/d'}</span>
+      <Input name="to" className="w-2/5" type="date" onChange={handleChange} />
     </div>
   )
 }
