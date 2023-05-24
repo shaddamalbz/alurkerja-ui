@@ -22,6 +22,8 @@ export const Base: Story = {
     tableName: 'mesyuarat',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
     // module: 'article',
   },
   render: (args) => {
@@ -113,6 +115,8 @@ export const HasRelation: Story = {
     tableName: 'ad-kat-pcg-mp',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
@@ -204,6 +208,48 @@ export const CustomAction: Story = {
     onClickEdit: (spec, id) => console.log(`edit button on row with id ${id} clicked`, spec),
     onClickDelete: (spec, id) => console.log(`delete button on row with id ${id} clicked`, spec),
     onClickDetail: (id) => console.log(`delete button on row with id ${id} clicked`),
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}
+
+export const CustomAlertMessage: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    onClickDelete: undefined,
+    onClickDetail: undefined,
+    onDeleteConfirm: undefined,
+    message: {
+      success_create_text: 'Custom text create',
+      success_create_title: 'Custom title create',
+      success_delete_title: 'Custom tile delete',
+      success_delete_text: 'Custom text delete',
+      success_edit_text: 'Custom text edit',
+      success_edit_title: 'Custom title edit',
+    },
   },
 
   render: (args) => {

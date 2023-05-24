@@ -32,6 +32,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     textSubmitButton,
     title,
     onCancel,
+    message,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -56,8 +57,8 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
           if (response.status === 200) {
             Swal.fire({
               icon: 'success',
-              title: 'Sukses!',
-              text: 'Data telah berhasil diedit',
+              title: message?.success_edit_title || 'Sukses!',
+              text: message?.success_edit_text || 'Data telah berhasil diedit',
             }).then(() => onSuccess?.())
           }
         } catch (error) {
@@ -73,8 +74,8 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
             if (response.status === 201) {
               Swal.fire({
                 icon: 'success',
-                title: 'Sukses!',
-                text: 'Data telah berhasil ditambahkan',
+                title: message?.success_create_title || 'Sukses!',
+                text: message?.success_create_text || 'Data telah berhasil ditambahkan',
               }).then(() => onSuccess && onSuccess())
             }
           } catch (error) {

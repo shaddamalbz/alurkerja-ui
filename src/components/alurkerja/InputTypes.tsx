@@ -5,6 +5,8 @@ import { FieldProperties } from '@/types'
 import { AuthContext } from '@/context'
 import { Checkbox, DirectUpload, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
 import moment from 'moment'
+import _ from 'underscore'
+import { CardFile, CardImage } from '@/components/ui/Card'
 
 interface InputTypes {
   baseUrl: string
@@ -58,6 +60,7 @@ const InputTypes = (props: InputTypes) => {
       const signal = abortController.signal
       getListOption(signal)
     }
+
     return () => {
       abortController.abort()
     }
@@ -68,6 +71,11 @@ const InputTypes = (props: InputTypes) => {
   }, [defaultValue])
 
   if (asDetail) {
+    if (fieldSpec.form_field_type === 'INPUT_FILE_UPLOAD') {
+      return <CardFile data={defaultValue} readonly />
+    } else if (fieldSpec.form_field_type === 'INPUT_IMAGE_UPLOAD') {
+      return <CardImage data={defaultValue} readonly />
+    }
     return <div>{defaultValue}</div>
   }
 
@@ -133,6 +141,7 @@ const InputTypes = (props: InputTypes) => {
             service={fieldSpec.custom_field_atribute.service}
             onSuccess={(file) => setValue(name, file)}
             allowedExtension={fieldSpec.custom_field_atribute.allowed_extension}
+            defaultValue={defaultValue}
           />
         )}
     </>
