@@ -33,6 +33,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     onClickDelete,
     onDeleteConfirm,
     onClickDetail,
+    labelAction,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -150,7 +151,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                 )}
                 {(tableSpec.can_delete || tableSpec.can_detail || tableSpec.can_edit) && (
-                  <th className="whitespace-nowrap py-3 px-3">Aksi</th>
+                  <th className="whitespace-nowrap py-3 px-3">{labelAction || 'Aksi'}</th>
                 )}
               </>
             )}

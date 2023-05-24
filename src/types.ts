@@ -154,6 +154,7 @@ export interface TableLowcodeProps {
   }) => JSX.Element
   textSubmitButton?: string
   supportBulk?: boolean
+  labelAction?: string
 }
 
 export interface PaginationProps {
@@ -241,6 +242,8 @@ export interface IAlurkerjaTableLowcode {
     setValue: UseFormSetValue<FieldValues>
     defaultField: JSX.Element
   }) => JSX.Element
+  /** Custom text column Aksi */
+  labelAction?: string
 }
 
 export interface IAlurkerjaFormLowcode {

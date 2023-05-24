@@ -36,6 +36,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     customFilterField,
     onClickDelete,
     onDeleteConfirm,
+    labelAction,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -138,6 +139,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
               onClickDelete={onClickDelete}
               onDeleteConfirm={onDeleteConfirm}
               onClickDetail={onClickDetail}
+              labelAction={labelAction}
             />
           </div>
         ) : (
