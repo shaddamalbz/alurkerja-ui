@@ -3,7 +3,7 @@ import { FieldValues, UseFormSetValue } from 'react-hook-form'
 
 import { FieldProperties } from '@/types'
 import { AuthContext } from '@/context'
-import { Checkbox, DirectUpload, Input, Radio, Select, Skeleton, Switch } from '@/components/ui'
+import { Checkbox, DirectUpload, Input, Radio, Select, Skeleton, Switch, Wysiwyg } from '@/components/ui'
 import moment from 'moment'
 import _ from 'underscore'
 import { CardFile, CardImage } from '@/components/ui/Card'
@@ -144,6 +144,7 @@ const InputTypes = (props: InputTypes) => {
             defaultValue={defaultValue}
           />
         )}
+      {fieldSpec.form_field_type === 'INPUT_WYSIWYG' && <Wysiwyg onChange={(value) => setValue(name, value)} />}
     </>
   )
 }
