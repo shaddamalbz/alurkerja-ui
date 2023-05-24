@@ -37,6 +37,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     onClickDelete,
     onDeleteConfirm,
     labelAction,
+    message,
   } = props
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
@@ -118,6 +119,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         customField={customField}
         textSubmitButton={textSubmitButton}
         customFilterField={customFilterField}
+        message={message}
       >
         {!loadingData ? (
           <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
@@ -140,6 +142,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
               onDeleteConfirm={onDeleteConfirm}
               onClickDetail={onClickDetail}
               labelAction={labelAction}
+              message={message}
             />
           </div>
         ) : (

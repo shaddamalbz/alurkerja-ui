@@ -155,6 +155,14 @@ export interface TableLowcodeProps {
   textSubmitButton?: string
   supportBulk?: boolean
   labelAction?: string
+  message?: {
+    success_create_title?: string
+    success_create_text?: string
+    success_edit_title?: string
+    success_edit_text?: string
+    success_delete_title?: string
+    success_delete_text?: string
+  }
 }
 
 export interface PaginationProps {
@@ -244,6 +252,14 @@ export interface IAlurkerjaTableLowcode {
   }) => JSX.Element
   /** Custom text column Aksi */
   labelAction?: string
+  message?: {
+    success_create_title?: string
+    success_create_text?: string
+    success_edit_title?: string
+    success_edit_text?: string
+    success_delete_title?: string
+    success_delete_text?: string
+  }
 }
 
 export interface IAlurkerjaFormLowcode {
@@ -286,6 +302,13 @@ export interface IAlurkerjaFormLowcode {
   textSubmitButton?: string
   asDetail?: boolean
   title?: string
+  message?: {
+    success_create_title?: string
+    success_create_text?: string
+    success_edit_title?: string
+    success_edit_text?: string
+    [x: string]: any
+  }
 }
 
 /**
@@ -422,6 +445,14 @@ export interface TableLayoutProps {
     setValue: UseFormSetValue<FieldValues>
     defaultField: JSX.Element
   }) => JSX.Element
+  message?: {
+    success_create_title?: string
+    success_create_text?: string
+    success_edit_title?: string
+    success_edit_text?: string
+    success_delete_title?: string
+    success_delete_text?: string
+  }
 }
 
 export interface TableHeaderProps {
@@ -457,6 +488,14 @@ export interface TableHeaderProps {
     setValue: UseFormSetValue<FieldValues>
     defaultField: JSX.Element
   }) => JSX.Element
+  message?: {
+    success_create_title?: string
+    success_create_text?: string
+    success_edit_title?: string
+    success_edit_text?: string
+    success_delete_title?: string
+    success_delete_text?: string
+  }
 }
 
 export interface SelectBoolean {

@@ -31,6 +31,7 @@ const TableHeader: FC<TableHeaderProps> = ({
   customField,
   textSubmitButton,
   customFilterField,
+  message,
 }) => {
   const { handleSubmit, watch, setValue, formState, control, reset } = useForm()
 
@@ -151,6 +152,7 @@ const TableHeader: FC<TableHeaderProps> = ({
                           customField={customField}
                           textSubmitButton={textSubmitButton}
                           title={title}
+                          message={message}
                         />
                       )}
                     </Modal>

@@ -34,6 +34,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     onDeleteConfirm,
     onClickDetail,
     labelAction,
+    message,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -71,8 +72,8 @@ const TableLowcode = (props: TableLowcodeProps) => {
               if (res.status === 200) {
                 Swal.fire({
                   icon: 'success',
-                  title: 'Sukses!',
-                  text: 'Data telah berhasil dihapus',
+                  title: message?.success_delete_title || 'Sukses!',
+                  text: message?.success_delete_text || 'Data telah berhasil dihapus',
                 }).then(() => setRenderState?.((prev) => prev + 1))
               }
             }
@@ -306,6 +307,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                             onCancel={() => closeModal()}
                             customField={customField}
                             textSubmitButton={textSubmitButton}
+                            message={message}
                           />
                         )}
                       </Modal>
@@ -348,6 +350,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                                     }}
                                     customField={customField}
                                     textSubmitButton={textSubmitButton}
+                                    message={message}
                                   />
                                 )}
                               </Modal>

@@ -26,6 +26,7 @@ const TableLayout: FC<TableLayoutProps> = ({
   customField,
   textSubmitButton,
   customFilterField,
+  message,
 }) => {
   const { setValue } = useForm()
 
@@ -69,6 +70,7 @@ const TableLayout: FC<TableLayoutProps> = ({
           customField={customField}
           textSubmitButton={textSubmitButton}
           customFilterField={customFilterField}
+          message={message}
         />
       )}
       {children}
