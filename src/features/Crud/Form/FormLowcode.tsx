@@ -9,8 +9,8 @@ import { FieldProperties, IAlurkerjaFormLowcode } from '@/types'
 
 // components
 import { Button, Skeleton } from '@/components/ui'
-import InputTypes from '@/components/alurkerja/InputTypes'
-import InputLayout from '@/components/alurkerja/InputLayout'
+import InputTypes from '@/features/Crud/InputTypes'
+import InputLayout from '@/features/Crud/InputLayout'
 import GetDetail from '@/api/getDetail'
 
 export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {

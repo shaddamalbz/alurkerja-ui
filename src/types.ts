@@ -163,6 +163,10 @@ export interface TableLowcodeProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  sortBy?: string
+  setSortBy?: Dispatch<SetStateAction<string | undefined>>
+  orderBy?: 'asc' | 'desc'
+  setOrderBy?: Dispatch<SetStateAction<'asc' | 'desc' | undefined>>
 }
 
 export interface PaginationProps {

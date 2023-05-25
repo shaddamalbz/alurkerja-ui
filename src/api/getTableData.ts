@@ -13,9 +13,22 @@ interface GetTableData {
   search?: string
   pageConfig?: { limit: number; page: number }
   module?: string
+  orderBy?: 'asc' | 'desc'
+  sortBy?: string
 }
 
-const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig, module }: GetTableData) => {
+const getTableData = ({
+  baseUrl,
+  tableName,
+  renderState,
+  id,
+  filter,
+  search,
+  pageConfig,
+  module,
+  orderBy,
+  sortBy,
+}: GetTableData) => {
   const axiosInstance = useContext(AuthContext)
 
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
@@ -43,53 +56,55 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
     setLoading(true)
 
     const filterQuery = parseFilter()
-    let url = baseUrl + `/api/${module || 'crud'}/${tableName}`
+    let url = `${baseUrl}/api/${module || 'crud'}/${tableName}`
 
     if (id) {
       url += `/${id}`
     } else {
       if (filter) {
-        url += '?' + filterQuery
+        url += `?${filterQuery}`
       }
 
       if (search && search !== '') {
-        if (filter) {
-          url += `&search=${search}`
-        } else {
-          url += `?search=${search}`
-        }
+        url += `${filter ? '&' : '?'}search=${search}`
       }
 
       if (pageConfig) {
-        const pagintaionQuery = `page=${pageConfig?.page}&limit=${pageConfig?.limit}`
-        if (!filter && !search) {
-          url += `?${pagintaionQuery}`
-        } else {
-          url += `&${pagintaionQuery}`
-        }
+        const paginationQuery = `page=${pageConfig.page}&limit=${pageConfig.limit}`
+        url += `${filter || search ? '&' : '?'}${paginationQuery}`
+      }
+
+      if (orderBy) {
+        url += `${filter || search || pageConfig ? '&' : '?'}asc=${orderBy === 'asc'}`
+      }
+
+      if (sortBy) {
+        url += `${filter || search || pageConfig || orderBy ? '&' : '?'}sort=${sortBy}`
       }
     }
 
-    axiosInstance({ url: url, method: 'get' })
-      .then(({ data, status }) => {
-        if (status === 200) {
-          const result = data.data
-          if (id) {
-            setDetail(result)
-          } else {
-            const pagination = _.omit(result, 'content')
-            setTableData(result.content)
-            setPagination(pagination)
-          }
+    try {
+      const { data, status } = await axiosInstance.get(url)
+      if (status === 200) {
+        const result = data.data
+        if (id) {
+          setDetail(result)
+        } else {
+          const pagination = _.omit(result, 'content')
+          setTableData(result.content)
+          setPagination(pagination)
         }
-      })
-      .catch(() => setTableData([]))
-      .finally(() => setLoading(false))
+      }
+    } catch (error) {
+      setTableData([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     fetch()
-  }, [tableName, baseUrl, renderState, filter, search, pageConfig])
+  }, [tableName, baseUrl, renderState, filter, search, pageConfig, orderBy, sortBy])
 
   return { tableData, loading, pagination, detail }
 }

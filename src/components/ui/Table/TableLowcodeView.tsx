@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
+import { FaChevronDown, FaChevronUp, FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import { MdDownload } from 'react-icons/md'
 import Swal from 'sweetalert2'
 import classNames from 'classnames'
@@ -10,7 +10,7 @@ import { TableLowcodeProps, FieldActionProperties, File } from '@/types'
 
 import { getValueByPath } from '@/utils'
 import { AuthContext } from '@/context'
-import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
+import FormLowcode from '@/features/Crud/Form/FormLowcode'
 import { Avatar, AvatarGroup, Button, Modal } from '@/components/ui'
 
 const TableLowcode = (props: TableLowcodeProps) => {
@@ -35,6 +35,10 @@ const TableLowcode = (props: TableLowcodeProps) => {
     onClickDetail,
     labelAction,
     message,
+    orderBy,
+    setOrderBy,
+    sortBy,
+    setSortBy,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -146,8 +150,25 @@ const TableLowcode = (props: TableLowcodeProps) => {
                 {fieldKeyList?.map(
                   (key, idx) =>
                     !tableSpec.fields[key]?.is_hidden_in_list && (
-                      <th className="whitespace-nowrap py-3 px-3" key={idx}>
+                      <th
+                        className="whitespace-nowrap py-3 px-3 relative"
+                        key={idx}
+                        onClick={() => {
+                          setOrderBy?.((prev) => {
+                            if (prev) {
+                              return prev === 'asc' ? 'desc' : 'asc'
+                            }
+                            return 'asc'
+                          })
+                          setSortBy?.(key)
+                        }}
+                      >
                         {tableSpec.fields[key]?.label}
+                        {orderBy && sortBy === key && (
+                          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                            {orderBy === 'asc' ? <FaChevronUp /> : <FaChevronDown />}
+                          </div>
+                        )}
                       </th>
                     )
                 )}
@@ -282,7 +303,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                   })}
 
-                <td className="bg-white border-b border-gray-200 py-3 sticky right-0">
+                <td className="bg-white border-b border-gray-200 py-3 sticky right-0 px-4">
                   <div className="flex flex-row items-center justify-center gap-x-2">
                     {tableSpec.can_detail && !onClickDetail ? (
                       <Modal

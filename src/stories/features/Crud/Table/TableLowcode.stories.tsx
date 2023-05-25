@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { TableLowcode } from '@/components/alurkerja'
+import { TableLowcode } from '@/features/Crud'
 import { useState } from 'react'
-import { Wysiwyg } from '@/components/ui'
 
 const meta = {
   title: 'Features/TableLowcode',
@@ -86,6 +85,8 @@ export const CustomTitle: Story = {
     module: 'category',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
     title: 'Custom Title',
   },
   render: (args) => {
