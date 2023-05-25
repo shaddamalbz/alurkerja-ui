@@ -127,7 +127,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
   return (
     <>
       <table className="w-full text-sm">
-        <thead>
+        <thead className="last-c">
           <tr className="text-gray-400 border-b border-gray-200 cursor-pointer">
             <th className="whitespace-nowrap py-3 px-3">No</th>
             {tableSpec && (
@@ -152,7 +152,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                 )}
                 {(tableSpec.can_delete || tableSpec.can_detail || tableSpec.can_edit) && (
-                  <th className="whitespace-nowrap py-3 px-3">{labelAction || 'Aksi'}</th>
+                  <th className="whitespace-nowrap py-3 px-3 sticky right-0 bg-white">{labelAction || 'Aksi'}</th>
                 )}
               </>
             )}
@@ -282,7 +282,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                   })}
 
-                <td className="border-b border-gray-200 py-3">
+                <td className="bg-white border-b border-gray-200 py-3 sticky right-0">
                   <div className="flex flex-row items-center justify-center gap-x-2">
                     {tableSpec.can_detail && !onClickDetail ? (
                       <Modal

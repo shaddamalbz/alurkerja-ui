@@ -70,18 +70,21 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
       }
     }
 
-    const { status, data } = await axiosInstance({ url: url, method: 'get' })
-    if (status === 200) {
-      const result = data.data
-      if (id) {
-        setDetail(result)
-      } else {
-        const pagination = _.omit(result, 'content')
-        setTableData(result.content)
-        setPagination(pagination)
-      }
-    }
-    setLoading(false)
+    axiosInstance({ url: url, method: 'get' })
+      .then(({ data, status }) => {
+        if (status === 200) {
+          const result = data.data
+          if (id) {
+            setDetail(result)
+          } else {
+            const pagination = _.omit(result, 'content')
+            setTableData(result.content)
+            setPagination(pagination)
+          }
+        }
+      })
+      .catch(() => setTableData([]))
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {

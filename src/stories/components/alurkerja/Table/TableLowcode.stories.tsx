@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { TableLowcode } from '@/components/alurkerja'
 import { useState } from 'react'
+import { Wysiwyg } from '@/components/ui'
 
 const meta = {
   title: 'Features/TableLowcode',
@@ -16,15 +17,15 @@ type Story = StoryObj<typeof TableLowcode>
 
 export const Base: Story = {
   args: {
-    // baseUrl: 'https://api-geekacademy.merapi.javan.id',
-    // tableName: 'article',
-    baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'mesyuarat',
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'cuti',
+    module: 'bpmn',
+    // baseUrl: 'https://kpm-sys.merapi.javan.id',
+    // tableName: 'mesyuarat',
     onClickCreate: undefined,
     onClickEdit: undefined,
     onClickDetail: undefined,
     onClickDelete: undefined,
-    // module: 'article',
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
