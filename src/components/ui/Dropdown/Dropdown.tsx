@@ -11,7 +11,7 @@ const Dropdown: FC<Dropdown> = ({ triggerElement, content }) => {
   return (
     <Menu as="div" className="relative inline-block text-left p-1.5">
       <Menu.Button>{triggerElement}</Menu.Button>
-      <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg p-3 space-y-2">
+      <Menu.Items className="absolute z-10 right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg p-3 space-y-2">
         {content && content}
       </Menu.Items>
     </Menu>
