@@ -133,7 +133,10 @@ const TableLowcode = (props: TableLowcodeProps) => {
   return (
     <div className={classNames(layout === 'auto' && 'overflow-x-auto')}>
       <table
-        className={`table-${layout} w-full scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded text-sm`}
+        className={classNames(
+          layout === 'auto' ? 'table-auto' : 'table-fixed',
+          'w-full scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded text-sm'
+        )}
       >
         <thead>
           <tr className="text-gray-400 border-b border-gray-200 cursor-pointer">
