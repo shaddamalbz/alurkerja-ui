@@ -33,10 +33,18 @@ const InputTypes = (props: InputTypes) => {
   const [loadingOptions, setLoadingOptions] = useState(false)
 
   const getListOption = async (signal: AbortSignal) => {
+    setLoadingOptions(true)
+
     if (fieldSpec.select_options) {
       const { method, option_key, option_label, url, options } = fieldSpec.select_options
       if (options) {
-        setListOption(options.map((opt) => ({ label: opt.label, value: opt.key })))
+        const parsedList: SelectedOption[] = options.map((opt) => ({ label: opt.label, value: opt.key.toString() }))
+        // add 1 ms timeout to fix bug defaultValue on React Select
+        setTimeout(() => {
+          setListOption(parsedList)
+          setSelectedOption(parsedList.filter((option) => option.value === defaultValue)[0])
+          setLoadingOptions(false)
+        }, 1)
       } else {
         setLoadingOptions(true)
         const { data, status } = await axiosInstance({
@@ -48,7 +56,7 @@ const InputTypes = (props: InputTypes) => {
           const list = data.data.content
           const parsedList: SelectedOption[] = list.map((item: any) => ({
             label: item[option_label],
-            value: item[option_key],
+            value: item[option_key].toString(),
           }))
           setSelectedOption(parsedList.filter((option) => option.value === defaultValue)[0])
           setListOption(parsedList)

@@ -186,6 +186,7 @@ const HeaderRight: FC<HeaderRightProps> = ({
                           closeModal()
                           setRenderState?.((prev) => prev + 1)
                         }}
+                        onCancel={() => closeModal()}
                         customField={customField}
                         textSubmitButton={textSubmitButton}
                         hideTitle

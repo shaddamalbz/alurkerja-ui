@@ -16,11 +16,11 @@ type Story = StoryObj<typeof TableLowcode>
 
 export const Base: Story = {
   args: {
-    baseUrl: 'https://api-geekacademy.merapi.javan.id',
-    tableName: 'cuti',
-    module: 'bpmn',
-    // baseUrl: 'https://kpm-sys.merapi.javan.id',
-    // tableName: 'mesyuarat',
+    // baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    // tableName: 'cuti',
+    // module: 'bpmn',
+    baseUrl: 'https://kpm-sys.merapi.javan.id',
+    tableName: 'takwim',
     onClickCreate: undefined,
     onClickEdit: undefined,
     onClickDetail: undefined,
@@ -52,7 +52,7 @@ export const Base: Story = {
 export const CustomHeader: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'jpn',
+    tableName: 'pengurusan-rekod-aktiviti-pemohon',
     onClickCreate: undefined,
     onClickEdit: undefined,
     headerElement: <>Custom</>,
