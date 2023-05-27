@@ -24,6 +24,8 @@ const TableHeader: FC<TableHeaderProps> = ({
   textSubmitButton,
   customFilterField,
   message,
+  canFilter,
+  formConfig,
 }) => {
   const ActionProps = {
     baseUrl,
@@ -42,6 +44,8 @@ const TableHeader: FC<TableHeaderProps> = ({
     textSubmitButton,
     title,
     onClickCreate,
+    canFilter,
+    formConfig,
   }
 
   return (

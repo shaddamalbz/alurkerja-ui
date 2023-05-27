@@ -276,3 +276,75 @@ export const CustomAlertMessage: Story = {
     )
   },
 }
+
+export const HideButtonFilter: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    onClickDelete: undefined,
+    onClickDetail: undefined,
+    onDeleteConfirm: undefined,
+    canFilter: false,
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}
+
+export const FormConfig: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    onClickDelete: undefined,
+    onClickDetail: undefined,
+    onDeleteConfirm: undefined,
+    formConfig: {
+      hideButtonCancel: true,
+    },
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}

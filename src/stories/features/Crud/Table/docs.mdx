@@ -184,7 +184,8 @@ const [search, setSearch] = useState<string>()
 
 ```tsx
 
-import {TableLowcode} from 'alurkerja-ui' import {useState} from 'react'
+import {TableLowcode} from 'alurkerja-ui' 
+import {useState} from 'react'
 
 const Halaman = () => {
 const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
@@ -219,6 +220,78 @@ const [search, setSearch] = useState<string>()
 } 
 ```
 
+## Hide Button Filter
+<Story of={TableLowcodeStories.HideButtonFilter} />
+
+
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' 
+import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://api-geekacademy.merapi.javan.id"
+      tableName="categpry"
+      module='category'
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      canFilter={false}
+    />
+  )
+} 
+```
+
+
+## Form Config
+form config used for customize modal form
+
+<Story of={TableLowcodeStories.FormConfig} />
+
+
+```tsx
+
+import {TableLowcode} from 'alurkerja-ui' 
+import {useState} from 'react'
+
+const Halaman = () => {
+const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+const [renderState, setRenderState] = useState(0)
+const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+const [search, setSearch] = useState<string>()
+
+  return (
+
+    <TableLowcode
+      baseUrl="https://api-geekacademy.merapi.javan.id"
+      tableName="categpry"
+      module='category'
+      renderState={renderState}
+      setRenderState={setRenderState}
+      pageConfig={pageConfig}
+      setPageConfig={setPageConfig}
+      filterBy={filterBy}
+      setFilterBy={setFilterBy}
+      search={search}
+      setSearch={setSearch}
+      createConfig={{hideButtonCancel: true}}
+    />
+  )
+} 
+```
 
 # Props
 

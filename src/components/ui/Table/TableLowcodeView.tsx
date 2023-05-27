@@ -40,6 +40,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
     sortBy,
     setSortBy,
     layout = 'auto',
+    formConfig = { hideButtonCancel: false },
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -130,7 +131,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
   }
 
   return (
-    <div className={`${layout === 'auto' && 'overflow-x-auto'}`}>
+    <div className={classNames(layout === 'auto' && 'overflow-x-auto')}>
       <table
         className={`table-${layout} w-full scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded text-sm`}
       >
@@ -333,6 +334,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                             customField={customField}
                             textSubmitButton={textSubmitButton}
                             message={message}
+                            hideSecondary={formConfig.hideButtonCancel}
                           />
                         )}
                       </Modal>
@@ -378,6 +380,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                                     customField={customField}
                                     textSubmitButton={textSubmitButton}
                                     message={message}
+                                    hideSecondary={formConfig.hideButtonCancel}
                                   />
                                 )}
                               </Modal>

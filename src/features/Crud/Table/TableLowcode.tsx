@@ -40,6 +40,8 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     labelAction,
     message,
     layout,
+    canFilter,
+    formConfig,
   } = props
 
   const [selectedAll, setSelectedAll] = useState<boolean>(false)
@@ -126,6 +128,8 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         textSubmitButton={textSubmitButton}
         customFilterField={customFilterField}
         message={message}
+        canFilter={canFilter}
+        formConfig={formConfig}
       >
         {!loadingData ? (
           <TableLowcodeView
@@ -153,6 +157,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
             orderBy={orderBy}
             setOrderBy={setOrderBy}
             layout={layout}
+            formConfig={formConfig}
           />
         ) : (
           <div className="w-fit mx-auto my-6">

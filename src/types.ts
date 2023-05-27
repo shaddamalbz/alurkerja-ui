@@ -177,6 +177,7 @@ export interface TableLowcodeProps {
   setOrderBy?: Dispatch<SetStateAction<'asc' | 'desc' | undefined>>
   /** https://tailwindcss.com/docs/table-layout */
   layout?: 'auto' | 'fixed'
+  formConfig?: FormConfig
 }
 
 export interface PaginationProps {
@@ -276,6 +277,13 @@ export interface IAlurkerjaTableLowcode {
   }
   /** https://tailwindcss.com/docs/table-layout */
   layout?: 'auto' | 'fixed'
+  canFilter?: boolean
+  /** using this to overide default modal create on TableLowcode */
+  formConfig?: FormConfig
+}
+
+export interface FormConfig {
+  hideButtonCancel?: boolean
 }
 
 export interface IAlurkerjaFormLowcode {
@@ -326,6 +334,7 @@ export interface IAlurkerjaFormLowcode {
     [x: string]: any
   }
   hideTitle?: boolean
+  hideSecondary?: boolean
 }
 
 /**
@@ -470,6 +479,8 @@ export interface TableLayoutProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  canFilter?: boolean
+  formConfig?: FormConfig
 }
 
 export interface TableHeaderProps {
@@ -513,6 +524,8 @@ export interface TableHeaderProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  canFilter?: boolean
+  formConfig?: FormConfig
 }
 
 export interface SelectBoolean {

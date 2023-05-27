@@ -34,6 +34,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     onCancel,
     message,
     hideTitle,
+    hideSecondary,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -143,9 +144,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               }
             })}
             <div className="w-fit ml-auto flex gap-4">
-              <Button type="button" onClick={() => onCancel?.()}>
-                Kembali
-              </Button>
+              {!hideSecondary && (
+                <Button type="button" onClick={() => onCancel?.()}>
+                  Kembali
+                </Button>
+              )}
+
               {!asDetail && (
                 <Button type="submit" loading={loadingSubmit} disabled={loadingSubmit}>
                   {textSubmitButton || 'Submit'}

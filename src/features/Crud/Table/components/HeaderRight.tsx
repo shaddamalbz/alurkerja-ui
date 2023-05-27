@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState, Fragment } from 'react'
 import { FaSearch, FaPlus } from 'react-icons/fa'
 import { Modal, Badge, Button } from '@/components/ui'
-import { TableSpec, HeaderAction, FieldProperties } from '@/types'
+import { TableSpec, HeaderAction, FieldProperties, FormConfig } from '@/types'
 import FormLowcode from '@/features/Crud/Form/FormLowcode'
 import { useForm, FieldValues, UseFormSetValue } from 'react-hook-form'
 import { FilterIcon } from '@/assets/icons'
@@ -49,6 +49,8 @@ interface HeaderRightProps {
     defaultField: JSX.Element
   }) => JSX.Element
   fieldList: [string, FieldProperties][]
+  canFilter?: boolean
+  formConfig?: FormConfig
 }
 
 const HeaderRight: FC<HeaderRightProps> = ({
@@ -68,6 +70,8 @@ const HeaderRight: FC<HeaderRightProps> = ({
   customFilterField,
   fieldList,
   setFilter,
+  canFilter = true,
+  formConfig = { hideButtonCancel: false },
 }) => {
   const { handleSubmit, setValue, formState, control, reset, watch } = useForm()
 
@@ -168,7 +172,7 @@ const HeaderRight: FC<HeaderRightProps> = ({
             {tableSpec.can_create && (
               <>
                 {actionSpec.label === 'Tambah' && !onClickCreate ? (
-                  <Modal triggerButton={<ButtonCreate />}>
+                  <Modal title={actionSpec.action_label} triggerButton={<ButtonCreate />}>
                     {({ closeModal }) => (
                       <FormLowcode
                         module={module}
@@ -184,8 +188,9 @@ const HeaderRight: FC<HeaderRightProps> = ({
                         }}
                         customField={customField}
                         textSubmitButton={textSubmitButton}
-                        title={title}
+                        hideTitle
                         message={message}
+                        hideSecondary={formConfig.hideButtonCancel}
                       />
                     )}
                   </Modal>
@@ -197,20 +202,23 @@ const HeaderRight: FC<HeaderRightProps> = ({
           </Fragment>
         )
       })}
-      <Modal
-        title="Filter"
-        triggerButton={
-          <div>
-            <Badge content={Object.entries(filter || {}).length} maxCount={3}>
-              <button id="button-filter" className="bg-[#F1FAFF] p-2 rounded" style={{ backgroundColor: '#F1FAFF' }}>
-                <FilterIcon />
-              </button>
-            </Badge>
-          </div>
-        }
-      >
-        {({ closeModal }) => renderFormFilter(closeModal)}
-      </Modal>
+      {canFilter && (
+        <Modal
+          title="Filter"
+          triggerButton={
+            <div>
+              <Badge content={Object.entries(filter || {}).length} maxCount={3}>
+                <button id="button-filter" className="bg-[#F1FAFF] p-2 rounded" style={{ backgroundColor: '#F1FAFF' }}>
+                  <FilterIcon />
+                </button>
+              </Badge>
+            </div>
+          }
+        >
+          {({ closeModal }) => renderFormFilter(closeModal)}
+        </Modal>
+      )}
+
       {extraButton && extraButton()}
     </>
   )
