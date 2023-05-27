@@ -309,44 +309,6 @@ const TableLowcode = (props: TableLowcodeProps) => {
 
                 <td className="z-10 bg-white border-b border-gray-200 py-3 px-4">
                   <div className="flex flex-row items-center justify-center gap-x-2">
-                    {tableSpec.can_detail && !onClickDetail ? (
-                      <Modal
-                        triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
-                        key={idx}
-                      >
-                        {({ closeModal }) => (
-                          <FormLowcode
-                            hideTitle
-                            asDetail
-                            id={row.id}
-                            module={module}
-                            baseUrl={baseUrl}
-                            tableName={tableName}
-                            formState={formState}
-                            handleSubmit={handleSubmit}
-                            control={control}
-                            setValue={setValue}
-                            onSuccess={() => {
-                              closeModal()
-                              setRenderState?.((prev) => prev + 1)
-                            }}
-                            onCancel={() => closeModal()}
-                            customField={customField}
-                            textSubmitButton={textSubmitButton}
-                            message={message}
-                            hideSecondary={formConfig.hideButtonCancel}
-                          />
-                        )}
-                      </Modal>
-                    ) : (
-                      <Button
-                        className="bg-gray-100 text-gray-400"
-                        size="xs"
-                        icon={<FaEye />}
-                        onClick={() => onClickDetail?.(row.id)}
-                      />
-                    )}
-
                     {tableSpec?.field_action.map((action, idx) => {
                       const ButtonAction = () => (
                         <Button
@@ -360,7 +322,7 @@ const TableLowcode = (props: TableLowcodeProps) => {
                       if (action.label === 'Edit') {
                         return !onClickEdit
                           ? tableSpec.can_edit && (
-                              <Modal title={action.label} triggerButton={<ButtonAction />} key={idx}>
+                              <Modal title={action.action_label} triggerButton={<ButtonAction />} key={idx}>
                                 {({ closeModal }) => (
                                   <FormLowcode
                                     hideTitle
@@ -388,6 +350,45 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           : tableSpec.can_edit && <ButtonAction key={idx} />
                       } else if (action.label === 'Hapus') {
                         return tableSpec.can_delete && <ButtonAction key={idx} />
+                      } else if (action.label === 'Detail') {
+                        return tableSpec.can_detail && !onClickDetail ? (
+                          <Modal
+                            title={action.action_label}
+                            triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
+                            key={idx}
+                          >
+                            {({ closeModal }) => (
+                              <FormLowcode
+                                hideTitle
+                                asDetail
+                                id={row.id}
+                                module={module}
+                                baseUrl={baseUrl}
+                                tableName={tableName}
+                                formState={formState}
+                                handleSubmit={handleSubmit}
+                                control={control}
+                                setValue={setValue}
+                                onSuccess={() => {
+                                  closeModal()
+                                  setRenderState?.((prev) => prev + 1)
+                                }}
+                                onCancel={() => closeModal()}
+                                customField={customField}
+                                textSubmitButton={textSubmitButton}
+                                message={message}
+                                hideSecondary={formConfig.hideButtonCancel}
+                              />
+                            )}
+                          </Modal>
+                        ) : (
+                          <Button
+                            className="bg-gray-100 text-gray-400"
+                            size="xs"
+                            icon={<FaEye />}
+                            onClick={() => onClickDetail?.(row.id)}
+                          />
+                        )
                       }
                     })}
                     {row.avaiable_task && tableSpec.usertask_mapping && (
