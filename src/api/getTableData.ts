@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useCallback } from 'react'
 import _ from 'underscore'
 
 import { PaginationLowcode } from '@/types'
@@ -36,12 +36,13 @@ const getTableData = ({
   const [pagination, setPagination] = useState<PaginationLowcode>()
   const [loading, setLoading] = useState<boolean>(true)
 
-  const parseFilter = () => {
+  const parsedFilter = useCallback(() => {
     let query = ''
     if (filter) {
       const listFilter = Object.entries(filter)
+
       listFilter.forEach(([key, value], idx) => {
-        if (value && value !== '') {
+        if (value.toString() && value !== '') {
           query += `filter[${key}]=${value}`
           if (idx + 1 !== listFilter.length) {
             query += '&'
@@ -49,13 +50,15 @@ const getTableData = ({
         }
       })
     }
+
     return query
-  }
+  }, [filter])
 
   const fetch = async () => {
     setLoading(true)
 
-    const filterQuery = parseFilter()
+    const filterQuery = parsedFilter()
+
     let url = `${baseUrl}/api/${module || 'crud'}/${tableName}`
 
     if (id) {
