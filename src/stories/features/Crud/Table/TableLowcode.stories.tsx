@@ -25,6 +25,7 @@ export const Base: Story = {
     onClickEdit: undefined,
     onClickDetail: undefined,
     onClickDelete: undefined,
+    layout: 'fixed',
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })

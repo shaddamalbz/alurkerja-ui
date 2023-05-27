@@ -33,6 +33,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     title,
     onCancel,
     message,
+    hideTitle,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -70,7 +71,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         if (createSpec) {
           const { path, method } = createSpec
           try {
-            const response = await axiosInstance(baseUrl + path.toLowerCase(), { method: method, data: data })
+            const response = await axiosInstance(baseUrl + path, { method: method, data: data })
             if (response.status === 201) {
               Swal.fire({
                 icon: 'success',
@@ -90,9 +91,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
 
   return (
     <section className="p-4 space-y-6">
-      <h5 className="text-xl font-bold">
-        {!id ? 'Tambah' : asDetail ? 'Detail' : 'Edit'} {title || tableSpec?.label}
-      </h5>
+      {!hideTitle && (
+        <h5 className="text-xl font-bold">
+          {!id ? 'Tambah' : asDetail ? 'Detail' : 'Edit'} {title || tableSpec?.label}
+        </h5>
+      )}
+
       <form onSubmit={handleSubmit(onSubmitFunction)}>
         {!onFetching ? (
           <>

@@ -39,6 +39,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     onDeleteConfirm,
     labelAction,
     message,
+    layout,
   } = props
 
   const [selectedAll, setSelectedAll] = useState<boolean>(false)
@@ -127,33 +128,32 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         message={message}
       >
         {!loadingData ? (
-          <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
-            <TableLowcodeView
-              baseUrl={baseUrl}
-              tableName={tableName}
-              module={module}
-              tableData={tableData}
-              tableSpec={tableSpec}
-              pagination={pagination}
-              setRenderState={setRenderState}
-              selectedAll={selectedAll}
-              setSelectedAll={setSelectedAll}
-              selectedId={selectedRow || []}
-              setSelectedId={setSelectedRow}
-              customCell={customCell}
-              onClickEdit={onClickEdit}
-              customField={customField}
-              onClickDelete={onClickDelete}
-              onDeleteConfirm={onDeleteConfirm}
-              onClickDetail={onClickDetail}
-              labelAction={labelAction}
-              message={message}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              orderBy={orderBy}
-              setOrderBy={setOrderBy}
-            />
-          </div>
+          <TableLowcodeView
+            baseUrl={baseUrl}
+            tableName={tableName}
+            module={module}
+            tableData={tableData}
+            tableSpec={tableSpec}
+            pagination={pagination}
+            setRenderState={setRenderState}
+            selectedAll={selectedAll}
+            setSelectedAll={setSelectedAll}
+            selectedId={selectedRow || []}
+            setSelectedId={setSelectedRow}
+            customCell={customCell}
+            onClickEdit={onClickEdit}
+            customField={customField}
+            onClickDelete={onClickDelete}
+            onDeleteConfirm={onDeleteConfirm}
+            onClickDetail={onClickDetail}
+            labelAction={labelAction}
+            message={message}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            orderBy={orderBy}
+            setOrderBy={setOrderBy}
+            layout={layout}
+          />
         ) : (
           <div className="w-fit mx-auto my-6">
             <Spinner />

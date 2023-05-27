@@ -34,29 +34,33 @@ const InputTypes = (props: InputTypes) => {
 
   const getListOption = async (signal: AbortSignal) => {
     if (fieldSpec.select_options) {
-      const { method, option_key, option_label, url } = fieldSpec.select_options
-      setLoadingOptions(true)
-      const { data, status } = await axiosInstance({
-        url: baseUrl + url,
-        method: method,
-        signal,
-      })
-      if (status === 200) {
-        const list = data.data.content
-        const parsedList: SelectedOption[] = list.map((item: any) => ({
-          label: item[option_label],
-          value: item[option_key],
-        }))
-        setSelectedOption(parsedList.filter((option) => option.value === +defaultValue)[0])
-        setListOption(parsedList)
+      const { method, option_key, option_label, url, options } = fieldSpec.select_options
+      if (options) {
+        setListOption(options.map((opt) => ({ label: opt.label, value: opt.key })))
+      } else {
+        setLoadingOptions(true)
+        const { data, status } = await axiosInstance({
+          url: baseUrl + url,
+          method: method,
+          signal,
+        })
+        if (status === 200) {
+          const list = data.data.content
+          const parsedList: SelectedOption[] = list.map((item: any) => ({
+            label: item[option_label],
+            value: item[option_key],
+          }))
+          setSelectedOption(parsedList.filter((option) => option.value === defaultValue)[0])
+          setListOption(parsedList)
+        }
+        setLoadingOptions(false)
       }
-      setLoadingOptions(false)
     }
   }
 
   useEffect(() => {
     const abortController = new AbortController()
-    if (fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT') {
+    if (fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' || fieldSpec.form_field_type === 'INPUT_SELECT') {
       const signal = abortController.signal
       getListOption(signal)
     }
@@ -112,7 +116,7 @@ const InputTypes = (props: InputTypes) => {
           onChange={(value) => setValue(name, value)}
         />
       )}
-      {fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' && (
+      {(fieldSpec.form_field_type === 'INPUT_FOREIGN-SELECT' || fieldSpec.form_field_type === 'INPUT_SELECT') && (
         <>
           {loadingOptions ? (
             <Skeleton className="h-9" />
@@ -126,14 +130,7 @@ const InputTypes = (props: InputTypes) => {
           )}
         </>
       )}
-      {fieldSpec.form_field_type === 'INPUT_SELECT' && (
-        <Select
-          options={fieldSpec.select_options?.options}
-          onChange={(selected: any) => setValue(name, selected.value)}
-          defaultValue={selectedOption}
-          isDisabled={disabled}
-        />
-      )}
+
       {(fieldSpec.form_field_type === 'INPUT_IMAGE_UPLOAD' || fieldSpec.form_field_type === 'INPUT_FILE_UPLOAD') &&
         fieldSpec.custom_field_atribute && (
           <DirectUpload
