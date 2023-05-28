@@ -42,7 +42,7 @@ const getTableData = ({
       const listFilter = Object.entries(filter)
 
       listFilter.forEach(([key, value], idx) => {
-        if (value.toString() && value !== '') {
+        if (value && value.toString() && value !== '') {
           query += `filter[${key}]=${value}`
           if (idx + 1 !== listFilter.length) {
             query += '&'
