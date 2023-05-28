@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { TableLowcode } from '@/features/Crud'
 import { useState } from 'react'
+import { Radio } from '@/components/ui'
 
 const meta = {
   title: 'Features/TableLowcode',
@@ -44,6 +45,22 @@ export const Base: Story = {
         setFilterBy={setFilterBy}
         search={search}
         setSearch={setSearch}
+        customFilterField={({ field, defaultField, setValue }) => {
+          const [name, spec] = field
+          if (name === 'status') {
+            return (
+              <Radio
+                name={name}
+                listOption={[
+                  { key: 1, label: 'tes1' },
+                  { key: 2, label: 'tes2' },
+                ]}
+                onChange={(selected) => setValue(name, selected)}
+              />
+            )
+          }
+          return defaultField
+        }}
       />
     )
   },

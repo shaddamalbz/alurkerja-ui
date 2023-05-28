@@ -24,16 +24,29 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, ref) => {
     <fieldset className="flex items-center gap-x-2">
       {listOption?.map((option, idx) => (
         <div key={idx}>
-          <input
-            className="mr-2"
-            ref={ref}
-            type="radio"
-            name={name}
-            value={option.key}
-            onChange={(e) => onChange?.(e.target.value)}
-            checked={defaultValue === option.key}
-            {...rest}
-          />
+          {defaultValue ? (
+            <input
+              className="mr-2"
+              ref={ref}
+              type="radio"
+              name={name}
+              value={option.key}
+              onChange={(e) => onChange?.(e.target.value)}
+              checked={defaultValue === option.key}
+              {...rest}
+            />
+          ) : (
+            <input
+              className="mr-2"
+              ref={ref}
+              type="radio"
+              name={name}
+              value={option.key}
+              onChange={(e) => onChange?.(e.target.value)}
+              {...rest}
+            />
+          )}
+
           <label htmlFor={option.label}>{option.label}</label>
         </div>
       ))}
