@@ -2,6 +2,7 @@ import { useState, FC, useEffect } from 'react'
 import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 interface Wysiwyg {
   onChange?: (value: string) => void
