@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Table } from '@/components/alurkerja'
+import { Table } from '@/features/Crud'
 import { ListSpec } from '@/types'
 import { useState } from 'react'
 

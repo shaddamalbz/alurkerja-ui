@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
+import { FaChevronDown, FaChevronUp, FaEdit, FaEye, FaTrash, FaProjectDiagram } from 'react-icons/fa'
 import { MdDownload } from 'react-icons/md'
 import Swal from 'sweetalert2'
 import classNames from 'classnames'
@@ -10,8 +10,8 @@ import { TableLowcodeProps, FieldActionProperties, File } from '@/types'
 
 import { getValueByPath } from '@/utils'
 import { AuthContext } from '@/context'
-import FormLowcode from '@/components/alurkerja/Form/FormLowcode'
-import { Avatar, AvatarGroup, Button, Modal } from '@/components/ui'
+import FormLowcode from '@/features/Crud/Form/FormLowcode'
+import { Avatar, AvatarGroup, Button, Dropdown, Modal } from '@/components/ui'
 
 const TableLowcode = (props: TableLowcodeProps) => {
   const {
@@ -35,6 +35,12 @@ const TableLowcode = (props: TableLowcodeProps) => {
     onClickDetail,
     labelAction,
     message,
+    orderBy,
+    setOrderBy,
+    sortBy,
+    setSortBy,
+    layout = 'auto',
+    formConfig = { hideButtonCancel: false },
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -125,8 +131,13 @@ const TableLowcode = (props: TableLowcodeProps) => {
   }
 
   return (
-    <>
-      <table className="w-full text-sm">
+    <div className={classNames(layout === 'auto' && 'overflow-x-auto')}>
+      <table
+        className={classNames(
+          layout === 'auto' ? 'table-auto' : 'table-fixed',
+          'w-full scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded text-sm'
+        )}
+      >
         <thead>
           <tr className="text-gray-400 border-b border-gray-200 cursor-pointer">
             <th className="whitespace-nowrap py-3 px-3">No</th>
@@ -146,19 +157,36 @@ const TableLowcode = (props: TableLowcodeProps) => {
                 {fieldKeyList?.map(
                   (key, idx) =>
                     !tableSpec.fields[key]?.is_hidden_in_list && (
-                      <th className="whitespace-nowrap py-3 px-3" key={idx}>
+                      <th
+                        className="whitespace-nowrap py-3 px-3 relative"
+                        key={idx}
+                        onClick={() => {
+                          setOrderBy?.((prev) => {
+                            if (prev) {
+                              return prev === 'asc' ? 'desc' : 'asc'
+                            }
+                            return 'asc'
+                          })
+                          setSortBy?.(key)
+                        }}
+                      >
                         {tableSpec.fields[key]?.label}
+                        {orderBy && sortBy === key && (
+                          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                            {orderBy === 'asc' ? <FaChevronUp /> : <FaChevronDown />}
+                          </div>
+                        )}
                       </th>
                     )
                 )}
                 {(tableSpec.can_delete || tableSpec.can_detail || tableSpec.can_edit) && (
-                  <th className="whitespace-nowrap py-3 px-3">{labelAction || 'Aksi'}</th>
+                  <th className="w-40 py-3 px-3 bg-white">{labelAction || 'Aksi'}</th>
                 )}
               </>
             )}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="">
           {pagination &&
             tableSpec &&
             tableData?.map((row, idx) => (
@@ -282,44 +310,8 @@ const TableLowcode = (props: TableLowcodeProps) => {
                     )
                   })}
 
-                <td className="border-b border-gray-200 py-3">
+                <td className="z-10 bg-white border-b border-gray-200 py-3 px-4">
                   <div className="flex flex-row items-center justify-center gap-x-2">
-                    {tableSpec.can_detail && !onClickDetail ? (
-                      <Modal
-                        triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
-                        key={idx}
-                      >
-                        {({ closeModal }) => (
-                          <FormLowcode
-                            asDetail
-                            id={row.id}
-                            module={module}
-                            baseUrl={baseUrl}
-                            tableName={tableName}
-                            formState={formState}
-                            handleSubmit={handleSubmit}
-                            control={control}
-                            setValue={setValue}
-                            onSuccess={() => {
-                              closeModal()
-                              setRenderState?.((prev) => prev + 1)
-                            }}
-                            onCancel={() => closeModal()}
-                            customField={customField}
-                            textSubmitButton={textSubmitButton}
-                            message={message}
-                          />
-                        )}
-                      </Modal>
-                    ) : (
-                      <Button
-                        className="bg-gray-100 text-gray-400"
-                        size="xs"
-                        icon={<FaEye />}
-                        onClick={() => onClickDetail?.(row.id)}
-                      />
-                    )}
-
                     {tableSpec?.field_action.map((action, idx) => {
                       const ButtonAction = () => (
                         <Button
@@ -333,9 +325,10 @@ const TableLowcode = (props: TableLowcodeProps) => {
                       if (action.label === 'Edit') {
                         return !onClickEdit
                           ? tableSpec.can_edit && (
-                              <Modal triggerButton={<ButtonAction />} key={idx}>
+                              <Modal title={action.action_label} triggerButton={<ButtonAction />} key={idx}>
                                 {({ closeModal }) => (
                                   <FormLowcode
+                                    hideTitle
                                     id={row.id}
                                     module={module}
                                     baseUrl={baseUrl}
@@ -348,9 +341,11 @@ const TableLowcode = (props: TableLowcodeProps) => {
                                       closeModal()
                                       setRenderState?.((prev) => prev + 1)
                                     }}
+                                    onCancel={() => closeModal()}
                                     customField={customField}
                                     textSubmitButton={textSubmitButton}
                                     message={message}
+                                    hideSecondary={formConfig.hideButtonCancel}
                                   />
                                 )}
                               </Modal>
@@ -358,15 +353,116 @@ const TableLowcode = (props: TableLowcodeProps) => {
                           : tableSpec.can_edit && <ButtonAction key={idx} />
                       } else if (action.label === 'Hapus') {
                         return tableSpec.can_delete && <ButtonAction key={idx} />
+                      } else if (action.label === 'Detail') {
+                        return tableSpec.can_detail && !onClickDetail ? (
+                          <Modal
+                            title={action.action_label}
+                            triggerButton={<Button className="bg-gray-100 text-gray-400" size="xs" icon={<FaEye />} />}
+                            key={idx}
+                          >
+                            {({ closeModal }) => (
+                              <FormLowcode
+                                hideTitle
+                                asDetail
+                                id={row.id}
+                                module={module}
+                                baseUrl={baseUrl}
+                                tableName={tableName}
+                                formState={formState}
+                                handleSubmit={handleSubmit}
+                                control={control}
+                                setValue={setValue}
+                                onSuccess={() => {
+                                  closeModal()
+                                  setRenderState?.((prev) => prev + 1)
+                                }}
+                                onCancel={() => closeModal()}
+                                customField={customField}
+                                textSubmitButton={textSubmitButton}
+                                message={message}
+                                hideSecondary={formConfig.hideButtonCancel}
+                              />
+                            )}
+                          </Modal>
+                        ) : (
+                          <Button
+                            className="bg-gray-100 text-gray-400"
+                            size="xs"
+                            icon={<FaEye />}
+                            onClick={() => onClickDetail?.(row.id)}
+                          />
+                        )
                       }
                     })}
+                    {row.avaiable_task && tableSpec.usertask_mapping && (
+                      <Dropdown
+                        triggerElement={
+                          <Button
+                            className={
+                              row.avaiable_task.length > 0
+                                ? 'bg-green-100 hover:bg-green-200 text-green-400'
+                                : 'bg-gray-100 hover:bg-gray-200 text-gray-400'
+                            }
+                            size="xs"
+                            disabled={row.avaiable_task.length === 0}
+                            icon={<FaProjectDiagram />}
+                          />
+                        }
+                        content={
+                          <>
+                            {row.avaiable_task.map((task: any, idx: number) => {
+                              const taskMapping = tableSpec.usertask_mapping?.filter(
+                                (spec) => spec.id === task.taskDefinitionKey
+                              )[0]
+                              if (taskMapping) {
+                                return (
+                                  <Modal
+                                    key={idx}
+                                    title={task.name}
+                                    triggerButton={
+                                      <button
+                                        className="w-full hover:bg-gray-100 py-2 px-4 rounded text-left"
+                                        key={idx}
+                                      >
+                                        {task.name}
+                                      </button>
+                                    }
+                                  >
+                                    {({ closeModal }) => (
+                                      <FormLowcode
+                                        hideTitle
+                                        module={module}
+                                        baseUrl={baseUrl}
+                                        tableName={taskMapping?.url.replace('/api/bpmn/', '')}
+                                        formState={formState}
+                                        handleSubmit={handleSubmit}
+                                        control={control}
+                                        setValue={setValue}
+                                        onSuccess={() => {
+                                          closeModal()
+                                          setRenderState?.((prev) => prev + 1)
+                                        }}
+                                        onCancel={() => closeModal()}
+                                        customField={customField}
+                                        textSubmitButton={textSubmitButton}
+                                        message={message}
+                                      />
+                                    )}
+                                  </Modal>
+                                )
+                              }
+                            })}
+                          </>
+                        }
+                      />
+                    )}
                   </div>
                 </td>
               </tr>
             ))}
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 

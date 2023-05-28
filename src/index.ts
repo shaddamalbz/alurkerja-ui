@@ -1,5 +1,5 @@
 export * from '@/components/ui/'
-import { AlurkerjaForm, Table, TableLowcode } from '@/components/alurkerja'
+import { AlurkerjaForm, Table, TableLowcode } from '@/features'
 import Sidebar from '@/components/Sidebar'
 import Header from '@/components/Header'
 import { useFormSpec } from '@/hooks'

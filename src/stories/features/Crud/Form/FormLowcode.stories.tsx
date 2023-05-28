@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm } from 'react-hook-form'
-import { AlurkerjaForm } from '@/components/alurkerja'
+import { AlurkerjaForm } from '@/features/Crud'
 
 const meta = {
   title: 'Features/AlurkerjaForm',

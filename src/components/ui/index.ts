@@ -15,6 +15,7 @@ import Checkbox from './Checkbox'
 import Radio from './Radio'
 import Switch from './Switch'
 import DateRange from './DateRange'
+import Wysiwyg from './Wysiwyg'
 
 export {
   Avatar,
@@ -37,4 +38,5 @@ export {
   Radio,
   Switch,
   DateRange,
+  Wysiwyg,
 }

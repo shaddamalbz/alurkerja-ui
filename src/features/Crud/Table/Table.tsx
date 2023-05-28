@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState, useContext } from 'react'
-import { Table as TableView } from '@/components/Table'
+import { Table as TableView } from '@/components/ui/Table'
 import PaginationView from '@/components/Pagination'
 import { IALurkerjaTable, Pagination } from '@/types'
 import { AuthContext } from '@/context'

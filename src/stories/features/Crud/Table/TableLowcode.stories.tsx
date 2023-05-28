@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { TableLowcode } from '@/components/alurkerja'
+import { TableLowcode } from '@/features/Crud'
 import { useState } from 'react'
+import { Radio } from '@/components/ui'
 
 const meta = {
   title: 'Features/TableLowcode',
@@ -17,14 +18,15 @@ type Story = StoryObj<typeof TableLowcode>
 export const Base: Story = {
   args: {
     // baseUrl: 'https://api-geekacademy.merapi.javan.id',
-    // tableName: 'article',
+    // tableName: 'cuti',
+    // module: 'bpmn',
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'mesyuarat',
+    tableName: 'takwim',
     onClickCreate: undefined,
     onClickEdit: undefined,
     onClickDetail: undefined,
     onClickDelete: undefined,
-    // module: 'article',
+    layout: 'fixed',
   },
   render: (args) => {
     const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
@@ -43,6 +45,22 @@ export const Base: Story = {
         setFilterBy={setFilterBy}
         search={search}
         setSearch={setSearch}
+        customFilterField={({ field, defaultField, setValue }) => {
+          const [name, spec] = field
+          if (name === 'status') {
+            return (
+              <Radio
+                name={name}
+                listOption={[
+                  { key: 1, label: 'tes1' },
+                  { key: 2, label: 'tes2' },
+                ]}
+                onChange={(selected) => setValue(name, selected)}
+              />
+            )
+          }
+          return defaultField
+        }}
       />
     )
   },
@@ -51,7 +69,7 @@ export const Base: Story = {
 export const CustomHeader: Story = {
   args: {
     baseUrl: 'https://kpm-sys.merapi.javan.id',
-    tableName: 'jpn',
+    tableName: 'pengurusan-rekod-aktiviti-pemohon',
     onClickCreate: undefined,
     onClickEdit: undefined,
     headerElement: <>Custom</>,
@@ -85,6 +103,8 @@ export const CustomTitle: Story = {
     module: 'category',
     onClickCreate: undefined,
     onClickEdit: undefined,
+    onClickDetail: undefined,
+    onClickDelete: undefined,
     title: 'Custom Title',
   },
   render: (args) => {
@@ -249,6 +269,78 @@ export const CustomAlertMessage: Story = {
       success_delete_text: 'Custom text delete',
       success_edit_text: 'Custom text edit',
       success_edit_title: 'Custom title edit',
+    },
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}
+
+export const HideButtonFilter: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    onClickDelete: undefined,
+    onClickDetail: undefined,
+    onDeleteConfirm: undefined,
+    canFilter: false,
+  },
+
+  render: (args) => {
+    const [pageConfig, setPageConfig] = useState({ limit: 10, page: 0 })
+    const [renderState, setRenderState] = useState(0)
+    const [filterBy, setFilterBy] = useState<{ [x: string]: any }>()
+    const [search, setSearch] = useState<string>()
+
+    return (
+      <TableLowcode
+        {...args}
+        renderState={renderState}
+        setRenderState={setRenderState}
+        pageConfig={pageConfig}
+        setPageConfig={setPageConfig}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        search={search}
+        setSearch={setSearch}
+      />
+    )
+  },
+}
+
+export const FormConfig: Story = {
+  args: {
+    baseUrl: 'https://api-geekacademy.merapi.javan.id',
+    tableName: 'category',
+    module: 'category',
+    onClickCreate: undefined,
+    onClickEdit: undefined,
+    onClickDelete: undefined,
+    onClickDetail: undefined,
+    onDeleteConfirm: undefined,
+    formConfig: {
+      hideButtonCancel: true,
     },
   },
 

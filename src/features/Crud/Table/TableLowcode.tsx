@@ -2,13 +2,14 @@ import { FC, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 
-import { TableLowcode as TableView } from '@/components/Table'
+import { TableLowcodeView } from '@/components/ui/Table'
 import { Badge, Button, Spinner } from '@/components/ui'
-import TableLayout from '@/components/alurkerja/TableLayout'
 
 import getTableSpec from '@/api/getTableSpec'
 import getTableData from '@/api/getTableData'
 import { IAlurkerjaTableLowcode } from '@/types'
+
+import TableLayout from './components/TableLayout'
 
 export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
   const {
@@ -38,7 +39,14 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     onDeleteConfirm,
     labelAction,
     message,
+    layout,
+    canFilter,
+    formConfig,
   } = props
+
+  const [selectedAll, setSelectedAll] = useState<boolean>(false)
+  const [sortBy, setSortBy] = useState<string>()
+  const [orderBy, setOrderBy] = useState<'asc' | 'desc'>()
 
   const { tableSpec, loading } = getTableSpec(baseUrl, tableName, module)
 
@@ -54,9 +62,9 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
     search: search,
     pageConfig: pageConfig,
     module: module,
+    sortBy: sortBy,
+    orderBy: orderBy,
   })
-
-  const [selectedAll, setSelectedAll] = useState<boolean>(false)
 
   const handleBulkDelete = () => {
     Swal.fire({
@@ -120,31 +128,38 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
         textSubmitButton={textSubmitButton}
         customFilterField={customFilterField}
         message={message}
+        canFilter={canFilter}
+        formConfig={formConfig}
       >
         {!loadingData ? (
-          <div className="overflow-x-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 scrollbar-thumb-rounded">
-            <TableView
-              baseUrl={baseUrl}
-              tableName={tableName}
-              module={module}
-              tableData={tableData}
-              tableSpec={tableSpec}
-              pagination={pagination}
-              setRenderState={setRenderState}
-              selectedAll={selectedAll}
-              setSelectedAll={setSelectedAll}
-              selectedId={selectedRow || []}
-              setSelectedId={setSelectedRow}
-              customCell={customCell}
-              onClickEdit={onClickEdit}
-              customField={customField}
-              onClickDelete={onClickDelete}
-              onDeleteConfirm={onDeleteConfirm}
-              onClickDetail={onClickDetail}
-              labelAction={labelAction}
-              message={message}
-            />
-          </div>
+          <TableLowcodeView
+            baseUrl={baseUrl}
+            tableName={tableName}
+            module={module}
+            tableData={tableData}
+            tableSpec={tableSpec}
+            pagination={pagination}
+            setRenderState={setRenderState}
+            selectedAll={selectedAll}
+            setSelectedAll={setSelectedAll}
+            selectedId={selectedRow || []}
+            setSelectedId={setSelectedRow}
+            customCell={customCell}
+            onClickEdit={onClickEdit}
+            customField={customField}
+            onClickDelete={onClickDelete}
+            onDeleteConfirm={onDeleteConfirm}
+            onClickDetail={onClickDetail}
+            labelAction={labelAction}
+            message={message}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            orderBy={orderBy}
+            setOrderBy={setOrderBy}
+            layout={layout}
+            formConfig={formConfig}
+            textSubmitButton={textSubmitButton}
+          />
         ) : (
           <div className="w-fit mx-auto my-6">
             <Spinner />

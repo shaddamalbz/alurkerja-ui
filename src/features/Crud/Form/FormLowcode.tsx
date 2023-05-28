@@ -9,8 +9,8 @@ import { FieldProperties, IAlurkerjaFormLowcode } from '@/types'
 
 // components
 import { Button, Skeleton } from '@/components/ui'
-import InputTypes from '@/components/alurkerja/InputTypes'
-import InputLayout from '@/components/alurkerja/InputLayout'
+import InputTypes from '@/features/Crud/InputTypes'
+import InputLayout from '@/features/Crud/InputLayout'
 import GetDetail from '@/api/getDetail'
 
 export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
@@ -33,6 +33,8 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
     title,
     onCancel,
     message,
+    hideTitle,
+    hideSecondary,
   } = props
   const axiosInstance = useContext(AuthContext)
 
@@ -70,7 +72,7 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
         if (createSpec) {
           const { path, method } = createSpec
           try {
-            const response = await axiosInstance(baseUrl + path.toLowerCase(), { method: method, data: data })
+            const response = await axiosInstance(baseUrl + path, { method: method, data: data })
             if (response.status === 201) {
               Swal.fire({
                 icon: 'success',
@@ -90,9 +92,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
 
   return (
     <section className="p-4 space-y-6">
-      <h5 className="text-xl font-bold">
-        {!id ? 'Tambah' : asDetail ? 'Detail' : 'Edit'} {title || tableSpec?.label}
-      </h5>
+      {!hideTitle && (
+        <h5 className="text-xl font-bold">
+          {!id ? 'Tambah' : asDetail ? 'Detail' : 'Edit'} {title || tableSpec?.label}
+        </h5>
+      )}
+
       <form onSubmit={handleSubmit(onSubmitFunction)}>
         {!onFetching ? (
           <>
@@ -139,9 +144,12 @@ export const FormLowcode: FC<IAlurkerjaFormLowcode> = (props) => {
               }
             })}
             <div className="w-fit ml-auto flex gap-4">
-              <Button type="button" onClick={() => onCancel?.()}>
-                Kembali
-              </Button>
+              {!hideSecondary && (
+                <Button type="button" onClick={() => onCancel?.()}>
+                  Kembali
+                </Button>
+              )}
+
               {!asDetail && (
                 <Button type="submit" loading={loadingSubmit} disabled={loadingSubmit}>
                   {textSubmitButton || 'Submit'}

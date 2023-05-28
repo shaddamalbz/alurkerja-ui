@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react'
 import '../src/index.css'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const preview: Preview = {
   parameters: {

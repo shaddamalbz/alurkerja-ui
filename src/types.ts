@@ -22,6 +22,14 @@ export interface TableSpec {
   fields: {
     [x: string]: FieldProperties
   }
+  usertask_mapping?: UserTaskMapping[]
+}
+
+export interface UserTaskMapping {
+  id: string
+  label: string
+  type: string
+  url: string
 }
 
 export interface HeaderAction {
@@ -72,7 +80,7 @@ export interface FieldProperties {
     option_key: string
     option_label: string
     url: string
-    options: { key: string; label: string }[]
+    options: { key: string | number; label: string }[]
   }
   table_value_mapping?: {
     name: string
@@ -163,6 +171,13 @@ export interface TableLowcodeProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  sortBy?: string
+  setSortBy?: Dispatch<SetStateAction<string | undefined>>
+  orderBy?: 'asc' | 'desc'
+  setOrderBy?: Dispatch<SetStateAction<'asc' | 'desc' | undefined>>
+  /** https://tailwindcss.com/docs/table-layout */
+  layout?: 'auto' | 'fixed'
+  formConfig?: FormConfig
 }
 
 export interface PaginationProps {
@@ -260,6 +275,15 @@ export interface IAlurkerjaTableLowcode {
     success_delete_title?: string
     success_delete_text?: string
   }
+  /** https://tailwindcss.com/docs/table-layout */
+  layout?: 'auto' | 'fixed'
+  canFilter?: boolean
+  /** using this to overide default modal create on TableLowcode */
+  formConfig?: FormConfig
+}
+
+export interface FormConfig {
+  hideButtonCancel?: boolean
 }
 
 export interface IAlurkerjaFormLowcode {
@@ -309,6 +333,8 @@ export interface IAlurkerjaFormLowcode {
     success_edit_text?: string
     [x: string]: any
   }
+  hideTitle?: boolean
+  hideSecondary?: boolean
 }
 
 /**
@@ -453,6 +479,8 @@ export interface TableLayoutProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  canFilter?: boolean
+  formConfig?: FormConfig
 }
 
 export interface TableHeaderProps {
@@ -496,6 +524,8 @@ export interface TableHeaderProps {
     success_delete_title?: string
     success_delete_text?: string
   }
+  canFilter?: boolean
+  formConfig?: FormConfig
 }
 
 export interface SelectBoolean {

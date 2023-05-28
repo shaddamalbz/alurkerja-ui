@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useCallback } from 'react'
 import _ from 'underscore'
 
 import { PaginationLowcode } from '@/types'
@@ -13,9 +13,22 @@ interface GetTableData {
   search?: string
   pageConfig?: { limit: number; page: number }
   module?: string
+  orderBy?: 'asc' | 'desc'
+  sortBy?: string
 }
 
-const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pageConfig, module }: GetTableData) => {
+const getTableData = ({
+  baseUrl,
+  tableName,
+  renderState,
+  id,
+  filter,
+  search,
+  pageConfig,
+  module,
+  orderBy,
+  sortBy,
+}: GetTableData) => {
   const axiosInstance = useContext(AuthContext)
 
   const [tableData, setTableData] = useState<{ id: number; [x: string]: any }[]>()
@@ -23,12 +36,13 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
   const [pagination, setPagination] = useState<PaginationLowcode>()
   const [loading, setLoading] = useState<boolean>(true)
 
-  const parseFilter = () => {
+  const parsedFilter = useCallback(() => {
     let query = ''
     if (filter) {
       const listFilter = Object.entries(filter)
+
       listFilter.forEach(([key, value], idx) => {
-        if (value && value !== '') {
+        if (value && value.toString() && value !== '') {
           query += `filter[${key}]=${value}`
           if (idx + 1 !== listFilter.length) {
             query += '&'
@@ -36,57 +50,64 @@ const getTableData = ({ baseUrl, tableName, renderState, id, filter, search, pag
         }
       })
     }
+
     return query
-  }
+  }, [filter])
 
   const fetch = async () => {
     setLoading(true)
 
-    const filterQuery = parseFilter()
-    let url = baseUrl + `/api/${module || 'crud'}/${tableName}`
+    const filterQuery = parsedFilter()
+
+    let url = `${baseUrl}/api/${module || 'crud'}/${tableName}`
 
     if (id) {
       url += `/${id}`
     } else {
       if (filter) {
-        url += '?' + filterQuery
+        url += `?${filterQuery}`
       }
 
       if (search && search !== '') {
-        if (filter) {
-          url += `&search=${search}`
-        } else {
-          url += `?search=${search}`
-        }
+        url += `${filter ? '&' : '?'}search=${search}`
       }
 
       if (pageConfig) {
-        const pagintaionQuery = `page=${pageConfig?.page}&limit=${pageConfig?.limit}`
-        if (!filter && !search) {
-          url += `?${pagintaionQuery}`
-        } else {
-          url += `&${pagintaionQuery}`
-        }
+        const paginationQuery = `page=${pageConfig.page}&limit=${pageConfig.limit}`
+        url += `${filter || search ? '&' : '?'}${paginationQuery}`
+      }
+
+      if (orderBy) {
+        url += `${filter || search || pageConfig ? '&' : '?'}asc=${orderBy === 'asc'}`
+      }
+
+      if (sortBy) {
+        url += `${filter || search || pageConfig || orderBy ? '&' : '?'}sort=${sortBy}`
       }
     }
 
-    const { status, data } = await axiosInstance({ url: url, method: 'get' })
-    if (status === 200) {
-      const result = data.data
-      if (id) {
-        setDetail(result)
-      } else {
-        const pagination = _.omit(result, 'content')
-        setTableData(result.content)
-        setPagination(pagination)
+    try {
+      const { data, status } = await axiosInstance.get(url)
+      if (status === 200) {
+        const result = data.data
+        if (id) {
+          setDetail(result)
+        } else {
+          const pagination = _.omit(result, 'content')
+          setTableData(result.content)
+          setPagination(pagination)
+        }
       }
+    } catch (error) {
+      setTableData([])
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   useEffect(() => {
     fetch()
-  }, [tableName, baseUrl, renderState, filter, search, pageConfig])
+  }, [tableName, baseUrl, renderState, filter, search, pageConfig, orderBy, sortBy])
 
   return { tableData, loading, pagination, detail }
 }
