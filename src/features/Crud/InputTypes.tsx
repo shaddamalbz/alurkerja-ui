@@ -112,7 +112,7 @@ const InputTypes = (props: InputTypes) => {
         />
       )}
       {fieldSpec.form_field_type === 'INPUT_RADIO' && (
-        <Radio name={name} listOption={fieldSpec.select_options?.options} />
+        <Radio name={name} listOption={fieldSpec.select_options?.options} defaultValue={defaultValue} />
       )}
       {fieldSpec.form_field_type === 'INPUT_CHECKBOX' && <Checkbox name={name} />}
       {fieldSpec.form_field_type === 'INPUT_SWITCH' && (

@@ -16,7 +16,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Base: Story = {
   args: {
     name: 'radio-1',
     listOption: [
@@ -42,5 +42,16 @@ export const OnChange: Story = {
         value: {value}
       </>
     )
+  },
+}
+
+export const DefaultValue: Story = {
+  args: {
+    name: 'radio-1',
+    listOption: [
+      { label: 'radio1', key: 1 },
+      { label: 'radio2', key: 2 },
+    ],
+    defaultValue: 2,
   },
 }
