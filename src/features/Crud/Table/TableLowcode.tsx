@@ -158,6 +158,7 @@ export const TableLowcode: FC<IAlurkerjaTableLowcode> = (props) => {
             setOrderBy={setOrderBy}
             layout={layout}
             formConfig={formConfig}
+            textSubmitButton={textSubmitButton}
           />
         ) : (
           <div className="w-fit mx-auto my-6">
