@@ -24,3 +24,10 @@ export const DefaultValue: Story = {
     defaultValue: '<p><em>asdasd</em><strong>asdasd</strong></p>',
   },
 }
+
+export const ReadOnly: Story = {
+  args: {
+    defaultValue: '<p><em>asdasd</em><strong>asdasd</strong></p>',
+    readonly: true,
+  },
+}

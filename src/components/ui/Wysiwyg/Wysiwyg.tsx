@@ -8,9 +8,10 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 interface Wysiwyg {
   onChange?: (value: string) => void
   defaultValue?: string
+  readonly?: boolean
 }
 
-const Wysiwyg: FC<Wysiwyg> = ({ onChange, defaultValue }) => {
+const Wysiwyg: FC<Wysiwyg> = ({ onChange, defaultValue, readonly }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState: EditorState) => {
@@ -39,6 +40,7 @@ const Wysiwyg: FC<Wysiwyg> = ({ onChange, defaultValue }) => {
       wrapperClassName="border border-gray-200"
       editorClassName="px-4 min-h-[100px]"
       onEditorStateChange={onEditorStateChange}
+      readOnly={readonly}
     />
   )
 }
