@@ -85,12 +85,12 @@ const HeaderRight: FC<HeaderRightProps> = ({
   const renderFormFilter = (close: () => void) => (
     <div className="space-y-4">
       {fieldList.map((field: [string, FieldProperties], idx: number) => {
-        const key = field[0]
-        const fieldSpec = field[1]
-        if (fieldSpec.filterable) {
+        const [key, spec] = field
+
+        if (spec.filterable) {
           return (
             <div key={idx}>
-              <label htmlFor={key}>{fieldSpec.label}</label>
+              <label htmlFor={key}>{spec.label}</label>
               {customFilterField ? (
                 customFilterField({
                   field,
@@ -98,8 +98,8 @@ const HeaderRight: FC<HeaderRightProps> = ({
                   defaultField: (
                     <InputTypes
                       baseUrl={baseUrl}
-                      fieldSpec={fieldSpec}
-                      name={fieldSpec.name}
+                      fieldSpec={spec}
+                      name={spec.name}
                       setValue={setValue}
                       defaultValue={watch(key)}
                     />
@@ -108,8 +108,8 @@ const HeaderRight: FC<HeaderRightProps> = ({
               ) : (
                 <InputTypes
                   baseUrl={baseUrl}
-                  fieldSpec={fieldSpec}
-                  name={fieldSpec.name}
+                  fieldSpec={spec}
+                  name={spec.name}
                   setValue={setValue}
                   defaultValue={watch(key)}
                 />
@@ -207,13 +207,9 @@ const HeaderRight: FC<HeaderRightProps> = ({
         <Modal
           title="Filter"
           triggerButton={
-            <div>
-              <Badge content={Object.entries(filter || {}).length} maxCount={3}>
-                <button id="button-filter" className="bg-[#F1FAFF] p-2 rounded" style={{ backgroundColor: '#F1FAFF' }}>
-                  <FilterIcon />
-                </button>
-              </Badge>
-            </div>
+            <button id="button-filter" className="bg-[#F1FAFF] p-2 rounded" style={{ backgroundColor: '#F1FAFF' }}>
+              <FilterIcon />
+            </button>
           }
         >
           {({ closeModal }) => renderFormFilter(closeModal)}
