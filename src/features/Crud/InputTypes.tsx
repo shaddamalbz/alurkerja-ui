@@ -155,7 +155,7 @@ const InputTypes = (props: InputTypes) => {
           />
         )}
       {fieldSpec.form_field_type === 'INPUT_WYSIWYG' && (
-        <Wysiwyg onChange={(value) => setValue(name, value)} defaultValue={defaultValue} />
+        <Wysiwyg onChange={(value) => setValue(name, value)} defaultValue={defaultValue} readonly={disabled} />
       )}
     </>
   )
