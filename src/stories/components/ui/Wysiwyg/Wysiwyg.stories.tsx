@@ -18,3 +18,9 @@ type Story = StoryObj<typeof meta>
 export const Base: Story = {
   args: { onChange: (value) => console.log(value) },
 }
+
+export const DefaultValue: Story = {
+  args: {
+    defaultValue: '<p><em>asdasd</em><strong>asdasd</strong></p>',
+  },
+}

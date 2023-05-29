@@ -1,14 +1,16 @@
 import { useState, FC, useEffect } from 'react'
-import { EditorState, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw, ContentState } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import { Editor } from 'react-draft-wysiwyg'
+import htmlToDraft from 'html-to-draftjs'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 interface Wysiwyg {
   onChange?: (value: string) => void
+  defaultValue?: string
 }
 
-const Wysiwyg: FC<Wysiwyg> = ({ onChange }) => {
+const Wysiwyg: FC<Wysiwyg> = ({ onChange, defaultValue }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState: EditorState) => {
@@ -18,6 +20,17 @@ const Wysiwyg: FC<Wysiwyg> = ({ onChange }) => {
   useEffect(() => {
     onChange?.(draftToHtml(convertToRaw(editorState.getCurrentContent())))
   }, [editorState])
+
+  useEffect(() => {
+    if (defaultValue) {
+      const contentBlock = htmlToDraft(defaultValue)
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
+        const editorState = EditorState.createWithContent(contentState)
+        setEditorState(editorState)
+      }
+    }
+  }, [defaultValue])
 
   return (
     <Editor
